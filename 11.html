@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-100">
+<head>
+    <title></title>
+    <meta name="csrf-param" content="_csrf">
+<meta name="csrf-token" content="HkGRTILbXTyMCuFDDkYwznLtacE417Ss8jyyTR4nzKZ5L-Ab671pb-ZzhjFFD1iAA68Ig3mF3-S2X_0nWm2ryQ==">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link type="image/x-icon" href="/web/favicon.ico" rel="icon">
+<link href="/web/assets/9912f47d/dist/css/bootstrap.css" rel="stylesheet">
+<link href="/web/css/site.css" rel="stylesheet"></head>
+<body class="d-flex flex-column h-100">
+
+<header id="header">
+    <nav id="w0" class="navbar-expand-md navbar-dark bg-dark navbar">
+<div class="container">
+<a class="navbar-brand" href="/web/index.php">Test rejimida ishlamoqda</a>
+<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#w0-collapse" aria-controls="w0-collapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div id="w0-collapse" class="collapse navbar-collapse">
+<ul id="w1" class="navbar-nav nav"><li class="nav-item"><a class="nav-link" href="/web/index.php?r=fan%2Findex">Fanlar</a></li>
+<li class="nav-item"><a class="nav-link" href="/web/index.php?r=quiz%2Findex">Testlar</a></li>
+<li class="nav-item"><form action="/web/index.php?r=site%2Flogout" method="post">
+<input type="hidden" name="_csrf" value="HkGRTILbXTyMCuFDDkYwznLtacE417Ss8jyyTR4nzKZ5L-Ab671pb-ZzhjFFD1iAA68Ig3mF3-S2X_0nWm2ryQ=="><button type="submit" class="nav-link btn btn-link logout">Logout (azizbek_mahkamov)</button></form></li></ul></div>
+</div>
+</nav></header>
+
+<main id="main" class="flex-shrink-0" role="main">
+    <div class="container">
+                        <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 0px;
+        }
+        #header{
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+
+        }
+
+        .container {
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        h1 {
+            text-align: center;
+        }
+
+        .question {
+            margin: 20px 0;
+            font-size: 18px; /* Savol shriftini kattalashtirdim */
+        }
+
+        .answer {
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-size: 16px; /* Savol shriftini kattalashtirdim */
+            background-color: #ccf3ff;
+        }
+
+        input[type="radio"] {
+            display: none; /* Aylana belgisi ko'rinmasligi uchun */
+        }
+
+        .result {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: darkgreen;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #results {
+            display: none;
+        }
+
+        #finalResults {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+        <h1>Axborot-kommunikatsiya tizimlari va texnologiyalarining zamonaviy yutuqlari fanidan test savollari</h1>
+<!--    <div class="timer" id="timer">--><!--:--><!--</div>-->
+    <div id="quiz"></div>
+    <button id="submit">Natijalarni yuborish</button>
+    <div id="results"></div>
+    <div id="finalResults" style="display: none;"></div>
+</div>
+
+<script>
+    
+
+    const quizData=[{"question":"- bu server va virtual muhit \u043e\u2018rtasidagi ulanishdir va resurslarni turli virtual muhitlar \u043e\u2018rtasida taqsimlaydi","answers":{"a":"Gipervisor","b":"Supervisor","c":"Moderator","d":"Minivisor"},"correct":"a"},{"question":"- ushbu xizmat matnni (mashhur atamalar, yangiliklar, shiorlar, hattoki sevgi izhorlarini) hayratlanarli tarzda yaratilgan so'z bulutlariga o'zgartiradi.","answers":{"a":"visual.lv","b":"tagxedo.com","c":"piktochart.com","d":"cacoo.com"},"correct":"b"},{"question":"... - bannerlar, vizitkalar, illyustratsiyalar va plakatlarni yaratish uchun mo'ljallangan onlayn muharrir.","answers":{"a":"tagxedo.com","b":"creately.com","c":"cacoo.com","d":"canva.com"},"correct":"d"},{"question":"... - bu infografikani yaratish uchun bepul vosita hisoblanib, sayt xaritasi, sahifa konturlari, Mind Maps va boshqalar kabi turli xil infografikalarni yaratishga imkon beruvchi foydalanuvchilarga qulay onlayn rasm chizish vositasidir.","answers":{"a":"visual.lv","b":"cacoo.com","c":"piktochart.com","d":"tagxedo.com"},"correct":"b"},{"question":"... - ma'lumotni immersiv vizual hikoyalarga aylantiradi.","answers":{"a":"cacoo.com","b":"visual.lv","c":"piktochart.com","d":"tagxedo.com"},"correct":"c"},{"question":"... - professional ko'rinishga ega diagrammalar va dinamik diagrammalar yaratishda yordam beradigan foydalanuvchi uchun qulay vosita.","answers":{"a":"cacoo.com","b":"visual.lv","c":"creately.com","d":"tagxedo.com"},"correct":"c"},{"question":"....................- bu fizik xotirani bir nechta tarmoqqa saqlash moslamalaridan yagona saqlash qurilmasi kabi k\u043e\u2018rinadigan tarzda guruhlash jarayoni.","answers":{"a":"Saqlashni virtualizatsiya  qilish","b":"server virtualizatsiyasi","c":"uskuna virtualizatsiyasi","d":"operatsion tizimni virtualizatsiya"},"correct":"a"},{"question":"2003 yilda IBS tahlilchilariga ko'ra &quot;butun dunyo miqyosidagi ma'lumotlar hajmini&quot; ... miqdorida baholadi.","answers":{"a":"6,5 zettabaytdan ko'proq","b":"0,18 zettabayt (1 ST = 1024 ekzabayt)","c":"5 ekzabayt ma'lumotlar (1 EB = 1 milliard gigabayt)","d":"40-44 zettabayt (prognoz)"},"correct":"c"},{"question":"2008 yilda IBS tahlilchilariga ko'ra &quot;butun dunyo miqyosidagi ma'lumotlar hajmini&quot; ... miqdorida baholadi","answers":{"a":"5 ekzabayt ma'lumotlar (1 EB = 1 milliard gigabayt)","b":"0,18 zettabayt (1 ST = 1024 ekzabayt)","c":"6,5 zettabaytdan ko'proq","d":"40-44 zettabayt (prognoz)"},"correct":"b"},{"question":"2015 yilda IBS tahlilchilariga ko'ra &quot;butun dunyo miqyosidagi ma'lumotlar hajmini&quot; ... miqdorida baholadi","answers":{"a":"40-44 zettabayt (prognoz)","b":"0,18 zettabayt (1 ST = 1024 ekzabayt)","c":"2,5 zettabaytdan ko'proq","d":"6,5 zettabaytdan ko'proq"},"correct":"d"},{"question":"2020 yilda IBS tahlilchilariga ko'ra &quot;butun dunyo miqyosidagi ma'lumotlar hajmini&quot; ... miqdorida baholadi","answers":{"a":"6,5 zettabaytdan ko'proq","b":"0,18 zettabayt (1 ST = 1024 ekzabayt)","c":"40-44 zettabayt (prognoz)","d":"5 ekzabayt ma'lumotlar (1 EB = 1 milliard gigabayt)"},"correct":"c"},{"question":"2025 yilda IBS tahlilchilariga ko'ra &quot;butun dunyo miqyosidagi ma'lumotlar hajmini&quot; ... miqdorida baholadi","answers":{"a":"6,5 zettabaytdan ko'proq","b":"0,18 zettabayt (1 ST = 1024 ekzabayt)","c":"bu hajm yana 10 baravar ko'payadi.","d":"40-44 zettabayt (prognoz)"},"correct":"c"},{"question":"Animatsiya - bu","answers":{"a":"... slaydlardan iborat prezentatsiya yaratish ularni tahrirlash, ketma-ketligini ko'rish va bezagini berishdir.","b":"...slaydlar va maxsus effektlar to'plami bo'lib, tayyor material, doklad yoki konspekt shaklida bitta faylda saqlanadi va uni ekranda namoyish qilinadi.","c":"... prezentatsiyaning alohida kadri bo'lib, ichiga matn va sarlavhalarni, grafik va diagrammalarni olishi mumkin.","d":"... slaydlarni namoyish qilish va ko'rsatishda ularni samaradorligini oshiruvchi tovush, rang, matn va harakatlanuvchi effektlar yig'indisidan iborat."},"correct":"d"},{"question":"Asosiy modellar asosida kompleks prognozlarni kilish uchun statistik tahlil yoki mashinali ta\u2019lim asosida yaratilgan modellardan foydalanish - bu:","answers":{"a":"Mashinali \u043e\u2018rgatish","b":"Kraudsorsing\u00a0","c":"Fazoviy tahlil","d":"Simulyatsiya"},"correct":"a"},{"question":"Avtorlik dasturiy vositalari qanday nomlanadi?","answers":{"a":"SCORM","b":"CMS","c":"LMS","d":"Authoring tools"},"correct":"d"},{"question":"Axborot dizayni - bu","answers":{"a":"...slaydlar va maxsus effektlar to'plami bo'lib, tayyor material, doklad yoki konspekt shaklida bitta faylda saqlanadi va uni ekranda namoyish qilinadi.","b":"... ergonomikani, funksionallikni, insonning axborotni idrok etishining psixologik mezonlarini, axborotni taqdim etishning vizual shakllari estetikasini va boshqa omillarni hisobga olgan dizaynning bir sohasi hisoblanib, badiiy-texnik dizayn va turli xil ma'lumotlarni taqdim etish amaliyotidir.","c":"... slaydlarni namoyish qilish va ko'rsatishda ularni samaradorligini oshiruvchi tovush, rang, matn va harakatlanuvchi effektlar yig'indisidan iborat.","d":"... slaydlardan iborat prezentatsiya yaratish ularni tahrirlash, ketma-ketligini ko'rish va bezagini berishdir."},"correct":"b"},{"question":"Axborot resurslariga quyidagilar kiradi (not\u043e\u2018g\u2018ri javobni belgilang):","answers":{"a":"CD-ROM DVD","b":"videoaxborot","c":"fayllar","d":"xujjatlar"},"correct":"a"},{"question":"Axborot texnologiyalari bu\u2026","answers":{"a":"Ma\u2019lumotlarini qayta ishlashga m\u043e\u2018ljallangan usullar, ishlab chiqarish jarayonlari va dasturiy texnik vositalarining yig\u2018indisi","b":"Kompyuter bilan muloqot texnologiyalari","c":"EHMda ma\u2019lumotlarni qayta ishlash texnologiyalari","d":"Ma\u2019lumot uzatish va kiritish texnologiyalari"},"correct":"a"},{"question":"Axborot texnologiyalari ilovadan farq qiladi, qaysiki ... (not\u043e\u2018g\u2018ri javobni belgilang):","answers":{"a":"Ilovalar axborot texnologiyalarni \u043e\u2018z ichiga oladi","b":"Axborot texnologiyalari ilovalarni \u043e\u2018z ichiga oladi","c":"Ilovalar ma\u2019lumotlarni qayta ishlashni texnologik jarayonlarini \u043e\u2018z ichiga oladi","d":"Ilovalar axborot texnologiyalarini har xilligini aniqlaydi"},"correct":"a"},{"question":"Axborot tizimi \u2013  \u2026.","answers":{"a":"q\u043e\u2018yilgan maqsadlarga erishish y\u043e\u2018lida axborotni t\u043e\u2018plash, saqlash, ishlov berish va chiqarishda foydalaniladigan vositalar, usullar va xodimlarning \u043e\u2018zaro bog\u2018liq majmui","b":"q\u043e\u2018yilgan maqsadlarga erishish y\u043e\u2018lida axborotni chiqarishda foydalaniladigan vositalar  va xodimlarning \u043e\u2018zaro bog\u2018liq majmui","c":"q\u043e\u2018yilgan maqsadlarga erishish y\u043e\u2018lida axborotni faqat t\u043e\u2018plashda foydalaniladigan vositalar  majmui","d":"q\u043e\u2018yilgan maqsadlarga erishish y\u043e\u2018lida axborotni faqat saqlashda foydalaniladigan vositalar, usullar va xodimlarning \u043e\u2018zaro bog\u2018liq majmui"},"correct":"a"},{"question":"Axborot xizmat sifatida","answers":{"a":"IaaS","b":"PaaS","c":"SaaS","d":"DaaS"},"correct":"a"},{"question":"Axborot, ma'lumotlar va bilimlarni taqdim etishning grafik usuli bo'lib, uning maqsadi murakkab ma'lumotlarni tez va aniq taqdim etish ...","answers":{"a":"Slayd","b":"Axborot dizayni","c":"Taqdimot","d":"Infografika"},"correct":"d"},{"question":"Badiiy-texnik dizayn va turli xil ma'lumotlarni taqdim etish amaliyoti bu ...","answers":{"a":"Axborot dizayni","b":"Taqdimot","c":"Slayd","d":"Infografika"},"correct":"a"},{"question":"barcha davlatlar va kontinentlarni birlashtiruvchi hamda yer sharining ixtiyoriy nuqtasidagi axborot resurslariga murojaat qilish imkoniyatini beruvchi umumplanetar tarmoq.","answers":{"a":"GAN","b":"PAN","c":"MAN","d":"LAN"},"correct":"a"},{"question":"Bir foydalanuvchi Dropbox fayllar omborida r\u043e\u2018yxatdan \u043e\u2018tgandan s\u043e\u2018ng qancha GB mavjud","answers":{"a":"2 GB","b":"3GB","c":"4GB","d":"5GB"},"correct":"a"},{"question":"Bir nechta mijozlar bilan bitta tashkilot tomonidan foydalanish uchun m\u043e\u2018ljallangan infratuzilma","answers":{"a":"Xususiy bulut","b":"Umumiy \u00abbulut\u00bb","c":"Gibrid bulut","d":"Oddiy \u00abbulut\u00bb"},"correct":"a"},{"question":"Blended Learning ...","answers":{"a":"- ixtiyoriy vaqtda onlayn va oflayn ko'rinishida ta'limni tashkil etish usuli.","b":"- onlayn seminar, ma'ruza, taqdimotlarni jonli rejimda veb texnologiyalar yordamida tashkil etish.","c":"- bu shunday ta'lim konsepsiyasiki, unda ham auditoriyada, ham onlayn ravishda o'quv mashg'ulotlar tashkil etiladi.","d":"- bu aralash ta'limning bir shakli bo'lib, ta'lim oluvchilarni passiv, zerikarli harakatini yangi ko'rinishga o'tkazuvchi ta'lim konsepsiyasi."},"correct":"c"},{"question":"boshqa tizimlar bilan aloqa qilish uchun ochiq b\u043e\u2018lgan tizimlarni birlashtiradi; yettita bosqichga b\u043e\u2018lingan","answers":{"a":"OSI modeli","b":"ISO modeli","c":"TCP modeli","d":"TCP\/IP modeli"},"correct":"a"},{"question":"Bu ikki yoki undan k\u043e\u2018p turli xil bulutli infratuzilmalarning kombinatsiyasi","answers":{"a":"Gibrid bulut","b":"Xususiy bulut","c":"Umumiy \u00abbulut\u00bb","d":"Oddiy \u00abbulut\u00bb"},"correct":"a"},{"question":"Bulutli hisoblash modellari","answers":{"a":"IaaS, PaaS, SaaS","b":"RaaS, PaaS, SaaS","c":"IaaI, PaaP, SaaS","d":"IaaS va PaaS"},"correct":"a"},{"question":"Bulutli hisoblash shakllari","answers":{"a":"Davlat bulutlar, xususiy bulutlar va gibrid bulutlar.","b":"Davlat bulutlar va nodavlat bulutlar.","c":"Davlat bulutlar va  xususiy bulutlar","d":"Davlat bulutlar, shahsiy bulutlar va korporativ bulutlar."},"correct":"a"},{"question":"Bulutli hisoblashning kamchiliklari nima?","answers":{"a":"1.Cloud computing xizmatlarini taqdim etuvchi kompaniyalardan foydalanuvchilar ma\u2019lumotlarining saqlanishiga bog\u2018liqligi; 2.Yangi  (\u201cCloud\u201d) monopolistlarning paydo b\u043e\u2018lishi","b":"1.Ma\u2019lumotlarga parallel kirish imkoni y\u043e\u2018qligi; 2.  Ma\u2019lumotlar cheklovi.","c":"1.Strukturalanmagan  ma\u2019lumotlarga ishlov berish imkoninning y\u043e\u2018qligi; 2.Ma\u2019lumotlar xajmining cheklanganligi.","d":"1. Ma\u2019lumotlarga parallel ruxsatning; 2. Ma\u2019lumotlarga ruxsatning cheklanganligi."},"correct":"a"},{"question":"canva.com muharriri imkoniyatlari to'g'ri krsatilgan qatorni belgilang.","answers":{"a":"Ushbu xizmat matnni (mashhur atamalar, yangiliklar, shiorlar, hattoki sevgi izhorlarini) hayratlanarli tarzda yaratilgan so'z bulutlariga o'zgartiradi.","b":"Tayyor elementlar kutubxonasiga ega bo'lgan infografik muharrir.","c":"Mind Maps va boshqalar kabi turli xil infografikalarni yaratishga imkon beruvchi foydalanuvchilarga qulay onlayn rasm chizish vositasidir.","d":"Bannerlar, vizitkalar, illyustratsiyalar va plakatlarni yaratish uchun mo'ljallangan onlayn muharrir."},"correct":"d"},{"question":"Chuqur tahlilni \u043e\u2018tkazish maqsadida turli manbalardan olingan xar xil ma\u2019lumotlarni integratsiyalash usullar t\u043e\u2018plami","answers":{"a":"Ma\u2019lumotlarni siljitish va birlashtirish","b":"Ma\u2019lumotlarni qidirish","c":"Ma\u2019lumotlarni tahlil etish","d":"Mashinani \u043e\u2018rganish"},"correct":"a"},{"question":"Daas","answers":{"a":"Ma\u2019lumot xizmat sifatida","b":"Axborot xizmat sifatida","c":"Xizmat sifatida jarayonlarni boshqarish","d":"Xizmat sifatida ish joyi"},"correct":"a"},{"question":"Data Mining\u00a0","answers":{"a":"Ma\u2019lumotlarda qaror qabul qilish uchun zarur b\u043e\u2018lgan oldindan noma\u2019lum, arzimas, amaliy foydali bilimlarni aniqlash usullar t\u043e\u2018plami","b":"Mehnat munosabatlariga kirmasdan  ishni bajarayotgan shaxslarning keng, noma\u2019lum doiralari  b\u043e\u2018yicha olingan ma\u2019lumotlarni tasniflash va boyitish","c":"Ma\u2019lumotlarni chizma, diagramma va interfaol usullardan va animatsiyalardan foydalangan holda taqdim etish usuli","d":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul"},"correct":"a"},{"question":"Data sentr nima?","answers":{"a":"server va tarmoq uskunalarini (hosting) joylashtirish uchun m\u043e\u2018ljallangan ixtisoslashgan bino va Internet- tarmog\u2018i kanallarga abonentlarni ulash","b":"geografik jihatdan taqsimlangan infratuzilma,  foydalanuvchi har qanday joydan,  ularning joylashuvidan qat\u2019i nazar,  turli xil turdagi resurslarni (protsessorlar,  uzoq muddatli va tasodifiy erkin foydalanish xotirasi,  saqlash va ma\u2019lumotlar bazalari,  tarmoqlar) birlashtiradi.","c":"veb-saytlarni ishlab chiqish uchun m\u043e\u2018ljallangan maxsus dastur","d":"ma\u2019lumotlarni saqlash b\u043e\u2018yicha ixtisoslashgan markaz"},"correct":"a"},{"question":"davlat kabi yirik geografik hududni \u043e\u2018z ichiga oladi.","answers":{"a":"WAN","b":"GAN","c":"MAN","d":"LAN"},"correct":"a"},{"question":"Dropbox bulutli xizmat k\u043e\u2018rsatish rejimlari mavjud","answers":{"a":"2","b":"1","c":"3","d":"4"},"correct":"a"},{"question":"Dropbox xizmatini rasmiy veb-sayti....","answers":{"a":"https:\/\/www.dropbox.org","b":"https:\/\/www.dropbox.edu","c":"https:\/\/www.dropbox.uz","d":"https:\/\/www.dropbox.com"},"correct":"d"},{"question":"Eaas","answers":{"a":"Hammasi xizmat sifatida","b":"Axborot xizmat sifatida","c":"Xizmat sifatida jarayonlarni boshqarish","d":"Ma\u2019lumot xizmat sifatida"},"correct":"a"},{"question":"easel.ly muharriri imkoniyatlari to'g'ri krsatilgan qatorni belgilang.","answers":{"a":"Mind Maps va boshqalar kabi turli xil infografikalarni yaratishga imkon beruvchi foydalanuvchilarga qulay onlayn rasm chizish vositasidir.","b":"Twitter yoki Facebook ma'lumotlari kabi ijtimoiy ko'rsatkichlarga asoslangan infografik muharrir ...","c":"Tayyor elementlar kutubxonasiga ega bo'lgan infografik muharriri","d":"Ushbu xizmat matnni (mashhur atamalar, yangiliklar, shiorlar, hattoki sevgi izhorlarini) hayratlanarli tarzda yaratilgan so'z bulutlariga o'zgartiradi."},"correct":"c"},{"question":"Elastiklik bulutning qanday xususiyatiga ega?","answers":{"a":"Asosiy","b":"Iqtisodiy","c":"Texnologik","d":"Ma\u2019lumotli"},"correct":"a"},{"question":"Face to Face Driver  modeli...","answers":{"a":"- o'quv dasturi elektron ta'lim talablariga mos ravishda kompyuter texnikasi bilan ta'minlangan auditoriyalarda qoidaga asosan tashkil etiladi.","b":"- o'quv vaqti individual elektron ta'lim va o'qituvchi bilan birgalikda sinfda tashkil etilgan ta'limga taqsimlanadi.","c":"- o'quv dasturining ahamiyatga bog'liq qismi bevosita o'qituvchi yordamida o'rganiladi.","d":"- o'quv dasturining asosiy qismi axborot ta'lim muhitidagi elektron resurslar yordamida o'zlashtiriladi."},"correct":"c"},{"question":"Fazoviy tahlil","answers":{"a":"Ma\u2019lumotlardan olingan topologik, geometrik va geografik axborotlarni foydalangan holda metodlar","b":"Mehnat munosabatlariga kirmasdan  ishni bajarayotgan shaxslarning keng, noma\u2019lum doiralari  b\u043e\u2018yicha olingan ma\u2019lumotlarni tasniflash va boyitish","c":"Ma\u2019lumotlarda qaror qabul qilish uchun zarur b\u043e\u2018lgan oldindan noma\u2019lum, arzimas, amaliy foydali bilimlarni aniqlash usullar t\u043e\u2018plami","d":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul"},"correct":"a"},{"question":"Flex modeli.","answers":{"a":"- o'quv dasturining asosiy qismi axborot ta'lim muhitidagi elektron resurslar yordamida o'zlashtiriladi.","b":"- o'quv vaqti individual elektron ta'lim va o'qituvchi bilan birgalikda sinfda tashkil etilgan ta'limga taqsimlanadi.","c":"- o'quv dasturining ahamiyatga bog'liq qismi bevosita o'qituvchi yordamida o'rganiladi.","d":"- o'quv dasturning katta qismi elektron ta'lim orqali o'zlashtiriladi."},"correct":"d"},{"question":"Flipped learning yoki...","answers":{"a":"- ixtiyoriy vaqtda onlayn va oflayn ko'rinishida ta'limni tashkil etish usuli.","b":"- onlayn seminar, ma'ruza, taqdimotlarni jonli rejimda veb texnologiyalar yordamida tashkil etish.","c":"- bu aralash ta'limning bir shakli bo'lib, ta'lim oluvchilarni passiv, zerikarli harakatini yangi ko'rinishga o'tkazuvchi ta'lim konsepsiyasi.","d":"- bu shunday ta'lim konsepsiyasiki, unda ham auditoriyada, ham onlayn ravishda o'quv mashg'ulotlar tashkil etiladi."},"correct":"c"},{"question":"Foydalanuvchiga kompyuter resurslarini va quvvatlarini internet-servis k\u043e\u2018rinishida taqdim etilishi .... tushuniladi","answers":{"a":"\u00abCloud\u00bb  hisoblash","b":"Grid Services","c":"Meta hisoblash","d":"elektron tijorat"},"correct":"a"},{"question":"Gibrid bulut","answers":{"a":"bu ikki yoki undan k\u043e\u2018p turli xil bulutli infratuzilmalarning kombinatsiyasi","b":"Umumiy vazifalari b\u043e\u2018lgan tashkilotlar iste\u2019molchilarining ma\u2019lum bir hamjamiyati foydalanishi uchun m\u043e\u2018ljallangan infratuzilma turi","c":"keng omma tomonidan bepul foydalanishga m\u043e\u2018ljallangan infratuzilma","d":"bir nechta mijozlar bilan bitta tashkilot tomonidan foydalanish uchun m\u043e\u2018ljallangan infratuzilma"},"correct":"a"},{"question":"Gibrid bulut (hybrid cloud) - ...","answers":{"a":"korxonaning ichki bulut infratuzilishi va xizmatidir.","b":"bu infratuzilma tarqatish barcha modellarini o'z ichiga oladigan bulut korxonada yaratiladi, ularni boshqarish bo'yicha mas'uliyat esa korxona bilan ommaviy bulutni yetkazib beruvchi o'rtasida taqsimlanadi.","c":"bunday infratuzilmadagi bulutli hisoblash xizmatlaridan keng omma foydalanishi mumkin, yetkazib beruvchilar tomonidan taqdim etiladi va korporativ tarmoqdan tashqarida joylashtiriladi.","d":"texnik vositalar bilan yaratilgan insonga sezgi organlari orqali: ko'rish, eshitish, teginish va boshqalar ta'sir ko'rsatadigan dunyo."},"correct":"b"},{"question":"Google bulutli hisoblash platformasi","answers":{"a":"Googleapp","b":"YandexDisk","c":"MicrosoftSkyDrive","d":"Dropbox"},"correct":"a"},{"question":"Google Docs bilan ishlash uchun eng yaxshi brauzerlar qaysi?","answers":{"a":"Opera","b":"Google Chrome va Mozilla Firefox","c":"Cent brauzeri","d":"Google Chrome"},"correct":"b"},{"question":"Google Docs-da qanday operatsiyalarni bajarishingiz mumkin?","answers":{"a":"Hujjatni boshqa tilga tarjima qiling","b":"Matnli hujjatni kompyuteringizdan yuklang va uni Google Doc-ga o'zgartiring","c":"Yuqoridagi barcha narsani bajaring","d":"Elektron pochtaga hujjatni ilova qiling"},"correct":"c"},{"question":"Google Drive qanday funksiyalarni birlashtiradi?","answers":{"a":"Funksiyalarni birlashtirmaydi","b":"Axborot omborlari va asboblar to'plamlari va xizmatlarini (Google Docs)","c":"Ma'lumotlarni yig'ish va qayta ishlashni (Google Forms and Sheets)","d":"Tasvirlar va prezentatsiyalar yaratishni (Google rasmlari va taqdimotlari)"},"correct":"d"},{"question":"Google Drive Sheets-dan foydalanib-","answers":{"a":"Jadvallar yordamida tuzilgan asosan raqamli ma'lumotlarni ko'rib chiqish mumkin.","b":"Jadvallar yordamida tuzilgan asosan raqamli ma'lumotlarni qayta ishlash mumkin.","c":"Katta hajmdagi ma'lumotlarni tartibda saqlang va qayta ishlash mumkin.","d":"Ko'p sonli ishtirokchilari bo'lgan guruhlar uchun ma'lum bir vaqtda yig'ilish qiyin bo'lgan ko'plab qo'shma tadbirlarni tashkil qilish mumkin."},"correct":"d"},{"question":"Google Drive-da hujjatlar qanday qidiriladi?","answers":{"a":"Turi bo'yicha - matnli hujjatlar, rasmlar, PDF-fayllar va boshqalar","b":"Ikkalasi ham to'g'ri","c":"Egalik bo'yicha - sizga yoki boshqa foydalanuvchilarga tegishli fayllar","d":"Ikkalasi ham noto'g'ri"},"correct":"b"},{"question":"Google Drive-da hujjatlar qanday qidiriladi?","answers":{"a":"O'zgarish sanasi bo'yicha","b":"Faqat sarlavha va kalit so'zlar bo'yicha","c":"Mulk huquqi bo'yicha","d":"Turi bo'yicha, kirish, egalik, kirish"},"correct":"d"},{"question":"Google matnli hujjati quyidagilarga imkon beradi:","answers":{"a":"Matnni ingliz tiliga tarjima qiling","b":"Hoshiya\/interval, shriftlarni o'zgartirish","c":"Hujjatlarni kompyuteringizdan yuklang","d":"Barcha javoblar to'g'ri"},"correct":"d"},{"question":"GRID nima?","answers":{"a":"geografik jihatdan taqsimlangan,  yirik masshtabli axborot-xisoblash loyixalarini amalga oshirish uchun dunyoning kompyuter resurslarini integratsiyalovchi global infrastruktura","b":"server va tarmoq uskunalarini hosting uchun m\u043e\u2018ljallangan ixtisoslashgan bino va Internet-kanallarga ulangan abonentlar","c":"veb-saytlarni ishlab chiqish uchun m\u043e\u2018ljallangan maxsus dastur","d":"ma\u2019lumotlarni saqlash b\u043e\u2018yicha ixtisoslashgan markaz"},"correct":"a"},{"question":"Grid Services qanday xizmatlarni taklif qiladi?","answers":{"a":"zarur resurslarni qidirish, resurslar xolati xaqida axborotlarni yig\u2018ish, ma\u2019lumotlarni saqlash va yetkazib berish","b":"ma\u2019lumotlarni saqlash va qayta ishlash","c":"bir vaqtning \u043e\u2018zida turli xil ma\u2019lumotlar turlarini boshqarish qobiliyati","d":"xalqaro aloqa uchun maxsus xavfsiz kanallar"},"correct":"a"},{"question":"Hammasi xizmat sifatida","answers":{"a":"Eaas","b":"Vaas","c":"Saas","d":"Daas"},"correct":"a"},{"question":"Hot Potatoe dasturida Bo'shliqlarni to'ldirish fayllari qanday formatda saqlaanadi?","answers":{"a":".jcw","b":".jcl","c":".jqz","d":".jmx"},"correct":"b"},{"question":"Hot Potatoe dasturida Ketma-ketlikni tiklash fayllari qanday formatda saqlaanadi?","answers":{"a":".jcw","b":".jcl","c":".jmt","d":".jmx"},"correct":"d"},{"question":"Hot Potatoe dasturida Krossvord fayllari qanday formatda saqlaanadi?","answers":{"a":".jmt","b":".jmx","c":".jcw","d":".jcl"},"correct":"c"},{"question":"Hot Potatoe dasturida Moslik o'rnatish fayllari qanday formatda saqlaanadi?","answers":{"a":".jcw","b":".jqz","c":".jmx","d":".jmt"},"correct":"d"},{"question":"Hot Potatoe dasturida savolning vaznini qanday oraliqda berilishi mumkin?","answers":{"a":"Ihtiyoriy oraliqda","b":"1 dan 100 gacha","c":"0 dan 50 gacha","d":"0 dan 100 gacha"},"correct":"d"},{"question":"Hot Potatoe dasturida Viktorina (ko'p tanlovli javob) topshiriq\/test fayllari qanday formatda saqlaanadi?","answers":{"a":".jcl","b":".jmt","c":".jcw","d":".jqz"},"correct":"d"},{"question":"Hot Potatoes dasturi qaysi davlat dasturchilari tomonidan yaratilgan.","answers":{"a":"AQSh","b":"Kanada","c":"Angliya","d":"Indiya"},"correct":"b"},{"question":"Hot Potatoes dasturida ishlab chiqilgan topshiriq va testlardan foydalanish uchun qanday brauzer yordamida kirish mumkin","answers":{"a":"Google Chrome veb brauzer","b":"Hot Potatoes dasturlari yordamida kirish mumkin","c":"Faqat Internet Explorer veb brauzer 6+","d":"Ixtiyoriy veb brauzer"},"correct":"d"},{"question":"Hot Potatoes dasturida yaratilgan topshiriqlar va testlarni html-sahifa shaklida joylashtirish uchun (biriktirish) nima talab qilinadi.","answers":{"a":"Hot Potatoes dasturlari","b":"Web-server","c":"Netscape 7+","d":"FireBird 0.7 veb brauzerlari"},"correct":"b"},{"question":"Hot Potatoesning qaysi blok dasturida krossvord yaratilishi mumkin","answers":{"a":"JMatch","b":"JCross","c":"JQuiz","d":"JCloze"},"correct":"b"},{"question":"Hot Potatoesning qaysi blok dasturida savollarga javoblarni turli variantlarda taqdim etuvchi testlar yaratilishi mumkin","answers":{"a":"JMatch","b":"JCloze","c":"JQuiz","d":"JCross"},"correct":"c"},{"question":"Hot Potatoesning qaysi blokda bo'shliqlarni to'ldirish dasturi ...","answers":{"a":"JMatch","b":"JCloze","c":"JQuiz","d":"JCross"},"correct":"b"},{"question":"Iaas","answers":{"a":"Axborot xizmat sifatida","b":"Xizmat sifatida jarayonlarni boshqarish","c":"Ma\u2019lumot xizmat sifatida","d":"Xizmat sifatida ish joyi"},"correct":"a"},{"question":"Infografika - bu","answers":{"a":"... slaydlarni namoyish qilish va ko'rsatishda ularni samaradorligini oshiruvchi tovush, rang, matn va harakatlanuvchi effektlar yig'indisidan iborat.","b":"...slaydlar va maxsus effektlar to'plami bo'lib, tayyor material, doklad yoki konspekt shaklida bitta faylda saqlanadi va uni ekranda namoyish qilinadi.","c":"... axborot, ma'lumotlar va bilimlarni taqdim etishning grafik usuli bo'lib, uning maqsadi murakkab ma'lumotlarni tez va aniq taqdim etishdir.","d":"... slaydlardan iborat prezentatsiya yaratish ularni tahrirlash, ketma-ketligini ko'rish va bezagini berishdir."},"correct":"c"},{"question":"Internet tarmog\u2018i xizmatlarini takdim etuvchi tashkilotlar bu\u2026","answers":{"a":"provayderlar","b":"serverlar","c":"internet kafe","d":"davlat korxonalari"},"correct":"a"},{"question":"ISP abbreviaturasi qanday ma\u2019noni bildiradi?","answers":{"a":"Internet servis provayderi","b":"Internet servis xizmati","c":"Internet servis protokoli","d":"Internet servis porti"},"correct":"a"},{"question":"iSpring Audio-video Editor dasturi qanday maqsadda qo'llaniladi?","answers":{"a":"dialog( muloqotlar) yaratish uchun","b":"Rasmlarni qayta ishlash uchun","c":"audio va video fayllar bilan ishlash, tahrirlash uchun","d":"kompyuter ekranidagi jarayonni tasvirga olish uchun"},"correct":"c"},{"question":"Ispring dasturi taqdimotni qanday formatdagi faylga konvertatsiyalash imkonini beradi?","answers":{"a":".PPT va .PPTX","b":".swf va HTML5","c":".PPS va .PPSX","d":"HTML5 va .PPT"},"correct":"b"},{"question":"Ispring dasturi tarkibidagi qaysi yordamchi dastur test tuzish imkonini beradi?","answers":{"a":"SCORM","b":"Ispring QuizMaker","c":"iSpring Visuals","d":"WAP"},"correct":"b"},{"question":"Ispring dasturida Vaqt shkalasi (Vremennaya shkala) interaktiv elementi qaysi bo'limda joylashgan?","answers":{"a":"Dizayn","b":"Interaktivnosti","c":"Kniga","d":"Test"},"correct":"b"},{"question":"Ispring dasturining Interaktivnosti bo'limi yordamida necha turdagi interaktiv elementlarni yaratish mumkin?","answers":{"a":"11 ta","b":"4 ta","c":"5 ta","d":"3 ta"},"correct":"b"},{"question":"Ispring QuizMaker dasturi yordamida necha turdagi test tuzish mumkin?","answers":{"a":"16 ta","b":"4 ta","c":"12 ta","d":"11 ta"},"correct":"d"},{"question":"iSpring Screen Recording dasturi qanday maqsadda qo'llaniladi?","answers":{"a":"dialog(muloqotlar) yaratish uchun","b":"audio va video fayllar bilan ishlash, tahrirlash uchun","c":"Rasmlarni qayta ishlash uchun","d":"kompyuter ekranidagi jarayonni tasvirga olish uchun"},"correct":"d"},{"question":"iSpring TalksMaster dasturi qanday maqsadda qo'llaniladi?","answers":{"a":"audio va video fayllar bilan ishlash, tahrirlash uchun","b":"dialog(muloqotlar) yaratish uchun","c":"kompyuter ekranidagi jarayonni tasvirga olish uchun","d":"Rasmlarni qayta ishlash uchun"},"correct":"b"},{"question":"iSpring Visuals dasturini aktivlashtirish uchun qaysi bo'limga murojaat qilinadi?","answers":{"a":"Dizayn","b":"Dialog","c":"Interaktivnosti","d":"Test"},"correct":"c"},{"question":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul","answers":{"a":"Simulyatsiya","b":"Kraudsorsing\u00a0","c":"Fazoviy tahlil","d":"Virtualizatsiya"},"correct":"a"},{"question":"kampus tarmoq, \u043e\u2018zaro yaqin binolarda joylashgan lokal tarmoqlarni birlashtirish uchun m\u043e\u2018ljallangan.","answers":{"a":"CAN","b":"PAN","c":"MAN","d":"LAN"},"correct":"a"},{"question":"Keng omma tomonidan bepul foydalanishga m\u043e\u2018ljallangan infratuzilma","answers":{"a":"Umumiy \u00abbulut\u00bb","b":"Xususiy bulut","c":"Gibrid bulut","d":"Oddiy \u00abbulut\u00bb"},"correct":"a"},{"question":"Kompaniyaning barcha darajalaridagi biznes jarayonlarni real vaqt tizimida avtomatlashtiruvchi ochiq tizim shu jumladan biznes rejada qaror qabul qilish bu-","answers":{"a":"Korporativ axborot tizimi","b":"Taqsimlash axborot tizimi","c":"Biznesni boshqarish tizimi","d":"mantiqiy axborot tizimi"},"correct":"a"},{"question":"Kraudsorsing\u00a0","answers":{"a":"Mehnat munosabatlariga kirmasdan  ishni bajarayotgan shaxslarning keng, noma\u2019lum doiralari  b\u043e\u2018yicha olingan ma\u2019lumotlarni tasniflash va boyitish","b":"Ma\u2019lumotlardan olingan topologik, geometrik va geografik axborotlarni foydalangan holda metodlar","c":"Ma\u2019lumotlarda qaror qabul qilish uchun zarur b\u043e\u2018lgan oldindan noma\u2019lum, arzimas, amaliy foydali bilimlarni aniqlash usullar t\u043e\u2018plami","d":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul"},"correct":"a"},{"question":"LMS qanday turlari mavjud?","answers":{"a":"ochiq kodli pulli va tekin","b":"faqat tijorat","c":"faqat boshlang'ich","d":"tijorat(kommersiya) va boshlangich ochiq kodli"},"correct":"d"},{"question":"LMS tizimida yaratiladigan elektron ta'lim resurslari qaysi standartga mos bo'lishi kerak?","answers":{"a":"SC","b":"SCO","c":"SCOM","d":"SCORM"},"correct":"d"},{"question":"LMS tizimlari uchun elektron ta\u2019lim resurslarini qanday standart paketlari asosida yaratish tavsiya etiladi?","answers":{"a":"SCORM","b":"SCR","c":"SCOM","d":"LMS"},"correct":"a"},{"question":"lokal tarmoq, chegaralangan sohadagi kompyuterlarni birlashtirish imkoniyatini beradi.","answers":{"a":"LAN","b":"PAN","c":"GAN","d":"MAN"},"correct":"a"},{"question":"Mashinali \u043e\u2018rgatish","answers":{"a":"Asosiy modellar asosida kompleks prognozlarni kilish uchun statistik tahlil yoki mashinali ta\u2019lim asosida yaratilgan modellardan foydalanish - bu:","b":"Mehnat munosabatlariga kirmasdan  ishni bajarayotgan shaxslarning keng, noma\u2019lum doiralari  b\u043e\u2018yicha olingan ma\u2019lumotlarni tasniflash va boyitish","c":"Ma\u2019lumotlarda qaror qabul qilish uchun zarur b\u043e\u2018lgan oldindan noma\u2019lum, arzimas, amaliy foydali bilimlarni aniqlash usullar t\u043e\u2018plami","d":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul"},"correct":"a"},{"question":"Masofali \u043e\u2018qish  bu...","answers":{"a":"internet texnologiyalar va boshqa interaktiv ma\u2019lum masofadagi \u043e\u2018zaro bog\u2018liqlik usullari","b":"masofali \u043e\u2018qitishga asoslangan ta\u2019lim","c":"tarmoq orqali tez ma\u2019lumot almashish","d":"\u043e\u2018qitish vositalari(\u043e\u2018quv q\u043e\u2018llanmalar, darsliklar)"},"correct":"a"},{"question":"Mavjud operatsion tizim va uskuna ustidan virtual mashinani yaratish ..... deb nomlanadi.","answers":{"a":"Hardware virtualizatsiyasi","b":"virtual reallik tizimlari","c":"virtual reallik","d":"virtual model"},"correct":"a"},{"question":"Ma\u2019lumotlarda qaror qabul qilish uchun zarur b\u043e\u2018lgan oldindan noma\u2019lum, arzimas, amaliy foydali bilimlarni aniqlash usullar t\u043e\u2018plami","answers":{"a":"Data Mining\u00a0","b":"Kraudsorsing\u00a0","c":"Mashinali \u043e\u2018rgatish","d":"Hadoop"},"correct":"a"},{"question":"Ma\u2019lumotlardan olingan topologik, geometrik va geografik axborotlarni foydalangan holda metodlar","answers":{"a":"Fazoviy tahlil","b":"Simulyatsiya","c":"Kraudsorsing\u00a0","d":"Sun\u2019iy neyron tarmoqlari"},"correct":"a"},{"question":"Ma\u2019lumotlarni chizma, diagramma va interfaol usullardan va animatsiyalardan foydalangan holda taqdim etish usuli","answers":{"a":"Vizualizatsiya","b":"Simulyatsiya","c":"Kraudsorsing\u00a0","d":"Sun\u2019iy neyron tarmoqlari"},"correct":"a"},{"question":"Ma\u2019lumotlarni siljitish va birlashtirish","answers":{"a":"Chuqur tahlilni \u043e\u2018tkazish maqsadida turli manbalardan olingan xar xil ma\u2019lumotlarni integratsiyalash usullar t\u043e\u2018plami","b":"Mehnat munosabatlariga kirmasdan  ishni bajarayotgan shaxslarning keng, noma\u2019lum doiralari  b\u043e\u2018yicha olingan ma\u2019lumotlarni tasniflash va boyitish","c":"Ma\u2019lumotlarda qaror qabul qilish uchun zarur b\u043e\u2018lgan oldindan noma\u2019lum, arzimas, amaliy foydali bilimlarni aniqlash usullar t\u043e\u2018plami","d":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul"},"correct":"a"},{"question":"Ma\u2019lumotlarni uzatishni yuqori tezlikdagi tarmoqlar bilan birlashtirilgan, geografik taqsimlangan resurslardan dinamik tashkillashtirilgan virtual kompyuter nima deb atash mumkin?","answers":{"a":"metakompyuter","b":"data sentr","c":"GRID","d":""},"correct":"a"},{"question":"Ma\u2019lumotni saqlashni boshqarish xususiyati bulutning qanday xususiyatiga ega?","answers":{"a":"texnologik","b":"iqtisodiy","c":"Asosiy","d":"ma\u2019lumotli"},"correct":"a"},{"question":"Mehnat munosabatlariga kirmasdan  ishni bajarayotgan shaxslarning keng, noma\u2019lum doiralari  b\u043e\u2018yicha olingan ma\u2019lumotlarni tasniflash va boyitish","answers":{"a":"Kraudsorsing\u00a0","b":"Fazoviy tahlil","c":"Simulyatsiya","d":"Mashinali \u043e\u2018rgatish"},"correct":"a"},{"question":"Metakompyuter komponentlari b\u043e\u2018lib nima xizmat qiladi?","answers":{"a":"oddiy shaxsiy kompyuterlar b\u043e\u2018lganidek quvvtli massivli-parallel tizimlari xam b\u043e\u2018lishi mumkin","b":"superkompyuter va bulut texnologiyalari","c":"ma\u2019lumotlar markazlari","d":"ish stoli serverlari"},"correct":"a"},{"question":"Microsoft bulutli hisoblash platformasi","answers":{"a":"MicrosoftSkyDrive","b":"Googleapp","c":"YandexDisk","d":"Dropbox"},"correct":"a"},{"question":"Moodle - bu ...","answers":{"a":"o'qitish texnologiyasi","b":"o'qitish shakli","c":"masofali ta'lim platformalaridan biri","d":"o'rgatuvchi dastur"},"correct":"c"},{"question":"Moodle LMS rasmiy saytini ko'rsating","answers":{"a":"Moodle.ru","b":"Moodle.org","c":"Moodle.gov","d":"Moodle.com"},"correct":"b"},{"question":"MOOKni taqdim etuvchi tizimni ko'rsating","answers":{"a":"Intuit.ru, pedagog.uz","b":"Coursera, EdX, Khan academy","c":"Ziyonet.uz, Moodle.org","d":"my.estudy.uz, estudy.uz"},"correct":"b"},{"question":"O'zbekiston Respublikasi Prezidentining &quot;Raqamli O'zbekiston - 2030&quot; strategiyasini tasdiqlash va uni samarali amalga oshirish chora-tadbirlari to'g'risidagi farmoni qachon qabul qilingan?","answers":{"a":"2020 yil 15 noyabr","b":"2020 yil 8 avgust","c":"2020 yil 5 oktabr","d":"2020 yil 17 mart"},"correct":"c"},{"question":"O'zbekiston Respublikasi Prezidentining &quot;Toshkent shahrida raqamli texnologiyalarni keng joriy etish chora-tadbirlari to'g'risida&quot;gi qarori qachon qabul qilingan?","answers":{"a":"2020 yil 15 noyabr","b":"2020 yil 8 avgust","c":"2020 yil 5 oktabr","d":"2020 yil 17 mart"},"correct":"d"},{"question":"OBS + YouTube + YouTube vebinar xizmati ...","answers":{"a":"...shartli-bepul dastur varianti bo'lib, ba'zi veb-saytlarning ba'zi uskunalari bepul yoki sinov muddatlari bor, masalan, 14 kun bepul.","b":"... oldindan sozlamalar talab qilinmaydi, bir martalik translyatsiyalar yoki onlayn maktab yaratishning dastlabki bosqichida foydalanish mumkin.","c":"... taqdimotni namoyish qilish imkonini beradi, shuningdek, moslashuvchan sozlamalar tezlik bilan ekran ko'rinishlarini almashish imkonini beradi.","d":"... konferensiyani parolli yoki parolsiz havolani taqdim etish orqali amalga oshiriladi."},"correct":"c"},{"question":"Ommaviy bulut (public cloud) - ...","answers":{"a":"korxonaning ichki bulut infratuzilishi va xizmatidir.","b":"bunday infratuzilmadagi bulutli hisoblash xizmatlaridan keng omma foydalanishi mumkin, yetkazib beruvchilar tomonidan taqdim etiladi va korporativ tarmoqdan tashqarida joylashtiriladi.","c":"bu infratuzilma tarqatish barcha modellarini o'z ichiga oladigan bulut korxonada yaratiladi, ularni boshqarish bo'yicha mas'uliyat esa korxona bilan ommaviy bulutni yetkazib beruvchi o'rtasida taqsimlanadi.","d":"texnik vositalar bilan yaratilgan insonga sezgi organlari orqali: ko'rish, eshitish, teginish va boshqalar ta'sir ko'rsatadigan dunyo."},"correct":"b"},{"question":"Online Driver modeli...","answers":{"a":"- Amerikaning oliy ta'lim muassasalari uchun an'anaviy hisoblanib, talabalar mustaqil tarzda asosiy ta'limga qo'shimcha ravishda kurslarni tanlaydi.","b":"- o'quv dasturining asosiy qismi axborot ta'lim muhitidagi elektron resurslar yordamida o'zlashtiriladi.","c":"- o'quv dasturi elektron ta'lim talablariga mos ravishda kompyuter texnikasi bilan ta'minlangan auditoriyalarda qoidaga asosan tashkil etiladi.","d":"- o'quv dasturining ahamiyatga bog'liq qismi bevosita o'qituvchi yordamida o'rganiladi."},"correct":"b"},{"question":"Online Lab modeli.","answers":{"a":"- o'quv dasturining ahamiyatga bog'liq qismi bevosita o'qituvchi yordamida o'rganiladi.","b":"- Amerikaning oliy ta'lim muassasalari uchun an'anaviy hisoblanib, talabalar mustaqil tarzda asosiy ta'limga qo'shimcha ravishda kurslarni tanlaydi.","c":"- o'quv dasturning katta qismi elektron ta'lim orqali o'zlashtiriladi.","d":"- o'quv dasturi elektron ta'lim talablariga mos ravishda kompyuter texnikasi bilan ta'minlangan auditoriyalarda qoidaga asosan tashkil etiladi."},"correct":"d"},{"question":"OSI modelida nechta pog\u2018ona mavjud:","answers":{"a":"7 ta","b":"3 ta","c":"6 ta","d":"8 ta"},"correct":"a"},{"question":"OSI modelining kaysi pog\u2018onasida IP protokoli ishlatiladi","answers":{"a":"tarmoq pog\u2018onasida","b":"seans pog\u2018onasida","c":"kanal pog\u2018onasida","d":"q\u043e\u2018llanish pog\u2018onasida"},"correct":"a"},{"question":"Owncloud va nextcloud - shaxsiy bulut dasturiy vositalarini \u043e\u2018rnatishning 1-chi bosqichi","answers":{"a":"Owncloud ni \u043e\u2018rnatish","b":"Virtualbox ni \u043e\u2018rnatish","c":"MySQL Database sozlamalari","d":"Owncloud sozlamalari"},"correct":"a"},{"question":"Owncloud va nextcloud - shaxsiy bulut dasturiy vositalarini \u043e\u2018rnatishning 2-chi bosqichi","answers":{"a":"MySQL Database sozlamalari","b":"Owncloud ni \u043e\u2018rnatish","c":"Owncloud sozlamalari","d":"Virtualbox ni \u043e\u2018rnatish"},"correct":"a"},{"question":"Owncloud va nextcloud - shaxsiy bulut dasturiy vositalarini \u043e\u2018rnatishning 3-chi bosqichi","answers":{"a":"Owncloud sozlamalari","b":"MySQL Database sozlamalari","c":"Owncloud ni \u043e\u2018rnatish","d":"Virtualbox ni \u043e\u2018rnatish"},"correct":"a"},{"question":"Paas","answers":{"a":"Xizmat sifatida jarayonlarni boshqarish","b":"Ma\u2019lumot xizmat sifatida","c":"Ma\u2019lumot xizmat sifatida","d":"Xizmat sifatida ish joyi"},"correct":"a"},{"question":"piktochart.com muharriri imkoniyatlari to'g'ri krsatilgan qatorni belgilang.","answers":{"a":"Tayyor elementlar kutubxonasiga ega bo'lgan infografik muharrir.","b":"Ma'lumotni immersiv vizual hikoyalarga aylantiradi","c":"Mind Maps va boshqalar kabi turli xil infografikalarni yaratishga imkon beruvchi foydalanuvchilarga qulay onlayn rasm chizish vositasidir.","d":"Ushbu xizmat matnni (mashhur atamalar, yangiliklar, shiorlar, hattoki sevgi izhorlarini) hayratlanarli tarzda yaratilgan so'z bulutlariga o'zgartiradi."},"correct":"b"},{"question":"Qanday bulut turi mavjud emas?","answers":{"a":"Oddiy &quot;bulut&quot;","b":"Ommaviy \u00abbulut\u00bb","c":"Xususiy \u00abbulut\u00bb","d":"Gibrid \u00abbulut\u00bb"},"correct":"a"},{"question":"Qanday kurslar asosida tnglovchilar ma'lum topshiriqlar tuplamini bajarishi shart degan tasdiq yotadi?","answers":{"a":"xMOOC","b":"MOOC","c":"task-based MOOC","d":"cMOOC"},"correct":"c"},{"question":"Qanday kurslarda o'qitish maqsadini o'quvchi belgilaydi?","answers":{"a":"task-based MOOC","b":"cMOOC","c":"MOOC","d":"xMOOC"},"correct":"b"},{"question":"rivojlanishni, integratsiyalashishni va bulutli xizmatlarni taqdim etishni ta\u2019minlaydigan muhit va kommunal xizmatlar","answers":{"a":"Bulutli hisoblash platformasi","b":"bulutli hisoblash usullari","c":"bulutli hisoblash prinsiplari","d":"bulutli hisoblash texnologiyasi"},"correct":"a"},{"question":"Rotation &quot;Flipped learning&quot; modeli...","answers":{"a":"- o'quv dasturining asosiy qismi axborot ta'lim muhitidagi elektron resurslar yordamida o'zlashtiriladi.","b":"- Amerikaning oliy ta'lim muassasalari uchun an'anaviy hisoblanib, talabalar mustaqil tarzda asosiy ta'limga qo'shimcha ravishda kurslarni tanlaydi.","c":"- o'quv dasturi elektron ta'lim talablariga mos ravishda kompyuter texnikasi bilan ta'minlangan auditoriyalarda qoidaga asosan tashkil etiladi.","d":"- o'quv vaqti individual elektron ta'lim va o'qituvchi bilan birgalikda sinfda tashkil etilgan ta'limga taqsimlanadi."},"correct":"d"},{"question":"Ruxsat etilgan sifatni ta\u2019minlash xususiyati bulutning qanday xususiyatiga ega?","answers":{"a":"Asosiy","b":"Iqtisodiy","c":"Texnologik","d":"Ma\u2019lumotli"},"correct":"a"},{"question":"Saas","answers":{"a":"Xizmat sifatida saqlash","b":"Axborot xizmat sifatida","c":"Xizmat sifatida jarayonlarni boshqarish","d":"Ma\u2019lumot xizmat sifatida"},"correct":"a"},{"question":"Selfbrender  modeli...","answers":{"a":"- o'quv dasturining asosiy qismi axborot ta'lim muhitidagi elektron resurslar yordamida o'zlashtiriladi.","b":"- Amerikaning oliy ta'lim muassasalari uchun an'anaviy hisoblanib, talabalar mustaqil tarzda asosiy ta'limga qo'shimcha ravishda kurslarni tanlaydi.","c":"- o'quv dasturning katta qismi elektron ta'lim orqali o'zlashtiriladi.","d":"- o'quv dasturining ahamiyatga bog'liq qismi bevosita o'qituvchi yordamida o'rganiladi."},"correct":"b"},{"question":"shahar kabi kattalikdagi geografik mintaqani qamrab olgan aloqa tarmog\u2018i..","answers":{"a":"MAN","b":"LAN","c":"PAN","d":"GAN"},"correct":"a"},{"question":"shaxsiy tarmoq, kompyuter qurilmalarining simsiz tarmog\u2018i.","answers":{"a":"PAN","b":"GAN","c":"MAN","d":"LAN"},"correct":"a"},{"question":"Simulyatsiya","answers":{"a":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul","b":"Mehnat munosabatlariga kirmasdan  ishni bajarayotgan shaxslarning keng, noma\u2019lum doiralari  b\u043e\u2018yicha olingan ma\u2019lumotlarni tasniflash va boyitish","c":"Ma\u2019lumotlarda qaror qabul qilish uchun zarur b\u043e\u2018lgan oldindan noma\u2019lum, arzimas, amaliy foydali bilimlarni aniqlash usullar t\u043e\u2018plami","d":"Ma\u2019lumotlarni chizma, diagramma va interfaol usullardan va animatsiyalardan foydalangan holda taqdim etish usuli"},"correct":"a"},{"question":"Slayd - bu","answers":{"a":"... slaydlarni namoyish qilish va ko'rsatishda ularni samaradorligini oshiruvchi tovush, rang, matn va harakatlanuvchi effektlar yig'indisidan iborat.","b":"...slaydlar va maxsus effektlar to'plami bo'lib, tayyor material, doklad yoki konspekt shaklida bitta faylda saqlanadi va uni ekranda namoyish qilinadi.","c":"... prezentatsiyaning alohida kadri bo'lib, ichiga matn va sarlavhalarni, grafik va diagrammalarni olishi mumkin.","d":"... slaydlardan iborat prezentatsiya yaratish ularni tahrirlash, ketma-ketligini ko'rish va bezagini berishdir."},"correct":"c"},{"question":"Stenford universiteti informatika professordari Endryu In va Dafna Koller tomonidan asos solingan &quot;ommaviy onlayn -ta'lim sohasidagi&quot; loyiha qanday nomlanadi?","answers":{"a":"edX","b":"Udacity","c":"Coursera","d":"Moodle"},"correct":"c"},{"question":"Sun\u2019iy neyron tarmoqlari","answers":{"a":"Tarmoqli tahlil va optimallashtirish, shu jumladan, genetik algoritmlar - bu:","b":"Mehnat munosabatlariga kirmasdan  ishni bajarayotgan shaxslarning keng, noma\u2019lum doiralari  b\u043e\u2018yicha olingan ma\u2019lumotlarni tasniflash va boyitish","c":"Ma\u2019lumotlarda qaror qabul qilish uchun zarur b\u043e\u2018lgan oldindan noma\u2019lum, arzimas, amaliy foydali bilimlarni aniqlash usullar t\u043e\u2018plami","d":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul"},"correct":"a"},{"question":"S\u043e\u2018rovlar tili t\u043e\u2018g\u2018ri keltirilgan qatorini toping ?","answers":{"a":"SQL","b":"My SQL","c":"SQL Server","d":"tSQL"},"correct":"a"},{"question":"tagxedo.com ...","answers":{"a":"- ma'lumotni immersiv vizual hikoyalarga aylantiradi","b":"- ushbu xizmat matnni (mashhur atamalar, yangiliklar, shiorlar, hattoki sevgi izhorlarini) hayratlanarli tarzda yaratilgan so'z bulutlariga o'zgartiradi.","c":"- tayyor elementlar kutubxonasiga ega bo'lgan infografik muharrir.","d":"#NAME?"},"correct":"b"},{"question":"Taqdimot - bu","answers":{"a":"... axborot, ma'lumotlar va bilimlarni taqdim etishning grafik usuli bo'lib, uning maqsadi murakkab ma'lumotlarni tez va aniq taqdim etishdir.","b":"... ergonomikani, funksionallikni, insonning axborotni idrok etishining psixologik mezonlarini, axborotni taqdim etishning vizual shakllari estetikasini va boshqa omillarni hisobga olgan dizaynning bir sohasi hisoblanib, badiiy-texnik dizayn va turli xil ma'lumotlarni taqdim etish amaliyotidir.","c":"...slaydlar va maxsus effektlar to'plami bo'lib, tayyor material, doklad yoki konspekt shaklida bitta faylda saqlanadi va uni ekranda namoyish qilinadi.","d":"... slaydlarni namoyish qilish va ko'rsatishda ularni samaradorligini oshiruvchi tovush, rang, matn va harakatlanuvchi effektlar yig'indisidan iborat."},"correct":"c"},{"question":"Taqdimot formati matn va jadvaldan qanday farq qiladi?","answers":{"a":"Grafik ma'lumotlar mavjadligi","b":"Chizmalarning mavjutligi","c":"Matnlarning mavjudligi","d":"Slayd tuzilishining mavjudligi"},"correct":"d"},{"question":"Taqdimot nima?","answers":{"a":"Ma'lumotlar orasidagi tarkibiy aloqalarni taqdim qilish","b":"Ob'ekt haqida ma'lumotni qulay shaklda taqdim qilish","c":"Katta hajmdagi ma'lumotlarning grafik tasvirlarini tahrirlash","d":"Ma'lumotni jadval ko'rinishida taqdim qilish"},"correct":"b"},{"question":"Taqdimot tuzish - bu","answers":{"a":"... slaydlarni namoyish qilish va ko'rsatishda ularni samaradorligini oshiruvchi tovush, rang, matn va harakatlanuvchi effektlar yig'indisidan iborat.","b":"... slaydlardan iborat prezentatsiya yaratish ularni tahrirlash, ketma-ketligini ko'rish va bezagini berishdir.","c":"... prezentatsiyaning alohida kadri bo'lib, ichiga matn va sarlavhalarni, grafik va diagrammalarni olishi mumkin.","d":"... axborot, ma'lumotlar va bilimlarni taqdim etishning grafik usuli bo'lib, uning maqsadi murakkab ma'lumotlarni tez va aniq taqdim etishdir."},"correct":"b"},{"question":"Tarmoq OT i keng ma\u2019nodagi ta\u2019rifi.","answers":{"a":"ma\u2019lumotlar almashish maqsadida, resurslardagi bitta qoida \u2013 protokollar asosida taqsimlab beruvchi aloxida kompyuterlar OT larining yig\u2018indisiga tarmoq OT i deyiladi","b":"aloxida kompyuterga, tarmoqqa ishlash imkonini beruvchi operatsion tizimga aytiladi","c":"boshqa kompyuterga murojaat xuquqini beruvchi kompyuterga aytiladi","d":"boshqa kompyuterlarga \u043e\u2018z resurslarini berish imkonini beruvchi OT"},"correct":"a"},{"question":"Tarmoq OT i tor ma\u2019nodagi ta\u2019rifi:","answers":{"a":"aloxida kompyuterga, tarmoqqa ishlash imkonini beruvchi operatsion tizimga aytiladi","b":"ma\u2019lumotlar almashish maqsadida, resurslardagi bitta qoida \u2013 protokollar asosida taqsimlab beruvchi aloxida kompyuterlar OT larining yig\u2018indisiga tarmoq OT i deyiladi","c":"boshqa kompyuterga murojaat xuquqini beruvchi kompyuterga aytiladi","d":"boshqa kompyuterlarga \u043e\u2018z resurslarini berish imkonini beruvchi OT"},"correct":"a"},{"question":"Tarmoq OT larini qurishda bir nechta yondashishlar mavjud","answers":{"a":"lokal OT va qobiq; tarmoq funksiyalari boshidan k\u043e\u2018zda tutilgan","b":"lokal OT va qobiq va q\u043e\u2018shimcha imkoniyatlar qismi k\u043e\u2018rinishida ishlab chiqilgan","c":"Kliyent-server va mikroyadro k\u043e\u2018rinishida ishlab chiqilgan","d":"Obyektga y\u043e\u2018naltirilgan k\u043e\u2018rinishida ishlab chiqilgan"},"correct":"a"},{"question":"Tarmoq OT ning masofadagi resursi va xizmatlarga murojaat qilish imkonini beradigan qismi:","answers":{"a":"kliyent (mijoz) qismi deyiladi","b":"server qismi deyiladi","c":"kommunikatsiya (bog\u2018lanish) qismi deyiladi","d":"lokal qismi deyiladi"},"correct":"a"},{"question":"Tarmoq OT ning shaxsiy resurslarni umumiy foydalanishga beruvchi qismi:","answers":{"a":"server qismi deyiladi","b":"kliyent (mijoz) qismi deyiladi","c":"kommunikatsiya (bog\u2018lanish) qismi deyiladi","d":"lokal qismi deyiladi"},"correct":"a"},{"question":"Tarmoq OT \u2013","answers":{"a":"t\u043e\u2018rt qismdan iborat","b":"ikki qismdan iborat","c":"uch qismdan iborat","d":"besh qismdan iborat"},"correct":"a"},{"question":"Tarmoqda tarqatilgan k\u043e\u2018plab serverlarda ma\u2019lumotlar saqlanadigan onlayn saqlash modeli.","answers":{"a":"Bulutli ma\u2019lumotlarni saqlash","b":"Xususiy bulut","c":"Umumiy \u00abbulut\u00bb","d":"Gibrid bulut"},"correct":"a"},{"question":"Tarmoqli tahlil va optimallashtirish, shu jumladan, genetik algoritmlar - bu:","answers":{"a":"Sun\u2019iy neyron tarmoqlari","b":"Kraudsorsing\u00a0","c":"Fazoviy tahlil","d":"Simulyatsiya"},"correct":"a"},{"question":"tarmoqni, real vaqtda va murakkab ulanish konfiguratsiyasini q\u043e\u2018llagan holda, k\u043e\u2018p komponentli axborot (ovoz, mazkur video, audio)larni shu komponentlar uchun zarur b\u043e\u2018lgan sinxronizatsiya bilan uzatish qobiliyati bilan izohlanadi","answers":{"a":"Multimediali tarmoq","b":"Multimediali kompyuter","c":"Multimediali shlyuz","d":"Multimediali darslik"},"correct":"a"},{"question":"Tayyor elementlar kutubxonasiga ega bo'lgan infografik muharrirni toping.","answers":{"a":"visual.lv","b":"easel.ly","c":"piktochart.com","d":"tagxedo.com"},"correct":"b"},{"question":"Ta\u2019lim axborot texnologiyalari terminini aniqlang","answers":{"a":"bu \u043e\u2018qitilayotganlarga kompyuter vositalari orkali axborotni tayyoralash va uzatish jarayonidir","b":"barcha maxsus texnik informatsion vositalarni q\u043e\u2018llovchi texnologiyalar (EXM, audio, kino, video)","c":"kompyuter texnologiyalari tarkibini modelini ishlatishga asoslangan","d":"kompyuter texnikasi yordamida axborotni kiritish, tizimlash, saqlash va aks ettirish tushuniladi."},"correct":"a"},{"question":"Twitter yoki Facebook ma'lumotlari kabi ijtimoiy ko'rsatkichlarga asoslangan infografik muharrir ...","answers":{"a":"creately.com","b":"easel.ly","c":"visual.lv","d":"cacoo.com"},"correct":"c"},{"question":"T\u043e\u2018g\u2018ri javobni tanlang:","answers":{"a":"protokol bu \u2013 turli texnikaviy uskunalarda amalga oshiriladigan birxil pog\u2018onali jarayonlarning protsedurali va mantiqiy bog\u2018lanishni ta\u2019minlaydigan qonun qoidalar majmui","b":"protokol bu \u2013 turli texnikaviy uskunalar orasida protsedurali bog\u2018lanishni ta\u2019minlaydigan qonun qoidalar majmui","c":"protokol bu \u2013 turli texnikaviy uskunalarda amalga oshiriladigan jarayenning turli pog\u2018onalar orasida mantiqiy bog\u2018lanishni ta\u2019minlaydigan qonun qoidalar majmui","d":"protokol bu \u2013 turli texnikaviy uskunalarda amalga oshiriladigan jarayenlar"},"correct":"a"},{"question":"Ubuntu serveri uchun .iso faylini qayerdan yuklab olish mumkin","answers":{"a":"https:\/\/www.ubuntu.com\/download\/server","b":"https:\/\/www.ubuntu","c":"https:\/\/www.virtualbox.org\/","d":"https:\/\/www.ubuntu.orgdownload\/server"},"correct":"a"},{"question":"Udacity loyihasi maqsadi?","answers":{"a":"ta'limni egallash mumkinligi","b":"ta'limni virtuallashtirish","c":"ta'lim tengligi","d":"ta'limni demokratlashtirish"},"correct":"d"},{"question":"Umumiy vazifalari b\u043e\u2018lgan tashkilotlar iste\u2019molchilarining ma\u2019lum bir hamjamiyati foydalanishi uchun m\u043e\u2018ljallangan infratuzilma turi","answers":{"a":"Ijtimoiy \u00abbulut\u00bb","b":"Umumiy \u00abbulut\u00bb","c":"Xususiy bulut","d":"Gibrid bulut"},"correct":"a"},{"question":"Umumiy \u00abbulut\u00bb","answers":{"a":"keng omma tomonidan bepul foydalanishga m\u043e\u2018ljallangan infratuzilma","b":"bir nechta mijozlar bilan bitta tashkilot tomonidan foydalanish uchun m\u043e\u2018ljallangan infratuzilma","c":"bu ikki yoki undan k\u043e\u2018p turli xil bulutli infratuzilmalarning kombinatsiyasi","d":"Umumiy vazifalari b\u043e\u2018lgan tashkilotlar iste\u2019molchilarining ma\u2019lum bir hamjamiyati foydalanishi uchun m\u043e\u2018ljallangan infratuzilma turi"},"correct":"a"},{"question":"Vebga y\u043e\u2018naltirilgan kontentni boshqaruvchi tizim qanday nomlanadi?","answers":{"a":"CMS","b":"Authoring tools","c":"LMS","d":"SCR"},"correct":"a"},{"question":"Vebga y\u043e\u2018naltirilgan ta\u2019lim(\u043e\u2018qish, virtual ta\u2019lim muhiti)ni boshqarish tizimi  qanday  nomlanadi?","answers":{"a":"LMS","b":"Authoring tools","c":"CMS","d":"SCR"},"correct":"a"},{"question":"Vebinar...","answers":{"a":"- bu shunday ta'lim konsepsiyasiki, unda ham auditoriyada, ham onlayn ravishda o'quv mashg'ulotlar tashkil etiladi.","b":"- onlayn seminar, ma'ruza, taqdimotlarni jonli rejimda veb texnologiyalar yordamida tashkil etish.","c":"- bu aralash ta'limning bir shakli bo'lib, ta'lim oluvchilarni passiv, zerikarli harakatini yangi ko'rinishga o'tkazuvchi ta'lim konsepsiyasi.","d":"- seminar, ma'ruza, taqdimotlarni OAV orqali namoyish etish vositasi."},"correct":"b"},{"question":"Virtual mashina","answers":{"a":"mantiqiy ravishda asosiy uskunadan ajratilgan muhitni ta\u2019minlaydi.","b":"virtual reallikni ta\u2019minlaydi","c":"virtual muxitidaagi xavfsizlikni ta\u2019minlaydi","d":"virtual modelni ishlashini ta\u2019minlaydi"},"correct":"a"},{"question":"Virtual mashina dasturiy ta\u2019minoti yoki virtual mashina boshqaruvchisi (VMM) t\u043e\u2018g\u2018ridan-t\u043e\u2018g\u2018ri apparat tizimiga \u043e\u2018rnatilganida, ............. deb nomlanadi.","answers":{"a":"uskuna virtualizatsiyasi","b":"server virtualizatsiyasi","c":"Saqlashni virtualizatsiya  qilish","d":"operatsion tizimni virtualizatsiya"},"correct":"a"},{"question":"Virtual mashina yaratmoqchi b\u043e\u2018lgan mashina asosiy   &quot;Host Machine&quot; deb nomlanadi va virtual mashina .................. deb nomlanadi.","answers":{"a":"Mehmon mashinasi","b":"&quot;Host Machine&quot;","c":"virtual moshina","d":"real moshina"},"correct":"a"},{"question":"Virtual mashina yaratmoqchi b\u043e\u2018lgan mashina asosiy   ............. deb nomlanadi va virtual mashina &quot;Mehmon mashinasi&quot; deb nomlanadi.","answers":{"a":"&quot;Host Machine&quot;","b":"Mehmon mashinasi","c":"virtual moshina","d":"real moshina"},"correct":"a"},{"question":"Virtual mashinaning dasturiy ta\u2019minoti yoki virtual mashina boshqaruvchisi (VMM) t\u043e\u2018g\u2018ridan-t\u043e\u2018g\u2018ri Server tizimiga \u043e\u2018rnatilganida, ......................deb nomlanadi","answers":{"a":"server virtualizatsiyasi","b":"uskuna virtualizatsiyasi","c":"Saqlashni virtualizatsiya  qilish","d":"operatsion tizimni virtualizatsiya"},"correct":"a"},{"question":"Virtual mashinaning dasturiy ta\u2019minoti yoki virtual mashina menejeri (VMM) t\u043e\u2018g\u2018ridan-t\u043e\u2018g\u2018ri apparat tizimiga emas, balki Xost operatsion tizimiga \u043e\u2018rnatilganida ....................qilish mumkin b\u043e\u2018ladi","answers":{"a":"operatsion tizimni virtualizatsiya","b":"server virtualizatsiyasi","c":"uskuna virtualizatsiyasi","d":"Saqlashni virtualizatsiya  qilish"},"correct":"a"},{"question":"Virtual reallik (VR) - ...","answers":{"a":"bu infratuzilma tarqatish barcha modellarini o'z ichiga oladigan bulut korxonada yaratiladi, ularni boshqarish bo'yicha mas'uliyat esa korxona bilan ommaviy bulutni yetkazib beruvchi o'rtasida taqsimlanadi.","b":"korxonaning ichki bulut infratuzilishi va xizmatidir.","c":"bunday infratuzilmadagi bulutli hisoblash xizmatlaridan keng omma foydalanishi mumkin, yetkazib beruvchilar tomonidan taqdim etiladi va korporativ tarmoqdan tashqarida joylashtiriladi.","d":"texnik vositalar bilan yaratilgan insonga sezgi organlari orqali: ko'rish, eshitish, teginish va boshqalar ta'sir ko'rsatadigan dunyo."},"correct":"d"},{"question":"Virtual reallik tizimi deganda nima tushuniladi?","answers":{"a":"tarixiy noyob tasvirlarni qayta ishlangan ko'rinishi","b":"fikrlash","c":"imitatsion dasturiy va texnik vositalar","d":"moslashuvchanlik"},"correct":"c"},{"question":"Virtual sinf bilan nima qila olasiz?","answers":{"a":"Siz multimedia taqdimotlarini yaratishingiz mumkin","b":"Uzoq muddatli o'quv loyihalarini qo'llab-quvvatlash mumkin","c":"Jadvallar yordamida tuzilgan asosan raqamli ma'lumotlarni qayta ishlash","d":"Katta hajmdagi ma'lumotlarni tartibda saqlang va qayta ishlang"},"correct":"b"},{"question":"Virtualbox sayti","answers":{"a":"https:\/\/www.virtualbox.org\/","b":"https:\/\/www.virtualbox.net\/","c":"https:\/\/www.virtualbox.com\/","d":"https:\/\/www.virtualbox.edu\/"},"correct":"a"},{"question":"Virtualbox \u2026\u2026\u2026\u2026..hostlarida ishlaydi","answers":{"a":"Windows, Linux, Mac","b":"Windows","c":"Linux, Mac","d":"Mac"},"correct":"a"},{"question":"Virtualizatsiya  - bu","answers":{"a":"server, ish stoli, saqlash moslamasi, operatsion tizim yoki tarmoq manbalari kabi biror obyektlarning virtual (asli emas) versiyasini yaratish.","b":"mantiqiy ravishda asosiy uskunadan ajratilgan muhitni ta\u2019minlaydi.","c":"virtual reallik tizimlarini k\u043e\u2018llash","d":"biror obyektlarning virtual (asli emas) modelini yaratish."},"correct":"a"},{"question":"Virtualizatsiya xususiyati bulutning qanday xususiyatiga ega?","answers":{"a":"Texnologik","b":"Iqtisodiy","c":"Asosiy","d":"ma\u2019lumotli"},"correct":"a"},{"question":"visual.lv muharriri imkoniyatlari to'g'ri krsatilgan qatorni belgilang.","answers":{"a":"Mind Maps va boshqalar kabi turli xil infografikalarni yaratishga imkon beruvchi foydalanuvchilarga qulay onlayn rasm chizish vositasidir.","b":"Tayyor elementlar kutubxonasiga ega bo'lgan infografik muharrir.","c":"Twitter yoki Facebook ma'lumotlari kabi ijtimoiy ko'rsatkichlarga asoslangan infografik muharrir ...","d":"Ushbu xizmat matnni (mashhur atamalar, yangiliklar, shiorlar, hattoki sevgi izhorlarini) hayratlanarli tarzda yaratilgan so'z bulutlariga o'zgartiradi."},"correct":"c"},{"question":"Vizualizatsiya","answers":{"a":"Ma\u2019lumotlarni chizma, diagramma va interfaol usullardan va animatsiyalardan foydalangan holda taqdim etish usuli","b":"Mehnat munosabatlariga kirmasdan  ishni bajarayotgan shaxslarning keng, noma\u2019lum doiralari  b\u043e\u2018yicha olingan ma\u2019lumotlarni tasniflash va boyitish","c":"Ma\u2019lumotlarda qaror qabul qilish uchun zarur b\u043e\u2018lgan oldindan noma\u2019lum, arzimas, amaliy foydali bilimlarni aniqlash usullar t\u043e\u2018plami","d":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul"},"correct":"a"},{"question":"Waas","answers":{"a":"Xizmat sifatida ish joyi","b":"Ma\u2019lumot xizmat sifatida","c":"Xizmat sifatida jarayonlarni boshqarish","d":"Ma\u2019lumot xizmat sifatida"},"correct":"a"},{"question":"WEB 2 texnologiyalari asosida xizmat k\u043e\u2018rsatib kelayotgan sayt nomini k\u043e\u2018rsating.","answers":{"a":"Vikipediya, Wiki-wiki","b":"WordPress","c":"Ucoz","d":"vAcadimia"},"correct":"a"},{"question":"WWW nima ?","answers":{"a":"Global gipermatnli muxit","b":"Global izlovchi dastur","c":"Global kompyuterli ma\u2019lumotlar bazasi","d":"Global pochta dasturi"},"correct":"a"},{"question":"WYSIWYG texnologiyasi bu ...","answers":{"a":"Nimani k\u043e\u2018rsam shuni olaman.","b":"Nimani olsam shuni k\u043e\u2018raman","c":"Dasturlash texnologiyasi","d":"Veb texnologiyasi"},"correct":"a"},{"question":"x86 va AMD64 \/ Intel64 virtualizatsiyasi","answers":{"a":"Virtualbox","b":"Windows","c":"Mac","d":"Linux"},"correct":"a"},{"question":"xar xil turdagi tarmoqlarni birlashish uchun multimedia va boshqarish axborotlarni \u043e\u2018zgartirish uchun m\u043e\u2018ljallangan qurilmasi","answers":{"a":"Multimediali shlyuz","b":"Multimediali darslik","c":"Multimediali tarmoq","d":"Multimediali kompyuter"},"correct":"a"},{"question":"Xarajatlarni pasaytirish xususiyati bulutning qanday xususiyatiga ega?","answers":{"a":"iqtisodiy","b":"texnologik","c":"Asosiy","d":"ma\u2019lumotli"},"correct":"a"},{"question":"Xatolarga bardoshlilik bulutning qanday xususiyatiga ega?","answers":{"a":"Asosiy","b":"Iqtisodiy","c":"Texnologik","d":"Ma\u2019lumotli"},"correct":"a"},{"question":"Xavfsizlik xususiyati qanday xarakterga ega?","answers":{"a":"texnologik","b":"iqtisodiy","c":"Asosiy","d":"ma\u2019lumotli"},"correct":"a"},{"question":"Xizmat sifatida ish joyi","answers":{"a":"Vaas","b":"Saas","c":"Daas","d":"Eaas"},"correct":"a"},{"question":"Xizmat sifatida jarayonlarni boshqarish","answers":{"a":"PaaS","b":"SaaS","c":"DaaS","d":"Iaas"},"correct":"a"},{"question":"Xizmat sifatida saqlash","answers":{"a":"SaaS","b":"Daas","c":"Eaas","d":"PaaS"},"correct":"a"},{"question":"Xotiraning ma\u2019lumotlar joylashadigan b\u043e\u2018limi:","answers":{"a":"segment deyiladi","b":"stek deyiladi","c":"overley deyiladi","d":"sahifa deyiladi"},"correct":"a"},{"question":"Xususiy bulut (private cloud) - ...","answers":{"a":"bunday infratuzilmadagi bulutli hisoblash xizmatlaridan keng omma foydalanishi mumkin, yetkazib beruvchilar tomonidan taqdim etiladi va korporativ tarmoqdan tashqarida joylashtiriladi.","b":"korxonaning ichki bulut infratuzilishi va xizmatidir.","c":"bu infratuzilma tarqatish barcha modellarini o'z ichiga oladigan bulut korxonada yaratiladi, ularni boshqarish bo'yicha mas'uliyat esa korxona bilan ommaviy bulutni yetkazib beruvchi o'rtasida taqsimlanadi.","d":"texnik vositalar bilan yaratilgan insonga sezgi organlari orqali: ko'rish, eshitish, teginish va boshqalar ta'sir ko'rsatadigan dunyo."},"correct":"b"},{"question":"Xususiy bulut - bu \u2026","answers":{"a":"bir nechta mijozlar bilan bitta tashkilot tomonidan foydalanish uchun m\u043e\u2018ljallangan infratuzilma","b":"keng omma tomonidan bepul foydalanishga m\u043e\u2018ljallangan infratuzilma","c":"bu ikki yoki undan k\u043e\u2018p turli xil bulutli infratuzilmalarning kombinatsiyasi","d":"Umumiy vazifalari b\u043e\u2018lgan tashkilotlar iste\u2019molchilarining ma\u2019lum bir hamjamiyati foydalanishi uchun m\u043e\u2018ljallangan infratuzilma turi"},"correct":"a"},{"question":"Yandex bulutli hisoblash platformasi","answers":{"a":"YandexDisk","b":"MicrosoftSkyDrive","c":"Googleapp","d":"Dropbox"},"correct":"a"},{"question":"YouTube + YouTube + Veb-saytlarga joylashtirish vebinar xizmati ...","answers":{"a":"... konferensiyani parolli yoki parolsiz havolani taqdim etish orqali amalga oshiriladi.","b":"... oldindan sozlamalar talab qilinmaydi, bir martalik translyatsiyalar yoki onlayn maktab yaratishning dastlabki bosqichida foydalanish mumkin.","c":"... taqdimotni namoyish qilish imkonini beradi, shuningdek, moslashuvchan sozlamalar tezlik bilan ekran ko'rinishlarini almashish imkonini beradi.","d":"...shartli-bepul dastur varianti bo'lib, ba'zi veb-saytlarning ba'zi uskunalari bepul yoki sinov muddatlari bor, masalan, 14 kun bepul."},"correct":"d"},{"question":"YouTube + YouTube + YouTube vebinar xizmati ...","answers":{"a":"... konferensiyani parolli yoki parolsiz havolani taqdim etish orqali amalga oshiriladi.","b":"...shartli-bepul dastur varianti bo'lib, ba'zi veb-saytlarning ba'zi uskunalari bepul yoki sinov muddatlari bor, masalan, 14 kun bepul.","c":"... taqdimotni namoyish qilish imkonini beradi, shuningdek, moslashuvchan sozlamalar tezlik bilan ekran ko'rinishlarini almashish imkonini beradi.","d":"... oldindan sozlamalar talab qilinmaydi, bir martalik translyatsiyalar yoki onlayn maktab yaratishning dastlabki bosqichida foydalanish mumkin."},"correct":"d"},{"question":"Yuqori unumdorlikka ega b\u043e\u2018lgan fayl tizimi \u2013","answers":{"a":"HPFS tizimi","b":"FAT tizimi","c":"NTFS tizimi","d":"VFAT tizimi"},"correct":"a"},{"question":"Zoom + Zoom + Zoom vebinar xizmati ...","answers":{"a":"... oldindan sozlamalar talab qilinmaydi, bir martalik translyatsiyalar yoki onlayn maktab yaratishning dastlabki bosqichida foydalanish mumkin.","b":"... konferensiyani parolli yoki parolsiz havolani taqdim etish orqali amalga oshiriladi.","c":"... taqdimotni namoyish qilish imkonini beradi, shuningdek, moslashuvchan sozlamalar tezlik bilan ekran ko'rinishlarini almashish imkonini beradi.","d":"...shartli-bepul dastur varianti bo'lib, ba'zi veb-saytlarning ba'zi uskunalari bepul yoki sinov muddatlari bor, masalan, 14 kun bepul."},"correct":"b"},{"question":"\u2026. nanotexnologiyalarning ilmiy va texnologik usullaridan foydalanishga asoslanadi","answers":{"a":"nanoelektronika","b":"nanotexnologiya","c":"elektronika","d":"mikroelektronika"},"correct":"a"}];
+    // Savollarni aralashtirish funksiyasi
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Javob variantlarini aralashtirish
+    function shuffleAnswers(quiz) {
+        quiz.forEach(item => {
+            const answersArray = Object.entries(item.answers);
+            shuffle(answersArray);
+            item.answers = Object.fromEntries(answersArray);
+            item.correct = answersArray.find(([key, value]) => value === item.answers[item.correct])[0]; // To'g'ri javobni yangilash
+        });
+    }
+    // Savollarni aralashtiramiz
+    // shuffle(quizData);
+
+    shuffleAnswers(quizData);
+
+
+    const quizContainer = document.getElementById('quiz');
+    const submitButton = document.getElementById('submit');
+    const resultsContainer = document.getElementById('results');
+    const finalResultsContainer = document.getElementById('finalResults');
+    const timerDisplay = document.getElementById('timer');
+
+    let totalQuestions = quizData.length;
+    const timePerQuestion = 48; // 48 soniya
+    let timeLeft = totalQuestions * timePerQuestion;
+
+    function startTimer() {
+        const timerInterval = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `Vaqt: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Vaqt tugadi!");
+                submitButton.click(); // Natijalarni ko'rsatish
+            }
+            timeLeft--;
+        }, 1000);
+    }
+
+    function loadQuiz() {
+        quizContainer.innerHTML = quizData.map((item, index) => `
+                <div class="question">
+                    <p>${index + 1}. ${item.question}</p>
+                    ${Object.keys(item.answers).map(letter => `
+                        <label class="answer" id="answer${index}${letter}">
+                            <input type="radio" name="question${index}" value="${letter}" onchange="showResult(${index}, '${letter}')">
+                            ${item.answers[letter]}
+                        </label>
+                    `).join('')}
+                    <div class="result" id="result${index}"></div>
+                </div>
+            `).join('');
+        resultsContainer.innerHTML = '';
+        resultsContainer.style.display = 'none';
+        finalResultsContainer.style.display = 'none';
+    }
+
+    function showResult(index, selectedLetter) {
+        const item = quizData[index];
+        const resultElement = document.getElementById(`result${index}`);
+        const answerElements = document.querySelectorAll(`label[id^='answer${index}']`);
+
+        answerElements.forEach(el => {
+            el.style.backgroundColor = ''; // Fon rangini tozalash
+        });
+
+        if (selectedLetter) {
+            if (selectedLetter === item.correct) {
+                document.getElementById(`answer${index}${selectedLetter}`).style.backgroundColor = 'lightgreen'; // To'g'ri javob
+                resultElement.innerHTML = `<span class="correct">To'g'ri! To'g'ri javob: ${item.answers[item.correct]}</span>`;
+            } else {
+                document.getElementById(`answer${index}${selectedLetter}`).style.backgroundColor = 'lightcoral'; // Noto'g'ri javob
+                resultElement.innerHTML = `<span class="incorrect">Noto'g'ri! To'g'ri javob: ${item.answers[item.correct]} (Siz: ${item.answers[selectedLetter]})</span>`;
+            }
+        }
+    }
+
+    function getResults() {
+        let score = 0;
+        resultsContainer.innerHTML = '';
+        quizData.forEach((item, index) => {
+            const answer = document.querySelector(`input[name="question${index}"]:checked`);
+            if (answer && answer.value === item.correct) {
+                score++;
+            }
+        });
+
+        resultsContainer.innerHTML += `<h2>Sizning natijangiz: ${score} / ${totalQuestions}</h2>`;
+        resultsContainer.style.display = 'block';
+
+        finalResultsContainer.innerHTML = quizData.map((item, index) => {
+            const answer = document.querySelector(`input[name="question${index}"]:checked`);
+            const correctAnswer = item.answers[item.correct];
+            if (answer) {
+                if (answer.value === item.correct) {
+                    return `<div class="result">Savol ${index + 1}: To'g'ri! To'g'ri javob: ${correctAnswer}</div>`;
+                } else {
+                    return `<div class="result">Savol ${index + 1}: Noto'g'ri! To'g'ri javob: ${correctAnswer} (Siz: ${item.answers[answer.value]})</div>`;
+                }
+            } else {
+                return `<div class="result">Savol ${index + 1}: Hech qanday javob berilmadi. To'g'ri javob: ${correctAnswer}</div>`;
+            }
+        }).join('');
+
+        // Foiz hisoblash
+        const percentage = (score / totalQuestions) * 100;
+        finalResultsContainer.innerHTML += `<h2>Umumiy natija: ${percentage.toFixed(2)}%</h2>`;
+        finalResultsContainer.style.display = 'block';
+    }
+
+    submitButton.addEventListener('click', getResults);
+
+    // Boshlanish
+    loadQuiz();
+    startTimer();
+</script>
+</body>
+</html>
+    </div>
+</main>
+
+<footer id="footer" class="mt-auto py-3 bg-light">
+    <div class="container">
+        <div class="row text-muted">
+            <div class="col-md-6 text-center text-md-start">&copy; My Company 2024</div>
+            <div class="col-md-6 text-center text-md-end">Powered by <a href="https://www.yiiframework.com/" rel="external">Yii Framework</a></div>
+        </div>
+    </div>
+</footer>
+
+<div id="yii-debug-toolbar" data-url="/web/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag=67072fee3f0b5" data-skip-urls="[]" style="display:none" class="yii-debug-toolbar-bottom"></div><style>#yii-debug-toolbar-logo{position:fixed;right:31px;bottom:4px}@media print{.yii-debug-toolbar{display:none !important}}.yii-debug-toolbar{font:11px Verdana, Arial, sans-serif;text-align:left;width:96px;transition:width .3s ease;z-index:1000000}.yii-debug-toolbar.yii-debug-toolbar_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__bar{overflow:visible;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.yii-debug-toolbar.yii-debug-toolbar_iframe_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__resize-handle{display:block;height:4px;cursor:ns-resize;margin-bottom:0;z-index:1000001;position:absolute;left:0;right:0}.yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar,.yii-debug-toolbar.yii-debug-toolbar_animating .yii-debug-toolbar__bar{height:40px}.yii-debug-toolbar_active{width:100%}.yii-debug-toolbar_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(0);transform:rotate(0)}.yii-debug-toolbar_position_top{margin:0 0 20px 0;width:100%}.yii-debug-toolbar_position_bottom{position:fixed;right:0;bottom:0;margin:0}.yii-debug-toolbar__bar{position:relative;padding:0;font:11px Verdana, Arial, sans-serif;text-align:left;overflow:hidden;box-sizing:content-box;display:flex;flex-wrap:wrap;background:#fff;background:-moz-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:-webkit-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f7f7f7', GradientType=0);border:1px solid rgba(0,0,0,0.11);direction:ltr}.yii-debug-toolbar__bar::after{content:'';display:table;clear:both}.yii-debug-toolbar__view{height:0;overflow:hidden;background:white}.yii-debug-toolbar__view iframe{margin:0;padding:10px 0 0;height:100%;width:100%;border:0}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__view{height:100%}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__external{display:block}.yii-debug-toolbar_iframe_animating .yii-debug-toolbar__view{transition:height .3s ease}.yii-debug-toolbar__block{margin:0;border-right:1px solid rgba(0,0,0,0.11);border-bottom:1px solid rgba(0,0,0,0.11);padding:4px 8px;line-height:32px;white-space:nowrap}@media (max-width: 767.98px){.yii-debug-toolbar__block{flex-grow:1;text-align:center}}.yii-debug-toolbar__block a{display:inline-block;text-decoration:none;color:black}.yii-debug-toolbar__block img{vertical-align:middle;width:30px;height:30px}.yii-debug-toolbar__block_active,.yii-debug-toolbar__ajax:hover{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__label{display:inline-block;padding:2px 4px;font-size:12px;font-weight:normal;line-height:14px;white-space:nowrap;vertical-align:middle;max-width:100px;overflow-x:hidden;text-overflow:ellipsis;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.25);background-color:#737373;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}.yii-debug-toolbar__label:empty{display:none}a.yii-debug-toolbar__label:hover,a.yii-debug-toolbar__label:focus{color:#ffffff;text-decoration:none;cursor:pointer}.yii-debug-toolbar__label_important,.yii-debug-toolbar__label_error{background-color:#b94a48}.yii-debug-toolbar__label_important[href]{background-color:#953b39}.yii-debug-toolbar__label_warning,.yii-debug-toolbar__badge_warning{background-color:#f89406}.yii-debug-toolbar__label_warning[href]{background-color:#c67605}.yii-debug-toolbar__label_success{background-color:#217822}.yii-debug-toolbar__label_success[href]{background-color:#356635}.yii-debug-toolbar__label_info{background-color:#0b72b8}.yii-debug-toolbar__label_info[href]{background-color:#2d6987}.yii-debug-toolbar__label_inverse,.yii-debug-toolbar__badge_inverse{background-color:#333333}.yii-debug-toolbar__label_inverse[href],.yii-debug-toolbar__badge_inverse[href]{background-color:#1a1a1a}.yii-debug-toolbar__title{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__block_last{width:80px;height:40px;float:left}.yii-debug-toolbar__toggle,.yii-debug-toolbar__external{cursor:pointer;position:absolute;width:30px;height:30px;font-size:25px;font-weight:100;line-height:28px;color:#ffffff;text-align:center;opacity:0.5;filter:alpha(opacity=50);transition:opacity .3s ease}.yii-debug-toolbar__toggle:hover,.yii-debug-toolbar__toggle:focus,.yii-debug-toolbar__external:hover,.yii-debug-toolbar__external:focus{color:#ffffff;text-decoration:none;opacity:0.9;filter:alpha(opacity=90)}.yii-debug-toolbar__toggle-icon,.yii-debug-toolbar__external-icon{display:inline-block;background-position:50% 50%;background-repeat:no-repeat}.yii-debug-toolbar__toggle{right:10px;bottom:4px}.yii-debug-toolbar__toggle-icon{padding:7px 0;width:10px;height:16px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMTUuNTYzIDQwLjgzNmEuOTk3Ljk5NyAwIDAgMCAxLjQxNCAwbDE1LTE1YTEgMSAwIDAgMCAwLTEuNDE0bC0xNS0xNWExIDEgMCAwIDAtMS40MTQgMS40MTRMMjkuODU2IDI1LjEzIDE1LjU2MyAzOS40MmExIDEgMCAwIDAgMCAxLjQxNHoiLz48L3N2Zz4=");transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;-webkit-transform:rotate(180deg);transform:rotate(180deg)}.yii-debug-toolbar__external{display:none;right:50px;bottom:4px}.yii-debug-toolbar__external-icon{padding:8px 0;width:14px;height:14px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMzkuNjQyIDkuNzIyYTEuMDEgMS4wMSAwIDAgMC0uMzgyLS4wNzdIMjguMTAzYTEgMSAwIDAgMCAwIDJoOC43NDNMMjEuNyAyNi43OWExIDEgMCAwIDAgMS40MTQgMS40MTVMMzguMjYgMTMuMDZ2OC43NDNhMSAxIDAgMCAwIDIgMFYxMC42NDZhMS4wMDUgMS4wMDUgMCAwIDAtLjYxOC0uOTI0eiIvPjxwYXRoIGQ9Ik0zOS4yNiAyNy45ODVhMSAxIDAgMCAwLTEgMXYxMC42NmgtMjh2LTI4aDEwLjY4M2ExIDEgMCAwIDAgMC0ySDkuMjZhMSAxIDAgMCAwLTEgMXYzMGExIDEgMCAwIDAgMSAxaDMwYTEgMSAwIDAgMCAxLTF2LTExLjY2YTEgMSAwIDAgMC0xLTF6Ii8+PC9zdmc+")}.yii-debug-toolbar__switch-icon{margin-left:10px;padding:5px 10px;width:18px;height:18px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDUwIDUwIiB2ZXJzaW9uPSIxLjEiPjxwYXRoIGQ9Im00MS4xIDIzYy0wLjYgMC0xIDAuNC0xIDF2MTAuN2wtMjUuNi0wLjFjMCAwIDAtMiAwLTIuOCAwLTAuOC0wLjctMS0xLTAuNmwtMy41IDMuNWMtMC42IDAuNi0wLjYgMS4zIDAgMmwzLjQgMy40YzAuNCAwLjQgMS4xIDAuMiAxLTAuNmwwLTIuOWMwIDAgMjAuOCAwLjEgMjYuNiAwIDAuNiAwIDEtMC40IDEtMXYtMTEuN2MwLTAuNi0wLjQtMS0xLTF6TTkgMjYuOSA5IDI2LjkgOSAyNi45IDkgMjYuOSIvPjxwYXRoIGQ9Im05IDI2LjljMC42IDAgMS0wLjQgMS0xdi0xMC43bDI1LjYgMC4xYzAgMCAwIDIgMCAyLjggMCAwLjggMC43IDEgMSAwLjZsMy41LTMuNWMwLjYtMC42IDAuNi0xLjMgMC0ybC0zLjQtMy40Yy0wLjQtMC40LTEuMS0wLjItMSAwLjZsMCAyLjljMCAwLTIwLjgtMC4xLTI2LjYgMC0wLjYgMC0xIDAuNC0xIDF2MTEuN2MwIDAuNiAwLjQgMSAxIDF6Ii8+PC9zdmc+")}.yii-debug-toolbar__ajax{position:relative}.yii-debug-toolbar__ajax:hover .yii-debug-toolbar__ajax_info,.yii-debug-toolbar__ajax:focus .yii-debug-toolbar__ajax_info{visibility:visible}.yii-debug-toolbar__ajax a{color:#337ab7}.yii-debug-toolbar__ajax table{width:100%;table-layout:auto;border-spacing:0;border-collapse:collapse}.yii-debug-toolbar__ajax table td{padding:4px;font-size:12px;line-height:normal;vertical-align:top;border-top:1px solid #ddd}.yii-debug-toolbar__ajax table th{padding:4px;font-size:11px;line-height:normal;vertical-align:bottom;border-bottom:2px solid #ddd}.yii-debug-toolbar__ajax_info{visibility:hidden;transition:visibility .2s linear;background-color:white;box-shadow:inset 0 -10px 10px -10px #e1e1e1;position:absolute;bottom:40px;left:-1px;padding:10px;max-width:480px;max-height:480px;word-wrap:break-word;overflow:hidden;overflow-y:auto;box-sizing:border-box;border:1px solid rgba(0,0,0,0.11);z-index:1000001}.yii-debug-toolbar__ajax_request_status{color:white;padding:2px 5px}.yii-debug-toolbar__ajax_request_url{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+</style><script>(function () {
+    'use strict';
+
+    var findToolbar = function () {
+            return document.querySelector('#yii-debug-toolbar');
+        },
+        ajax = function (url, settings) {
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            settings = settings || {};
+            xhr.open(settings.method || 'GET', url, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Accept', 'text/html');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 && settings.success) {
+                        settings.success(xhr);
+                    } else if (xhr.status !== 200 && settings.error) {
+                        settings.error(xhr);
+                    }
+                }
+            };
+            xhr.send(settings.data || '');
+        },
+        url,
+        div,
+        toolbarEl = findToolbar(),
+        toolbarAnimatingClass = 'yii-debug-toolbar_animating',
+        barSelector = '.yii-debug-toolbar__bar',
+        viewSelector = '.yii-debug-toolbar__view',
+        blockSelector = '.yii-debug-toolbar__block',
+        toggleSelector = '.yii-debug-toolbar__toggle',
+        externalSelector = '.yii-debug-toolbar__external',
+
+        CACHE_KEY = 'yii-debug-toolbar',
+        ACTIVE_STATE = 'active',
+
+        animationTime = 300,
+
+        activeClass = 'yii-debug-toolbar_active',
+        iframeActiveClass = 'yii-debug-toolbar_iframe_active',
+        iframeAnimatingClass = 'yii-debug-toolbar_iframe_animating',
+        titleClass = 'yii-debug-toolbar__title',
+        blockClass = 'yii-debug-toolbar__block',
+        ignoreClickClass = 'yii-debug-toolbar__ignore_click',
+        blockActiveClass = 'yii-debug-toolbar__block_active',
+        requestStack = [];
+
+    if (toolbarEl) {
+        url = toolbarEl.getAttribute('data-url');
+
+        ajax(url, {
+            success: function (xhr) {
+                div = document.createElement('div');
+                div.innerHTML = xhr.responseText;
+
+                toolbarEl.parentNode && toolbarEl.parentNode.replaceChild(div, toolbarEl);
+
+                showToolbar(findToolbar());
+
+                var event;
+                if (typeof(Event) === 'function') {
+                    event = new Event('yii.debug.toolbar_attached', {'bubbles': true});
+                } else {
+                    event = document.createEvent('Event');
+                    event.initEvent('yii.debug.toolbar_attached', true, true);
+                }
+
+                div.dispatchEvent(event);
+            },
+            error: function (xhr) {
+                toolbarEl.innerText = xhr.responseText;
+            }
+        });
+    }
+
+    function showToolbar(toolbarEl) {
+        var barEl = toolbarEl.querySelector(barSelector),
+            viewEl = toolbarEl.querySelector(viewSelector),
+            toggleEl = toolbarEl.querySelector(toggleSelector),
+            externalEl = toolbarEl.querySelector(externalSelector),
+            blockEls = barEl.querySelectorAll(blockSelector),
+            blockLinksEls = document.querySelectorAll(blockSelector + ':not(.' + titleClass + ') a'),
+            iframeEl = viewEl.querySelector('iframe'),
+            iframeHeight = function () {
+                return (window.innerHeight * (toolbarEl.dataset.height / 100) - barEl.clientHeight) + 'px';
+            },
+            isIframeActive = function () {
+                return toolbarEl.classList.contains(iframeActiveClass);
+            },
+            resizeIframe = function(mouse) {
+                var availableHeight = window.innerHeight - barEl.clientHeight;
+                viewEl.style.height = Math.min(availableHeight, availableHeight - mouse.y) + "px";
+            },
+            showIframe = function (href) {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.add(iframeActiveClass);
+
+                iframeEl.src = externalEl.href = href;
+                iframeEl.removeAttribute('tabindex');
+
+                viewEl.style.height = iframeHeight();
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            hideIframe = function () {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.remove(iframeActiveClass);
+                iframeEl.setAttribute("tabindex", "-1");
+                removeActiveBlocksCls();
+
+                externalEl.href = '#';
+                viewEl.style.height = '';
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            removeActiveBlocksCls = function () {
+                [].forEach.call(blockEls, function (el) {
+                    el.classList.remove(blockActiveClass);
+                });
+            },
+            toggleToolbarClass = function (className) {
+                toolbarEl.classList.add(toolbarAnimatingClass);
+                if (toolbarEl.classList.contains(className)) {
+                    toolbarEl.classList.remove(className);
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.setAttribute('tabindex', "-1");
+                    });
+                } else {
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.removeAttribute('tabindex');
+                    });
+                    toolbarEl.classList.add(className);
+                }
+                setTimeout(function () {
+                    toolbarEl.classList.remove(toolbarAnimatingClass);
+                }, animationTime);
+            },
+            toggleStorageState = function (key, value) {
+                if (window.localStorage) {
+                    var item = localStorage.getItem(key);
+
+                    if (item) {
+                        localStorage.removeItem(key);
+                    } else {
+                        localStorage.setItem(key, value);
+                    }
+                }
+            },
+            restoreStorageState = function (key) {
+                if (window.localStorage) {
+                    return localStorage.getItem(key);
+                }
+            },
+            togglePosition = function () {
+                if (isIframeActive()) {
+                    hideIframe();
+                } else {
+                    toggleToolbarClass(activeClass);
+                    toggleStorageState(CACHE_KEY, ACTIVE_STATE);
+                }
+            };
+
+        if (restoreStorageState(CACHE_KEY) === ACTIVE_STATE) {
+            var transition = toolbarEl.style.transition;
+            toolbarEl.style.transition = 'none';
+            toolbarEl.classList.add(activeClass);
+            setTimeout(function () {
+                toolbarEl.style.transition = transition;
+            }, animationTime);
+        } else {
+            [].forEach.call(blockLinksEls, function (el) {
+                el.setAttribute('tabindex', "-1");
+            });
+        }
+
+        toolbarEl.style.display = 'block';
+
+        window.onresize = function () {
+            if (toolbarEl.classList.contains(iframeActiveClass)) {
+                viewEl.style.height = iframeHeight();
+            }
+        };
+
+        toolbarEl.addEventListener("mousedown", function(e) {
+            if (isIframeActive() && (e.y - toolbarEl.offsetTop < 4 /* 4px click zone */)) {
+                document.addEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        document.addEventListener("mouseup", function(){
+            if (isIframeActive()) {
+                document.removeEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        barEl.onclick = function (e) {
+            var target = e.target,
+                block = findAncestor(target, blockClass);
+
+            if (block
+                && !block.classList.contains(titleClass)
+                && !block.classList.contains(ignoreClickClass)
+                && e.which !== 2 && !e.ctrlKey // not mouse wheel and not ctrl+click
+            ) {
+                while (target !== this) {
+                    if (target.href) {
+                        removeActiveBlocksCls();
+                        block.classList.add(blockActiveClass);
+                        showIframe(target.href);
+                    }
+                    target = target.parentNode;
+                }
+
+                e.preventDefault();
+            }
+        };
+
+        toggleEl.onclick = togglePosition;
+    }
+
+    function findAncestor(el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls)) ;
+        return el;
+    }
+
+    function renderAjaxRequests() {
+        var requestCounter = document.getElementsByClassName('yii-debug-toolbar__ajax_counter');
+        if (!requestCounter.length) {
+            return;
+        }
+        var ajaxToolbarPanel = document.querySelector('.yii-debug-toolbar__ajax');
+        var tbodies = document.getElementsByClassName('yii-debug-toolbar__ajax_requests');
+        var state = 'ok';
+        if (tbodies.length) {
+            var tbody = tbodies[0];
+            var rows = document.createDocumentFragment();
+            if (requestStack.length) {
+                var firstItem = requestStack.length > 20 ? requestStack.length - 20 : 0;
+                for (var i = firstItem; i < requestStack.length; i++) {
+                    var request = requestStack[i];
+                    var row = document.createElement('tr');
+                    rows.appendChild(row);
+
+                    var methodCell = document.createElement('td');
+                    methodCell.innerHTML = request.method;
+                    row.appendChild(methodCell);
+
+                    var statusCodeCell = document.createElement('td');
+                    var statusCode = document.createElement('span');
+                    if (request.statusCode < 300) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success');
+                    } else if (request.statusCode < 400) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_warning');
+                    } else {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_error');
+                    }
+                    statusCode.textContent = request.statusCode || '-';
+                    statusCodeCell.appendChild(statusCode);
+                    row.appendChild(statusCodeCell);
+
+                    var pathCell = document.createElement('td');
+                    pathCell.className = 'yii-debug-toolbar__ajax_request_url';
+                    pathCell.innerHTML = request.url;
+                    pathCell.setAttribute('title', request.url);
+                    row.appendChild(pathCell);
+
+                    var durationCell = document.createElement('td');
+                    durationCell.className = 'yii-debug-toolbar__ajax_request_duration';
+                    if (request.duration) {
+                        durationCell.innerText = request.duration + " ms";
+                    } else {
+                        durationCell.innerText = '-';
+                    }
+                    row.appendChild(durationCell);
+                    row.appendChild(document.createTextNode(' '));
+
+                    var profilerCell = document.createElement('td');
+                    if (request.profilerUrl) {
+                        var profilerLink = document.createElement('a');
+                        profilerLink.setAttribute('href', request.profilerUrl);
+                        profilerLink.innerText = request.profile;
+                        profilerCell.appendChild(profilerLink);
+                    } else {
+                        profilerCell.innerText = 'n/a';
+                    }
+                    row.appendChild(profilerCell);
+
+                    if (request.error) {
+                        if (state !== "loading" && i > requestStack.length - 4) {
+                            state = 'error';
+                        }
+                    } else if (request.loading) {
+                        state = 'loading'
+                    }
+                    row.className = 'yii-debug-toolbar__ajax_request';
+                }
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+                tbody.appendChild(rows);
+            }
+            ajaxToolbarPanel.style.display = 'block';
+        }
+        requestCounter[0].innerText = requestStack.length;
+        var className = 'yii-debug-toolbar__label yii-debug-toolbar__ajax_counter';
+        if (state === 'ok') {
+            className += ' yii-debug-toolbar__label_success';
+        } else if (state === 'error') {
+            className += ' yii-debug-toolbar__label_error';
+        }
+        requestCounter[0].className = className;
+    }
+
+    /**
+     * Should AJAX request to be logged in debug panel
+     *
+     * @param requestUrl
+     * @returns {boolean}
+     */
+    function shouldTrackRequest(requestUrl) {
+        if (!toolbarEl) {
+            return false;
+        }
+        var a = document.createElement('a');
+        a.href = requestUrl;
+        var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'));
+        if (Array.isArray(skipAjaxRequestUrls) && skipAjaxRequestUrls.length && skipAjaxRequestUrls.includes(requestUrl)) {
+            return false;
+        }
+        return a.host === location.host;
+    }
+
+    var proxied = XMLHttpRequest.prototype.open;
+
+    XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
+        var self = this;
+
+        if (shouldTrackRequest(url)) {
+            var stackElement = {
+                loading: true,
+                error: false,
+                url: url,
+                method: method,
+                start: new Date()
+            };
+            requestStack.push(stackElement);
+            this.addEventListener('readystatechange', function () {
+                if (self.readyState === 4) {
+                    stackElement.duration = self.getResponseHeader('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = self.status;
+                    stackElement.error = self.status < 200 || self.status >= 400;
+                    stackElement.profile = self.getResponseHeader('X-Debug-Tag');
+                    stackElement.profilerUrl = self.getResponseHeader('X-Debug-Link');
+                    renderAjaxRequests();
+                }
+            }, false);
+            renderAjaxRequests();
+        }
+        proxied.apply(this, Array.prototype.slice.call(arguments));
+    };
+
+    // catch fetch AJAX requests
+    if (window.fetch) {
+        var originalFetch = window.fetch;
+
+        window.fetch = function (input, init) {
+            var method;
+            var url;
+            if (typeof input === 'string') {
+                method = (init && init.method) || 'GET';
+                url = input;
+            } else if (window.URL && input instanceof URL) { // fix https://github.com/yiisoft/yii2-debug/issues/296
+                method = (init && init.method) || 'GET';
+                url = input.href;
+            } else if (window.Request && input instanceof Request) {
+                method = input.method;
+                url = input.url;
+            }
+            var promise = originalFetch(input, init);
+
+            if (shouldTrackRequest(url)) {
+                var stackElement = {
+                    loading: true,
+                    error: false,
+                    url: url,
+                    method: method,
+                    start: new Date()
+                };
+                requestStack.push(stackElement);
+                promise.then(function (response) {
+                    stackElement.duration = response.headers.get('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = response.status;
+                    stackElement.error = response.status < 200 || response.status >= 400;
+                    stackElement.profile = response.headers.get('X-Debug-Tag');
+                    stackElement.profilerUrl = response.headers.get('X-Debug-Link');
+                    renderAjaxRequests();
+
+                    return response;
+                }).catch(function (error) {
+                    stackElement.loading = false;
+                    stackElement.error = true;
+                    renderAjaxRequests();
+
+                    throw error;
+                });
+                renderAjaxRequests();
+            }
+
+            return promise;
+        };
+    }
+
+})();
+</script><script src="/web/assets/11166fe9/jquery.js"></script>
+<script src="/web/assets/547ad073/yii.js"></script>
+<script src="/web/js/script.js"></script>
+<script src="/web/assets/9912f47d/dist/js/bootstrap.bundle.js"></script></body>
+</html>

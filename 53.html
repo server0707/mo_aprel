@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-100">
+<head>
+    <title></title>
+    <meta name="csrf-param" content="_csrf">
+<meta name="csrf-token" content="Biq4fNdUHx1ZpGhysAVx0sAFgINbH_xVczyPSK85UtZhRMkrvjIrTjPdDwD7TBmcsUfhwRpNlx03X8Ai63M1uQ==">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link type="image/x-icon" href="/web/favicon.ico" rel="icon">
+<link href="/web/assets/9912f47d/dist/css/bootstrap.css" rel="stylesheet">
+<link href="/web/css/site.css" rel="stylesheet"></head>
+<body class="d-flex flex-column h-100">
+
+<header id="header">
+    <nav id="w0" class="navbar-expand-md navbar-dark bg-dark navbar">
+<div class="container">
+<a class="navbar-brand" href="/web/index.php">Test rejimida ishlamoqda</a>
+<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#w0-collapse" aria-controls="w0-collapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div id="w0-collapse" class="collapse navbar-collapse">
+<ul id="w1" class="navbar-nav nav"><li class="nav-item"><a class="nav-link" href="/web/index.php?r=fan%2Findex">Fanlar</a></li>
+<li class="nav-item"><a class="nav-link" href="/web/index.php?r=quiz%2Findex">Testlar</a></li>
+<li class="nav-item"><form action="/web/index.php?r=site%2Flogout" method="post">
+<input type="hidden" name="_csrf" value="Biq4fNdUHx1ZpGhysAVx0sAFgINbH_xVczyPSK85UtZhRMkrvjIrTjPdDwD7TBmcsUfhwRpNlx03X8Ai63M1uQ=="><button type="submit" class="nav-link btn btn-link logout">Logout (azizbek_mahkamov)</button></form></li></ul></div>
+</div>
+</nav></header>
+
+<main id="main" class="flex-shrink-0" role="main">
+    <div class="container">
+                        <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanidan test savollari</title>
+    <style>
+        input[type="checkbox"] { display: none; }
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        #header{
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+        .answer {
+
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            border-bottom-color: #0a0a0a;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .number-pagination button {
+            margin: 0 2px;
+            padding: 5px 10px;
+            border: 1px solid #0a0a0a; /* Chegara qo'shildi */
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #b0e0e6;
+        }
+        .answered-correct {
+            background-color: lightgreen;
+        }
+        .answered-incorrect {
+            background-color: lightcoral;
+        }
+        .unanswered {
+            background-color: #c4c4c4;
+        }
+        #navigationButtons {
+            text-align: center;
+            margin: 10px 0;
+        }
+        #navigationButtons button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: #b0e0e6;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 style="text-align: center">Pedagogning kasbiy kompetensiyalarini rivojlantirish fanidan test savollari</h3>
+    <div class="timer" id="timer">88.8:48</div>
+    <div id="quiz"></div>
+    <div id="navigationButtons">
+        <button id="prevButton" style="display: none;">Oldingi</button>
+        <button id="nextButton">Keyingi</button>
+    </div>
+    <div class="pagination">
+        <div class="number-pagination" id="numberPagination"></div>
+    </div>
+    <button id="submit">Natijalarni yuborish</button>
+    <div id="results" style="display: none;"></div>
+    <div id="finalResults" style="display: none;"></div>
+</div>
+
+<script>
+    
+    const quizData=[{"question":" &hellip;&hellip;&hellip;ham ilm-fanga, o\u02bbzgarishlarga va ta\u02bclimga qadryatli munosabatni namoyon qilishga asoslanadi. Tushirib qoldirilgan iborani toping","answers":{"a":"Aksiologik yondashuv.","b":"Kreativ yondashuv","c":"Refleksiv yondashuv","d":"Akmeologik yondashuv."},"correct":"a"},{"question":"- bu tinglovchilar bilan hamkorlik va do'stona munosabatlar jarayonida namoyon buladigan &quot;ta'lim va tarbiya berish san'ati, pedagogik maxorat, pedagogik texnika va erkin ijod&quot;dir","answers":{"a":"Pedagog texnikasi","b":"Pedagog mahorati","c":"Pedagog kompetensiyasi","d":"O'qituvchi professionalizmi"},"correct":"d"},{"question":"-har bir ta'lim oluvchi va jamoaga ta'sir o'tkazishda samarali qo'llash uchun zarur bo'lgan malaka va ko'nikmalar, usullar majmuasi","answers":{"a":"Pedagogik qobiliyat","b":"Pedagogik takt","c":"Pedagogik texnika","d":"Pedagogik ijodkorlik"},"correct":"c"},{"question":"-o'qituvchining kasbiy yo'nalishdagi ijodkorligini oliy namunasi","answers":{"a":"Pedagogik qobiliyat","b":"Pedagogik mahorat","c":"Pedagogik ijod","d":"Pedagogik texnika"},"correct":"b"},{"question":"......... -pedagogik faoliyatining tashkiliy shakli bo\u02bblib, qo\u02bbl bilan tutib bo\u02bblmaydigan, behad uzoq ijodiy izlanishlar va azob uqubatli kechinmalar, tinimsiz pedagogik faoliyat, o\u02bbqituvchining fahm-farosati, bilimi va mahorati bilan amalga oshiriladigan qizg\u02bbin ijodiy mehnatining mahsulidir","answers":{"a":"Pedagogik kreativlik","b":"Pedagogik texnika","c":"Pedagogik takt","d":"Pedagogik ijodkorlik"},"correct":"b"},{"question":"1) OTM, fakultet saytiga material qo'shish; 2) shaxsiy veb-saytlarni yaratish; 3) semestr yakunlari bo'yicha hisobot tayyorlash kabi shakllarda namoyon bo'ladigan portfolio - bu ...","answers":{"a":"Baholovchi portfolio","b":"On-line portfolio","c":"Taqrizlar portfoliosi","d":"Natijalar portfoliosi"},"correct":"b"},{"question":"2017 yilgi G20 sammiti tadbirlari doirasida ishlab chiqilgan raqamli savodxonlikning elementlari ketma-ketligi to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"ommaviy axborot vositalari bilan ishlash, texnologik innovatsiyalar, raqamli kontent bilan ishlash, kompyuter texnikasi bilan ishlash, kommunikatsiya.","b":"kommunikatsiya,raqamli kontent bilan ishlash, kompyuter texnikasi bilan ishlash, ommaviy axborot vositalari bilan ishlash, texnologik innovatsiyalar.","c":"kompyuter texnikasi bilan ishlash, ommaviy axborot vositalari bilan ishlash, raqamli kontent bilan ishlash, texnologik innovatsiyalar, kommunikatsiya.","d":"raqamli kontent bilan ishlash, kompyuter texnikasi bilan ishlash, ommaviy axborot vositalari bilan ishlash, kommunikatsiya, texnologik innovatsiyalar."},"correct":"d"},{"question":"Akmeologik yondashuv nima ma\u02bcnoni anglatadi?","answers":{"a":"(lotincha - ortga qaytish) faqat sub\u02bcektning o\u02bbz-o\u02bbzini bilishi va tushunishi emas, balki boshqalar uning shaxsiy xislatlari, his qilish tuyg\u02bbusi va bilish (kognitiv) tasavvurlarini bilish hamda tushunishini aniqlab olishini ham anglatadi","b":"Yunoncha &ndash; mahorat, san\u02bcat degan ma\u02bcnoni anglatadi","c":"(grekcha so\u02bbzidan olingan bo\u02bblib, &laquo;oliy nuqta&raquo;, &laquo;yuqori cho\u02bbqqi&raquo; degan ma\u02bcnolarni anglatadi.","d":"(lot. , ing. So\u02bbz bo\u02bblib &ndash; yaratuvchi, ijodkor degan ma\u02bcnoni anglatadi."},"correct":"c"},{"question":"Akmeologiya (akme) tushunchasi qanday ma\u02bcnoni anglatadi?","answers":{"a":"yunoncha o&lsquo;z qadriyatlariga sodiq, yosh avlodga maslahat bera oladigan eng yaxshi davr degan ma&rsquo;nolarni bildiradi","b":"inglizchadan kelib chiqqan bo&lsquo;lib, uning ma&rsquo;nosi yangilanish, yangilik kiritish, o&lsquo;zgartirish degan ma&rsquo;nolarni bildiradi","c":"yunoncha oliy nuqta, o&lsquo;tkir, gullagan, yetuk, eng yaxshi davr degan ma&rsquo;nolarni bildiradi","d":"yunoncha o&lsquo;z qadrqimmatini saqlash, muntazam o&lsquo;z-o&lsquo;zini nazorat qilib borish yosh avlodga maslahat bera oladigan eng yaxshi davr degan ma&rsquo;nolarni bildiradi"},"correct":"c"},{"question":"Akmeologiyani &laquo;Yetuk odamlarning rivojlanishi&raquo; haqidagi fan sifatida e\u02bctirof etgan olim?","answers":{"a":"A.Nikolskaya","b":"P.Lapi","c":"Sh.Byuler","d":"N.Ribnikov"},"correct":"d"},{"question":"Aniq maqsad va ijtimoiy g'oyaga asoslanib, talabalarda ma'naviy-axloqiy sifatlarni shakllantirishga yo'naltirilgan pedagogik faoliyatning tashkiliy-texnik jihatdan uyushtirilishi","answers":{"a":"O'quv-bilish faoliyatini texnologiyalashtirish","b":"Ta'lim jarayonini texnologiyalashtirish","c":"Tarbiya jarayonini texnologiyalashtirish","d":"Ta'limiy munosabatlar jarayonini texnologiyalashtirish"},"correct":"c"},{"question":"Aniq reja, maqsad asosida uning natijalanishini kafolatlagan holda pedagogik faoliyat mazmunini ishlab chiqish mahsuli","answers":{"a":"Ssenariy","b":"Reja","c":"Dastur","d":"Loyiha"},"correct":"d"},{"question":"Avtobiografik xarakterga ega hujjatlar to'plami, individual papka","answers":{"a":"Assesment","b":"Test","c":"Sillabus","d":"Portfolio"},"correct":"d"},{"question":"Bilimlarni muammoli bayon qilish, talabalarni izlanishga undash, kichik ilmiy tadqiqotlarni olib borish. Ular ...","answers":{"a":"Mustaqil ta'lim turlari","b":"Hamkorlik ta'limi turlari","c":"Muammoli ta'lim turlari","d":"Interfaol ta'lim turlari"},"correct":"c"},{"question":"Biror bir ish yoki faoliyatni yuksak darajada, hech bir qiyinchiliksiz, o\u02bbta mohirlik bilan bajarish qanday nomlanadi?","answers":{"a":"ko\u02bbnikma","b":"bilim","c":"malaka","d":"mahorat"},"correct":"d"},{"question":"Bolonya jarayonning rasman boshlanish muddati","answers":{"a":"1999 yil 29 iyun","b":"1989 yil 19 iyun","c":"1979 yil 19 iyun","d":"1999 yil 19 iyun"},"correct":"d"},{"question":"Boshlang'ich ma'lumotlarga asoslanib, kutiladigan natijani taxmin qilish, bashoratlash, rejalashtirish orqali faoliyat yoki jarayon mazmunini ishlab chiqish","answers":{"a":"Yaratish","b":"Modellashtirish","c":"Loyihalash","d":"Rejalashtirish"},"correct":"c"},{"question":"Butunning turli bosqich yoki darajalarga ajratilishi","answers":{"a":"Individuallashtirish","b":"Tabaqalashtirish","c":"Guruhlashtirish","d":"Toifalash"},"correct":"b"},{"question":"Dastlab harbiy sohada qo'llanib, mahoratli ingliz va nemis askar va ofitserlarni tanlash maqsadida qo'llanilgan texnologiya","answers":{"a":"Portfolio","b":"Sillabus","c":"Assesment","d":"Test"},"correct":"c"},{"question":"DigCompEdu pedagoglarning raqamli kompetensiyasi modelining 1-yo'nalishi ta'rifi to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"ta'lim jarayoni bilan bevosita bog'liq bo'lgan kompetensiyalarni shakllantirishni, ya'ni ta'lim oluvchilarning mustaqil ishlash qobiliyatini rivojlantirishni ta'minlashga, shuningdek, guruh shaklida ishlashda samarali o'zaro ta'sirini amalga oshirishga qaratilgan kompetensiyalarini qamrab oladi.","b":"pedagogning axborot resurslarini tanlash va ularni ta'lim oluvchilar ehtiyojlariga moslashtirish, o'z raqamli resurslarini yaratishi va o'quv jarayonining barcha subyektlari uchun ulardan xavfsiz foydalanishni ta'minlash qobiliyatini o'z ichiga oladi.","c":"ta'lim jarayonining barcha subyektlarining raqamli texnologiyalar orqali o'zaro ta'sirini o'z ichiga olgan kompetetsiyalar bilan bog'liq: jamoa, ta'lim oluvchilar va ularning ota-onalari bilan kasbiy o'zaro hamkorlik. Ushbu yo'nalish shuningdek, pedagogning axborot texnologiyalari va raqamli vositalar va resurslardan foydalanish sohasida uzluksiz rivojlanishga yo'naltirilgan o'z kasbiy faoliyatini tahlil qilish qobiliyatini shakllantirishni o'z ichiga oladi.","d":"baholash jarayonida raqamli vositalardan foydalanish bilan bog'liq kompetensiyalarni belgilaydi. Ta'lim oluvchilar faoliyati haqidagi ma'lumotlarni tahlil qilish va tanqidiy baholash, shuningdek, axborot texnologiyalaridan foydalanish asosida o'z vaqtida va samarali hisobot berish qobiliyatiga ega bo'lishi kerak."},"correct":"c"},{"question":"DigCompEdu pedagoglarning raqamli kompetensiyasi modelining 2-yo'nalishi ta'rifi to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"pedagogning shaxsga yo'naltirilgan o'quv jarayoni tamoyilini amalga oshirish qobiliyatini shakllantirish, ta'lim oluvchilarni ta'lim jarayoniga maksimal darajada jalb qilish uchun raqamli ta'lim muhitida tabaqalashtirilgan yondashuvni ta'minlash va o'qitish uchun yangi imkoniyatlar yaratish bilan bog'liq.","b":"ta'lim jarayoni bilan bevosita bog'liq bo'lgan kompetensiyalarni shakllantirishni, ya'ni ta'lim oluvchilarning mustaqil ishlash qobiliyatini rivojlantirishni ta'minlashga, shuningdek, guruh shaklida ishlashda samarali o'zaro ta'sirini amalga oshirishga qaratilgan kompetensiyalarini qamrab oladi.","c":"pedagogning axborot resurslarini tanlash va ularni ta'lim oluvchilar ehtiyojlariga moslashtirish, o'z raqamli resurslarini yaratishi va o'quv jarayonining barcha subyektlari uchun ulardan xavfsiz foydalanishni ta'minlash qobiliyatini o'z ichiga oladi.","d":"pedagogning raqamli savodxonligi, uning raqamli muhitda ta'lim jarayonida zarur bo'lgan axborot va resurslarni tanlash va tahlil qilish qobiliyati, shuningdek, raqamli texnologiyalardan foydalanish bilan bog'liq masalalar va muammolarni hal qilish bilan bog'liq kompetensiyalarni o'z ichiga oladi."},"correct":"c"},{"question":"DigCompEdu pedagoglarning raqamli kompetensiyasi modelining 3-yo'nalishi ta'rifi to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"baholash jarayonida raqamli vositalardan foydalanish bilan bog'liq kompetensiyalarni belgilaydi. Ta'lim oluvchilar faoliyati haqidagi ma'lumotlarni tahlil qilish va tanqidiy baholash, shuningdek, axborot texnologiyalaridan foydalanish asosida o'z vaqtida va samarali hisobot berish qobiliyatiga ega bo'lishi kerak.","b":"ta'lim jarayoni bilan bevosita bog'liq bo'lgan kompetensiyalarni shakllantirishni, ya'ni ta'lim oluvchilarning mustaqil ishlash qobiliyatini rivojlantirishni ta'minlashga, shuningdek, guruh shaklida ishlashda samarali o'zaro ta'sirini amalga oshirishga qaratilgan kompetensiyalarini qamrab oladi.","c":"pedagogning shaxsga yo'naltirilgan o'quv jarayoni tamoyilini amalga oshirish qobiliyatini shakllantirish, ta'lim oluvchilarni ta'lim jarayoniga maksimal darajada jalb qilish uchun raqamli ta'lim muhitida tabaqalashtirilgan yondashuvni ta'minlash va o'qitish uchun yangi imkoniyatlar yaratish bilan bog'liq.","d":"pedagogning raqamli savodxonligi, uning raqamli muhitda ta'lim jarayonida zarur bo'lgan axborot va resurslarni tanlash va tahlil qilish qobiliyati, shuningdek, raqamli texnologiyalardan foydalanish bilan bog'liq masalalar va muammolarni hal qilish bilan bog'liq kompetensiyalarni o'z ichiga oladi."},"correct":"b"},{"question":"DigCompEdu pedagoglarning raqamli kompetensiyasi modelining 4-yo'nalishi ta'rifi to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"pedagogning shaxsga yo'naltirilgan o'quv jarayoni tamoyilini amalga oshirish qobiliyatini shakllantirish, ta'lim oluvchilarni ta'lim jarayoniga maksimal darajada jalb qilish uchun raqamli ta'lim muhitida tabaqalashtirilgan yondashuvni ta'minlash va o'qitish uchun yangi imkoniyatlar yaratish bilan bog'liq.","b":"ta'lim jarayoni bilan bevosita bog'liq bo'lgan kompetensiyalarni shakllantirishni, ya'ni ta'lim oluvchilarning mustaqil ishlash qobiliyatini rivojlantirishni ta'minlashga, shuningdek, guruh shaklida ishlashda samarali o'zaro ta'sirini amalga oshirishga qaratilgan kompetensiyalarini qamrab oladi.","c":"baholash jarayonida raqamli vositalardan foydalanish bilan bog'liq kompetensiyalarni belgilaydi. Ta'lim oluvchilar faoliyati haqidagi ma'lumotlarni tahlil qilish va tanqidiy baholash, shuningdek, axborot texnologiyalaridan foydalanish asosida o'z vaqtida va samarali hisobot berish qobiliyatiga ega bo'lishi kerak.","d":"pedagogning raqamli savodxonligi, uning raqamli muhitda ta'lim jarayonida zarur bo'lgan axborot va resurslarni tanlash va tahlil qilish qobiliyati, shuningdek, raqamli texnologiyalardan foydalanish bilan bog'liq masalalar va muammolarni hal qilish bilan bog'liq kompetensiyalarni o'z ichiga oladi."},"correct":"c"},{"question":"DigCompEdu pedagoglarning raqamli kompetensiyasi modelining 5-yo'nalishi ta'rifi to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"baholash jarayonida raqamli vositalardan foydalanish bilan bog'liq kompetensiyalarni belgilaydi. Ta'lim oluvchilar faoliyati haqidagi ma'lumotlarni tahlil qilish va tanqidiy baholash, shuningdek, axborot texnologiyalaridan foydalanish asosida o'z vaqtida va samarali hisobot berish qobiliyatiga ega bo'lishi kerak.","b":"pedagogning shaxsga yo'naltirilgan o'quv jarayoni tamoyilini amalga oshirish qobiliyatini shakllantirish, ta'lim oluvchilarni ta'lim jarayoniga maksimal darajada jalb qilish uchun raqamli ta'lim muhitida tabaqalashtirilgan yondashuvni ta'minlash va o'qitish uchun yangi imkoniyatlar yaratish bilan bog'liq.","c":"ta'lim jarayoni bilan bevosita bog'liq bo'lgan kompetensiyalarni shakllantirishni, ya'ni ta'lim oluvchilarning mustaqil ishlash qobiliyatini rivojlantirishni ta'minlashga, shuningdek, guruh shaklida ishlashda samarali o'zaro ta'sirini amalga oshirishga qaratilgan kompetensiyalarini qamrab oladi.","d":"pedagogning raqamli savodxonligi, uning raqamli muhitda ta'lim jarayonida zarur bo'lgan axborot va resurslarni tanlash va tahlil qilish qobiliyati, shuningdek, raqamli texnologiyalardan foydalanish bilan bog'liq masalalar va muammolarni hal qilish bilan bog'liq kompetensiyalarni o'z ichiga oladi."},"correct":"b"},{"question":"DigCompEdu pedagoglarning raqamli kompetensiyasi modelining 6-yo'nalishi ta'rifi to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"ta'lim jarayoni bilan bevosita bog'liq bo'lgan kompetensiyalarni shakllantirishni, ya'ni ta'lim oluvchilarning mustaqil ishlash qobiliyatini rivojlantirishni ta'minlashga, shuningdek, guruh shaklida ishlashda samarali o'zaro ta'sirini amalga oshirishga qaratilgan kompetensiyalarini qamrab oladi.","b":"pedagogning shaxsga yo'naltirilgan o'quv jarayoni tamoyilini amalga oshirish qobiliyatini shakllantirish, ta'lim oluvchilarni ta'lim jarayoniga maksimal darajada jalb qilish uchun raqamli ta'lim muhitida tabaqalashtirilgan yondashuvni ta'minlash va o'qitish uchun yangi imkoniyatlar yaratish bilan bog'liq.","c":"baholash jarayonida raqamli vositalardan foydalanish bilan bog'liq kompetensiyalarni belgilaydi. Ta'lim oluvchilar faoliyati haqidagi ma'lumotlarni tahlil qilish va tanqidiy baholash, shuningdek, axborot texnologiyalaridan foydalanish asosida o'z vaqtida va samarali hisobot berish qobiliyatiga ega bo'lishi kerak.","d":"pedagogning raqamli savodxonligi, uning raqamli muhitda ta'lim jarayonida zarur bo'lgan axborot va resurslarni tanlash va tahlil qilish qobiliyati, shuningdek, raqamli texnologiyalardan foydalanish bilan bog'liq masalalar va muammolarni hal qilish bilan bog'liq kompetensiyalarni o'z ichiga oladi."},"correct":"d"},{"question":"E.P.Torrens (1987) testi asoslanadigan mezonlar","answers":{"a":"Tezkor fikrlash va o'ziga xos (orginal)lik","b":"Faollik, tezkor fikrlash, o'ziga xoslik va takomillashganlik","c":"Faollik va tezkor fikrlash","d":"Tezkor fikrlash, o'ziga xoslik va takomillashganlik"},"correct":"b"},{"question":"Emebaylning yonashuviga ko'ra, kreativlik","answers":{"a":"Innovatsion xarakterdagi harakatlarni tashkil etish","b":"Iqtidorlilikni yuqori darajada namoyon etish","c":"Yuqori darajada bilimlarga egalik","d":"Yuqori darajada noodatiy ko'nikmalarga ega bo'lish"},"correct":"d"},{"question":"Faoliyat qisqa muddatli, yaxlit tizim xususiyatiga ega bo'lmay, faqatgina tizimdagi ayrim elementlarni o'zgartirishga xizmat qiladi","answers":{"a":"Evrika","b":"Innovatsiya","c":"Novatsiya","d":"Intuitsiya"},"correct":"c"},{"question":"Faoliyat yo'nalishiga ko'ra ta'lim innovatsiyalarining turlari","answers":{"a":"Jamoa tomonidan bevosita yaratilgan yoki o'zlashtirilgan innovatsiyalar","b":"Radikal, modifikatsiyalangan, kombinatsiyalangan innovatsiyalar","c":"Tarmoq (lokal), modul va tizim innovatsiyalari","d":"Pedagogik jarayonda yoki ta'lim tizimini boshqarishda qo'llaniladigan innovatsiyalar"},"correct":"d"},{"question":"G.U.Soldatovaning fikricha axborot va mediakompetentlik - ...","answers":{"a":"turli xil muloqot shakllari va turli maqsadlar uchun zarur bo'lgan bilim, ko'nikma, motivatsiya va mas'uliyat;","b":"raqamli ma'lumotlarni qidirish, tushunish, arxivlash va uni tanqidiy aks ettirish bilan bog'liq bilim, ko'nikma, malaka, motivatsiya, mas'uliyat, shuningdek raqamli resurslardan foydalangan holda axborot obyektlarini yaratish.","c":"turli muammolarni, jumladan, kompyuter tarmoqlaridan, bulutli xizmatlardan foydalanish va hokazolarni hal qilish uchun apparat va dasturiy ta'minotdan samarali va xavfsiz foydalanish imkonini beruvchi bilim, ko'nikma, motivatsiya va mas'uliyat;","d":"turli ehtiyojlarni qondirishni o'z ichiga olgan muayyan hayotiy vaziyatlar bilan bog'liq turli kundalik vazifalarni hal qilish uchun raqamli qurilmalar va Internetdan foydalanishga imkon beradigan bilim, ko'nikma, motivatsiya va mas'uliyat."},"correct":"b"},{"question":"Hal qilinishi zarur, biroq, hali yechish usuli noma'lum bo'lgan pedagogik xarakterdagi masala","answers":{"a":"Ijtimoiy muammo","b":"Pedagogik muammo","c":"Ilmiy muammo","d":"Iqtisodiy muammo"},"correct":"b"},{"question":"Ikki qarama-qarshi, o'zaro musobaqalashayotgan komanda (guruh) ishtirokchilarning oldindan tayyorlangan chiqishlariga asoslangan rasmiy muhokamasi nima deb ataladi?","answers":{"a":"Poliolog","b":"Dialog","c":"Monolog","d":"Debatlar"},"correct":"d"},{"question":"Innovatsion faoliyatning tarkibiy elementlarining muallifi","answers":{"a":"M.Klarin","b":"U.Nishonaliyev","c":"V.Slastenin","d":"V.P.Bespalko"},"correct":"c"},{"question":"J.Dyui g'oyalari asos qilib belgilangan ta'lim turi","answers":{"a":"Hamkorlik ta'limi","b":"Modul ta'limi","c":"Individual ta'lim","d":"Muammoli ta'lim"},"correct":"d"},{"question":"Jamiyat ijtimoiy, iqtisodiy, madaniy ehtiyojlarini, uning malakali kadrlarga, shaxsning esa sifatli ta'lim olish bo'lgan talabini qondirish, ta'lim tizimini barqaror rivojlanishini ta'minlash maqsadida mavjud mexanizmning qayta ishlab chiqilishi, takomillashtirilishi","answers":{"a":"Ta'lim tizimining ekspluatatsiyasi","b":"Ta'lim tizimining novatsiyasi","c":"Ta'lim tizimining modernizatsiyasi","d":"Ta'lim tizimining innovatsiyasi"},"correct":"c"},{"question":"Kelib chiqish manbaiga ko'ra ta'lim innovatsiyalarining turlari","answers":{"a":"Radikal, modifikatsiyalangan, kombinatsiyalangan innovatsiyalar","b":"Jamoa tomonidan bevosita yaratilgan yoki o'zlashtirilgan innovatsiyalar","c":"Tarmoq (lokal), modul va tizim innovatsiyalari","d":"Pedagogik jarayonda yoki ta'lim tizimini boshqarishda qo'llaniluvchiinnovatsiyalar"},"correct":"b"},{"question":"Ken Robinsonning fikriga ko'ra, kreativlik ...","answers":{"a":"O'ziga xos tashabbuslar majmui","b":"O'z qiymatiga ega original g'oyalar majmui","c":"O'ziga xos yangicha yondashuvlar majmui","d":"O'ziga xos qarashlar yig'inisi"},"correct":"b"},{"question":"Kiritilgan o'zgarishlarning tavsifiga ko'ra ta'lim innovatsiyalarining turlari","answers":{"a":"Pedagogik jarayon yoki ta'lim tizimini boshqarishda qo'llaniluvchi innovatsiyalar","b":"Jamoa tomonidan bevosita yaratilgan yoki o'zlashtirilgan innovatsiyalar","c":"Tarmoq (lokal), modul va tizim innovatsiyalari","d":"Radikal, modifikatsiyalangan, kombinatsiyalangan innovatsiyalar"},"correct":"d"},{"question":"Kreativ sifatlarni rivojlantirishning 1-yo'li","answers":{"a":"Kreativ ishlanmalardan foydalanish","b":"Amaliy kreativ harakat ko'nikmalarini rivojlantirish","c":"Kreativ faoliyat jarayonlarni tashkil etish","d":"Kreativ fikrlash ko'nikmasini shakllantirish"},"correct":"d"},{"question":"Kreativ sifatlarni rivojlantirishning 2-yo'li","answers":{"a":"Kreativ fikrlash ko'nikmasini shakllantirish","b":"Amaliy kreativ harakat ko'nikmalarini rivojlantirish","c":"Kreativ faoliyat jarayonlarni tashkil etish","d":"Kreativ ishlanmalardan foydalanish"},"correct":"b"},{"question":"Kreativ sifatlarni rivojlantirishning 3-yo'li","answers":{"a":"Kreativ ishlanmalardan foydalanish","b":"Kreativ fikrlash ko'nikmasini shakllantirish","c":"Amaliy kreativ harakat ko'nikmalarini rivojlantirish","d":"Kreativ faoliyat jarayonlarni tashkil etish"},"correct":"d"},{"question":"Kreativ sifatlarni rivojlantirishning 4-yo'li","answers":{"a":"Kreativ faoliyat jarayonlarni tashkil etish","b":"Kreativ mahsulot (ishlanma)lardan foydalanish","c":"Kreativ fikrlash ko'nikmasini shakllantirish","d":"Amaliy kreativ harakat ko'nikmalarini rivojlantirish"},"correct":"b"},{"question":"Kreativ yondashuv &ndash; kreativlik bu-?","answers":{"a":"Bu kattalarning (psixologik, natijalarga va mahorat cho\u02bbqqisiga erishish) rivojlanish qonunlarini o\u02bbrganadigan fan","b":"Qadriyatshunoslik, ma\u02bcnaviy hodisalardan biri bo\u02bblgan qadriyatlar sohasini o\u02bbrganadigan, uning qonun va kategoriyalarini tadqiq qiladigan ilm yo\u02bbnalishi, qadriyatlar haqidagi fan","c":"Individning yangi g\u02bboyalarni ishlab chiqarishga tayyorlikni tavsiflovchi va mustaqil omil sifatida iqtidorlilikning tarkibiga kiruvchi ijodiy qobiliyati","d":"Yangi ijtimoiy talablarning an\u02bcanaviy me\u02bcyorlarga mos kelmasligi yoki yangi shakllanayotgan g\u02bboyalarning mavjud g\u02bboyalarni inkor etishi natijasi"},"correct":"c"},{"question":"kreativlik - o'z qiymatiga ega original g'oyalar majmui. Ushbu ta'rif qaysi pedagog olimga tegishli","answers":{"a":"F.Zeyer","b":"Ken Robinson","c":"Gardner","d":"Patti Drapeau"},"correct":"b"},{"question":"Kreativlik tushunchasining lug'aviy ma'nosi","answers":{"a":"O'zgartirish kiritish","b":"Yangilik kiritish","c":"Yaratish","d":"Shaxs ijodkorligi"},"correct":"c"},{"question":"Kreativlik va &quot;ijodkorlik&quot; tushunchalari","answers":{"a":"Bir-biriga sinonim","b":"Bir-biriga antonim","c":"Bir-biriga omonim","d":"Turli holatlarni ifodalaydi"},"correct":"d"},{"question":"Kreativlikning lo\u02bbg\u02bbaviy ma\u02bcnosi to\u02bbg\u02bbri ko\u02bbrsatilgan javobni toping","answers":{"a":"(nemischa &laquo;create &raquo; &ndash; qobiliyat, &laquo;creative&raquo; &ndash; ijodkor)","b":"(yunoncha &laquo;create &raquo; &ndash; ixtiro, &laquo;creative&raquo; &ndash; yaratuvchi)","c":"(fransuzcha &laquo;create &raquo; &ndash; iste\u02bcdod, &laquo;creative&raquo; &ndash; yaratuvchi)","d":"(lot., ing. &laquo;create &raquo; &ndash; yaratish, &laquo;creative&raquo; &ndash;yaratuvchi, ijodkor)"},"correct":"d"},{"question":"Lug'aviy jihatdan &quot;innovatsiya&quot; tushunchasi","answers":{"a":"Taklif kiritish","b":"O'zgartirish kiritish","c":"Qo'shimcha kiritish","d":"Yangilik kiritish"},"correct":"d"},{"question":"Lug'aviy jihatdan &quot;interfaol&quot; tushunchasining ma'nosi","answers":{"a":"O'zaro fikr almashmoq","b":"O'zaro harakat qilmoq","c":"O'zaro yordam bermoq","d":"O'zaro kelishib olmoq"},"correct":"b"},{"question":"Muammoga oid ma'lumotlarni to'plash, tahlil qilish, umumlashtirish, muammoni hal etish usul, vositalarini tavsiflovchi loyihalar","answers":{"a":"Amaliy loyihalar","b":"Axborotli loyihalar","c":"Tadqiqot loyihalari","d":"Ijodiy loyihalar"},"correct":"b"},{"question":"Muammoli ta'limning ilk g'oyalarini asoslagan muallif","answers":{"a":"I.Unt","b":"L.Rubinshteyn","c":"J.Dyui","d":"M.I.Maxmutov"},"correct":"c"},{"question":"Muammoli vaziyatni yaratish; vaziyatni tahlil asosida muammoni qo'yish; farazlarni ilgari surish; yechimni tekshirish. Ular muammoli vaziyatni hal qilish","answers":{"a":"Metodlari","b":"Texnologiyalari","c":"Bosqichlari","d":"Tamoyillari"},"correct":"c"},{"question":"Muammoni hal etish usul, vositalarini ishlab chiquvchi loyihalar","answers":{"a":"Tadqiqot loyihalari","b":"Axborotli loyihalar","c":"Amaliy loyihalar","d":"Ijodiy loyihalar"},"correct":"c"},{"question":"Muammoni hal qilish bosqichlari","answers":{"a":"Tahlil qilish, umumlashtirish, asoslash","b":"Isbotlash; tekshirish; asoslash","c":"Sintezlash, xulosalash, asoslash","d":"Kuzatish, tekshirish, xulosalash"},"correct":"b"},{"question":"Muammoni qo'yish qaysi bosqichlarda amalga oshiriladi?","answers":{"a":"Muammoni izlash; muammoni hal qilish; muammoni qo'yish","b":"Muammoni qo'yish; muammoni izlash; muammoni hal qilish","c":"Muammoni izlash; muammoni qo'yish; muammoni hal qilish","d":"Muammoni hal qilish; muammoni qo'yish; muammoni izlash"},"correct":"c"},{"question":"Muayyan amaliy harakatlarning tashkil etilishini imitatsiyalash imkoniyatini beradigan o'yinlar","answers":{"a":"amaliy o'yinlar","b":"kompyuter o'yinlari","c":"stol o'yinlari","d":"ko'cha o'yinlari"},"correct":"a"},{"question":"Muayyan hodisani o'zida qandaydir yakunlangan jarayonni qamrab olgan ma'lum vaqt birliklariga ajratilishi","answers":{"a":"Toifalash","b":"Guruhlashtirish","c":"Individuallashtirish","d":"Davrlashtirish"},"correct":"d"},{"question":"Muayyan tizimning ichki tuzilishini o'zgartirishga qaratilgan faoliyat","answers":{"a":"Novatsiya","b":"Gravitatsiya","c":"Innovatsiya","d":"Gradatsiya"},"correct":"c"},{"question":"Muayyan tizimning rivojlanishiga yoki uni tubdan o'zgartirishga xizmat qiladigan faoliyat natijasi","answers":{"a":"Novatsiya","b":"Innovatsiya","c":"Evrika","d":"Intuitsiya"},"correct":"b"},{"question":"Mustaqil ta'lim-bu","answers":{"a":"o'quv materialini mustaqil o'zlashtirish, murakkablik darajasi turlicha bo'lgan topshiriqlar, amaliy vazifalarni auditoriyada o'qituvchi rahbarligida bajariladigan faoliyatdir","b":"o'quv materialini mustaqil o'zlashtirish, murakkablik darajasi turlicha bo'lgan topshiriqlar, amaliy vazifalarni auditoriyada bajarish jarayoni","c":"o'quv materialini mustaqil o'zlashtirish, murakkablik darajasi turlicha bo'lgan topshiriqlar, amaliy vazifalarni auditoriyadan tashqarida bajarish jarayoni","d":"o'quv materialini mustaqil o'zlashtirish, murakkablik darajasi turlicha bo'lgan topshiriqlar, amaliy vazifalarni auditoriyada hamda auditoriyadan tashqarida ijodiy va mustaqil bajarish asosida nazariy bilim, amaliy ko'nikma va malakalarni shakllantirishga qaratilgan tizimli faoliyatdir"},"correct":"d"},{"question":"Natijasi harakat dasturi, biznes-reja, keys, strategiya, ma'lumotnoma, tavsiya bo'lgan loyihalar","answers":{"a":"Ijodiy loyihalar","b":"Axborotli loyihalar","c":"Tadqiqot loyihalari","d":"Amaliy loyihalar"},"correct":"d"},{"question":"Natijasi hisobot, ma'ruza, keys bo'lgan loyihalar","answers":{"a":"Amaliy loyihalar","b":"Tadqiqot loyihalari","c":"Axborotli loyihalar","d":"Ijodiy loyihalar"},"correct":"b"},{"question":"Natijasi maqola, referat, ma'ruza, keys bo'lgan loyihalar","answers":{"a":"Ijodiy loyihalar","b":"Tadqiqot loyihalari","c":"Amaliy loyihalar","d":"Axborotli loyihalar"},"correct":"d"},{"question":"O'qituvchi tomonidan talabani muammoli vaziyat, muammoli masalani hal etishga yo'naltirish orqali unda bilish faolligini oshiruvchi ma'ruza","answers":{"a":"Ma'ruza-seminar","b":"Binar ma'ruza","c":"Ma'ruza-bayon","d":"Muammoli ma'ruza"},"correct":"d"},{"question":"O'quv maqsadiga erishish yoki muammo, muammoli vaziyatni hal qilish uchun talabalar tomonidan izchil amalga oshiriladigan harakatlar majmuasi","answers":{"a":"O'quv amaliy faoliyat","b":"O'quv loyihaviy faoliyat","c":"O'quv-pedagogik faoliyat","d":"O'quv ijodiy faoliyat"},"correct":"b"},{"question":"O'zbekiston - 2030 strategiyasi qaysi davlatlar tajribalari (usullari, shakli) asosida ishlab chiqilgan?","answers":{"a":"Strategiya Germaniya, Fransiya, Koreya tajribalari asosida yangi usulda ishlab chiqilgan bo'lib, uning maqsadlari va samaradorlik ko'rsatkichlari aholi tomonidan oson qabul qilib, tushunish uchun qulay shaklda (informativ jadval) bayon etilgan.","b":"Yaponiya, AQSH tajribalari asosida yangi usulda ishlab chiqilgan bo'lib, uning maqsadlari va samaradorlik ko'rsatkichlari aholi tomonidan oson qabul qilib, tushunish uchun qulay shaklda (informativ jadval) bayon etilgan.","c":"Xorijiy mamlakatlar tajribasi o'rganilmagan, uning maqsadlari va samaradorlik ko'rsatkichlari aholi tomonidan oson qabul qilib, tushunish uchun qulay shaklda bayon etilgan.","d":"O'zbekiston Respublikasida oliy ta'limni rivojlantirishning strategik maqsadlari, ustuvor yo'nalishlari, vazifalari, o'rta va uzoq muddatli istiqboldagi bosqichlarini belgilaydi."},"correct":"a"},{"question":"O'zgarishlar ko'lamiga ko'ra ta'lim innovatsiyalarining turlari","answers":{"a":"Global, modul va tizim innovatsiyalari","b":"Tarmoq (lokal), modul va tizim innovatsiyalari","c":"Jamoa tomonidan bevosita yaratilgan yoki o'zlashtirilgan innovatsiyalar","d":"Texnologik jarayonda yoki ta'lim tizimini boshqarishda qo'llaniluvchi novatsiyalar"},"correct":"b"},{"question":"Ob'ektning yangi talablar, me'yorlar, texnik ko'rsatmalar, sifat ko'rsatkichlariga mos ravishda yangilanishi","answers":{"a":"Sivilizatsiya","b":"Innovatsiya","c":"Novatsiya","d":"Modernizatsiya"},"correct":"d"},{"question":"Ochiq tashkil etilib, ilg'or pedagogik tajribalarni targ'ib etishga yo'naltirilgan samarali o'qitish shakli","answers":{"a":"Mahorat darslari","b":"Ko'rgazmali darslar","c":"Ochiq darslar","d":"Interfaol darslar"},"correct":"a"},{"question":"Onlayn o'quv materiallari va o'qituvchi rahbarligida guruhda ta'lim olishga asoslangan o'qitish shakli","answers":{"a":"Guruhli o'qitish","b":"Aralash o'qitish","c":"Jamoaviy o'qitish","d":"Indiviual o'qitish"},"correct":"b"},{"question":"Patti Drapeau nuqtai nazariga ko'ra, kreativ fikrlash ...","answers":{"a":"Masala yuzasidan o'z fikrini bildirish","b":"Masala yuzasidan bir yoqlama fikrlash","c":"Masalaning mohiyatini chuqur tahlil qilish","d":"Masala yuzasidan har tomonlama fikrlash"},"correct":"d"},{"question":"Pedagog kreativ potensialining tarkibiy asoslari","answers":{"a":"Maqsadli-motivli baholash","b":"Maqsadli-motivli va mazmunli baholash","c":"faoliyatli va refleksiv baholash","d":"Maqsadli-motivli, mazmunli, faoliyatli va refleksiv baholash"},"correct":"d"},{"question":"Pedagogik jarayonni loyihalash asoslanadigan uchlik","answers":{"a":"Tashkillashtirish - amalga oshirish - baholash","b":"Loyiha - mazmun - faoliyat","c":"Muammo - izlanish - yechim","d":"Bilish - anglash - qo'llash"},"correct":"b"},{"question":"Pedagogik muloqot uslublari","answers":{"a":"Muqobil, demokratik va insonparvar","b":"Avtoritar, muqobil va demokratik","c":"Avtoritar, demokratik va liberal","d":"Demokratik, insonparvar va huquqiy"},"correct":"c"},{"question":"Pedagogik odob; pedagogik bilimdonlik; pedagogik qobiliyat; pedagogik muloqot madaniyati; kommunikativ ta'sir ko'rsatish qobiliyati va b. nimaning tarkibiy qismlari","answers":{"a":"Pedagogik mahoratning","b":"Pedagogik tajribaning","c":"Kasbiy kompetentlikning","d":"Pedagogik malakaning"},"correct":"a"},{"question":"Pedagogning ma'naviy-axloqiy qiyofasi bilan tashqi ko'rinishi o'rtasidagi o'zaro uyg'unlik, mutanosiblik","answers":{"a":"Pedagogning qobiliyatini","b":"Pedagogning obro'sini","c":"Pedagogning nazokatini","d":"Pedagogning imidjini"},"correct":"d"},{"question":"Pedagogning raqamli izi deganda nimani tushunasiz?","answers":{"a":"Pedagogning kasbiy faoliyatida raqamli texnologiyalardan foydalanish jarayonida qoldiradigan ma'lumotlar to'plami.","b":"ta'lim jarayoni bilan bevosita bog'liq bo'lgan kompetensiyalarni shakllantirishni, ya'ni ta'lim oluvchilarning mustaqil ishlash qobiliyatini rivojlantirishni ta'minlashga, shuningdek, guruh shaklida ishlashda samarali o'zaro ta'sirini amalga oshirishga qaratilgan kompetensiyalarini qamrab oladi","c":"pedagogning axborot resurslarini tanlash va ularni ta'lim oluvchilar ehtiyojlariga moslashtirish, o'z raqamli resurslarini yaratishi va o'quv jarayonining barcha subyektlari uchun ulardan xavfsiz foydalanishni ta'minlash qobiliyatini o'z ichiga oladi.","d":"raqamli ma'lumotlarni qidirish, tushunish, arxivlash va uni tanqidiy aks ettirish bilan bog'liq bilim, ko'nikma, malaka, motivatsiya, mas'uliyat, shuningdek raqamli resurslardan foydalangan holda axborot obyektlarini yaratish"},"correct":"a"},{"question":"Raqamli iz (digital footprint) - bu ...","answers":{"a":"ta'lim jarayoni bilan bevosita bog'liq bo'lgan kompetensiyalarni shakllantirishni, ya'ni ta'lim oluvchilarning mustaqil ishlash qobiliyatini rivojlantirishni ta'minlashga, shuningdek, guruh shaklida ishlashda samarali o'zaro ta'sirini amalga oshirishga qaratilgan kompetensiyalarini qamrab oladi","b":"Internetdan foydalanish jarayonida insonlar tomonidan qoldiradigan ma'lumotlardir. Ushbu atama internet tarmog'ida &quot;internet izi&quot;, &quot;kiber soya&quot;, &quot;elektron iz yoki raqamli soya&quot; kabi nomlar bilan ham ataladi","c":"pedagogning axborot resurslarini tanlash va ularni ta'lim oluvchilar ehtiyojlariga moslashtirish, o'z raqamli resurslarini yaratishi va o'quv jarayonining barcha subyektlari uchun ulardan xavfsiz foydalanishni ta'minlash qobiliyatini o'z ichiga oladi.","d":"raqamli ma'lumotlarni qidirish, tushunish, arxivlash va uni tanqidiy aks ettirish bilan bog'liq bilim, ko'nikma, malaka, motivatsiya, mas'uliyat, shuningdek raqamli resurslardan foydalangan holda axborot obyektlarini yaratish"},"correct":"b"},{"question":"Raqamli izlarni boshqarish jarayoni ketma-ketligi to'g'ri ko'rsatilgan qatorni belgilang","answers":{"a":"1. Cheklash. Taqdim etilgan ma'lumotlar miqdorini cheklang. 2. Kamaytirish. Raqamli izini kamaytirish. 3. Tashxis. Qidiruv tizimlari orqali raqamli izingizni tashis qilish 4. Tahlil. Raqamli izni doimiy ravishda kuzatib borish.","b":"1. Tahlil. Raqamli izni doimiy ravishda kuzatib borish.. 2. Kamaytirish. Raqamli izini kamaytirish. 3. Cheklash. Taqdim etilgan ma'lumotlar miqdorini cheklang. 4. Tashxis. Qidiruv tizimlari orqali raqamli izingizni tashis qilish.","c":"1. Tashxis. Qidiruv tizimlari orqali raqamli izingizni tashis qilish. 2. Kamaytirish. Raqamli izini kamaytirish. 3. Cheklash. Taqdim etilgan ma'lumotlar miqdorini cheklang. 4. Tahlil. Raqamli izni doimiy ravishda kuzatib borish.","d":"1. Kamaytirish. Raqamli izini kamaytirish. 2. Tashxis. Qidiruv tizimlari orqali raqamli izingizni tashis qilish. 3. Tahlil. Raqamli izni doimiy ravishda kuzatib borish. 4. Cheklash. Taqdim etilgan ma'lumotlar miqdorini cheklang."},"correct":"c"},{"question":"S.L.Rubinshteynning &quot;Tafakkur muammoli vaziyatdan boshlanadi&quot; degan g'oyasi asos bo'lgan ta'lim turi","answers":{"a":"Individual ta'lim","b":"Modul ta'limi","c":"Muammoli ta'lim","d":"Hamkorlik ta'limi"},"correct":"c"},{"question":"Shaxsning kreativ tafakkurga egaligini aniqlovchi test (1987 yil) muallifi","answers":{"a":"R.Dekart","b":"E.P.Torrens","c":"J.Piaje","d":"V.A.Krutetskiy"},"correct":"b"},{"question":"Shaxsning kreativligi ...da namoyon bo'ladi","answers":{"a":"Uning tafakkurida","b":"Uning tafakkuri, muloqoti, his-tuyg'ulari va muayyan faoliyat turlarida","c":"Uning muloqotida","d":"Uning his-tuyg'ulari va muayyan faoliyat turlarida"},"correct":"b"},{"question":"Ta'lim jarayonini loyihalash necha bosqichlarda kechadi?","answers":{"a":"3 ta","b":"4 ta","c":"6 ta","d":"5 ta"},"correct":"d"},{"question":"Ta'lim jarayonini samarali tashkil etish uchun barcha omillarni inobatga olgan holda uning sxemasini ishlab chiqish","answers":{"a":"Ta'lim jarayonini tashkillashtirish","b":"Ta'lim jarayonini loyihalash","c":"Ta'lim jarayonini baholash","d":"Ta'lim jarayonini rejalashtirish"},"correct":"b"},{"question":"Ta'lim shakllarini takomillashtirish vazifasini ko'zlagan o'qitish va boshqalarni o'zlashtirishning barcha jarayonlarini texnika va inson omillarida, ularning birgalikdagi harakatlari vositasida yaratish, tadbiq etish, aniqlashning izchil metodi","answers":{"a":"Pedagogik novatsiya","b":"Pedagogik metodika","c":"Pedagogik innovatsiya","d":"Pedagogik texnologiya"},"correct":"d"},{"question":"Ta'lim sohasi yoki o'quv jarayonida muammoni yangicha yondashuv asosida yechish uchun qo'llanilib, avvalgidan ancha samarali natijani kafolatlay oluvchi shakl, metod va texnologiyalar","answers":{"a":"Ta'lim vositalari","b":"Ta'lim texnologiyalari","c":"Ta'lim innovatsiyalari","d":"Ta'lim metodlari"},"correct":"c"},{"question":"Ta'lim texnologiyasi","answers":{"a":"Ta'lim (o'qitish) jarayonining to'g'ri tashkil etilishi","b":"Ta'lim (o'qitish) jarayonining samarali tashkil etilishi","c":"Ta'lim (o'qitish) jarayonining sifatli tashkil etilishi","d":"Ta'lim (o'qitish) jarayonining yuksak mahorat, san'at darajasida tashkil etilishi"},"correct":"d"},{"question":"ta'lim va tarbiyaning muayyan maqsadi va natijasiga erishish bo'yicha o'zaro bog'langan hamda mantiqiy tugallikka ega bo'lgan o'quv fanlari va ularning tarkibiy qismlaridir. Ushbu ta'rif qaysi pedagogik kategoriyaga tegishli?","answers":{"a":"Loyiha","b":"modul","c":"tizim","d":"maqsad"},"correct":"b"},{"question":"Ta'limiy mazmunga ega loyiha, o'qituvchi tomonidan tuzilishi majburiy bo'lgan hujjat","answers":{"a":"Savollar to'plami","b":"Tadqiqot hisoboti","c":"Ishlar rejasi","d":"Dars ishlanmasi"},"correct":"d"},{"question":"Tadqiqot, evristik, muammoli vaziyatlarni yaratish, muammoli bayon qilish, ijodiy hamda qisman ijodiy metodlar ...","answers":{"a":"Rivojlantiruvchi ta'lim metodlari","b":"Muammoli ta'lim metodlari","c":"Dasturiy ta'lim metodlari","d":"Modul ta'lim metodlari"},"correct":"b"},{"question":"Tadqiqotni amalga oshirish, tadqiqot asosida muammo izohini asoslash, yanada rivojlantirish uchun yangi muammolarni asoslovchi loyihalar","answers":{"a":"Axborotli loyihalar","b":"Tadqiqot loyihalari","c":"Amaliy loyihalar","d":"Ijodiy loyihalar"},"correct":"b"},{"question":"Talaba tomonidan bajarilgan ijodiy ishlar, loyihalar, tadqiqotlar, ular natijalarini aks ettiruvchi portfolio","answers":{"a":"Taqrizlar portfoliosi","b":"Baholovchi portfolio","c":"Ishlar portfoliosi","d":"Hujjatlar portfoliosi"},"correct":"c"},{"question":"Talaba tomonidan erishgan yutuqlarni baholashga doir xulosa, taqriz, rezyume, esse, tavsiyanoma va tavsifnomalar jamlanadigan portfolio","answers":{"a":"Baholovchi portfolio","b":"Taqrizlar portfoliosi","c":"Ishlar portfoliosi","d":"Hujjatlar portfoliosi"},"correct":"b"},{"question":"Talabalar portfoliosining tuzilishi","answers":{"a":"Portfolio maqsadi; vazifalari; ob'ekti; predmeti","b":"Titul; mundarija; asosiy qism; xulosa","c":"Titul; mundarija; portfolio maqsadi; portfolio bo'limlari","d":"Shaxsiy ma'lumot; malakaviy ma'lumot; pedagogik konsepsiya; yutuqlar"},"correct":"c"},{"question":"Talabalarda ijodiy izlanish, kichik tadqiqotlarni amalga oshirish, farazlarni ilgari surish, natijalarni asoslash, xulosaga kelish ko'nikma va malakalarni shakllantiruvchi ta'lim texnologiyalari","answers":{"a":"Mustaqil ta'lim texnologiyalari","b":"Hamkorlik ta'limi texnologiyalari","c":"Muammoli ta'lim texnologiyalari","d":"Interfaol ta'lim texnologiyalari"},"correct":"c"},{"question":"Talabalarni muammoli vaziyatga to'qnash kelishini ta'minlash asosida ularning bilish faoliyatini faollashtirishga asoslanuvchi metod","answers":{"a":"Muammoli vazifa metodi","b":"Muammoli ma'ruza metodi","c":"Muammoli o'yin metodi","d":"Muammoli vaziyat metodi"},"correct":"d"},{"question":"Talabalarning BKM darajasini har tomonlama, xolis baholovchi topshiriqlar to'plami","answers":{"a":"Portfolio","b":"Test","c":"Assesment","d":"Sillabus"},"correct":"c"},{"question":"Talabalarning BKM va muayyan axloqiy sifatlarni o'zlashtirish yo'lida birgalikda, o'zaro hamkorlikka asoslangan harakatni tashkil etish layoqatiga egaliklari","answers":{"a":"Ijtimoiy faollik","b":"Interfaollik","c":"O'zaro inoqlik","d":"Giperfaollik"},"correct":"b"},{"question":"Talabalarning BKM va muayyan axloqiy sifatlarni o'zlashtirish yo'lida o'zaro harakatlarni tashkil etishga asoslanuvchi ta'lim","answers":{"a":"Dasturiy ta'lim","b":"Muammoli ta'lim","c":"Rivojlantiruvchi ta'lim","d":"Interfaol ta'lim"},"correct":"d"},{"question":"Talabaning BKMni nazorat qilish uchun shakllantirilgan portfolio","answers":{"a":"On-line portfolio","b":"Baholovchi portfolio","c":"Natijalar portfoliosi","d":"Taqrizlar portfoliosi"},"correct":"b"},{"question":"Talabaning fikrlash va harakat strategiyasini inobatga olgan holda uning shaxsi, o'ziga xos xususiyatlari, qobiliyatini rivojlantirishga yo'naltirilgan ta'lim","answers":{"a":"Shaxsni tarbiyalovchi ta'lim","b":"Shaxsni rivojlantiruvchi ta'lim","c":"Shaxsga yo'naltirilgan ta'lim","d":"Shaxsni ijtimoiylashtiruvchi ta'lim"},"correct":"c"},{"question":"Talabaning indiviudal ta'limiy muvaffaqiyatlari aks ettiruvchi diplom, faxriy yorliq, guvohnoma va b. jamlanadigan portfolio","answers":{"a":"Natijalar portfoliosi","b":"Baholovchi portfolio","c":"Hujjatlar portfoliosi","d":"Ishlar portfoliosi"},"correct":"c"},{"question":"Talabaning ma'lum topshiriqlarni bajarishda yuzaga kelgan ziddiyatni anglashi bilan bog'liq ruhiy holati","answers":{"a":"Qulay vaziyat","b":"Munozarali vaziyat","c":"Muammoli vaziyat","d":"Noqulay vaziyat"},"correct":"c"},{"question":"Talabaning o'zi yoki pedagoglar tomonidan jamlangan talabalarning eng yaxshi ishlari o'rin oladigan portfolio","answers":{"a":"On-line portfolio","b":"Baholovchi portfolio","c":"Taqrizlar portfoliosi","d":"Natijalar portfoliosi"},"correct":"d"},{"question":"Tanqidiy fikrlashga to'g'ri izoh keltirilgan qatorni toping","answers":{"a":"Bu iloji boricha ko'p bilishda emas, balki qanday bilimlar eng zarur, qandaylari ozroq va yana qandaylari favqulodda zarurligini bilishdir","b":"Bu ijodiy yoki intuitiv fikrlash, dalillarni yodda saqlash, g'oyalarni tushunishdir","c":"Bu sayoz o'zlashtirilgan bilimlarni jamlashdir","d":"Bu yangi va tushunarli bo'lgan fikrlar va g'oyalarning tanlanishi, tekshirilishi, baholanishi, rivojlantirilishi va tatbig'idir"},"correct":"d"},{"question":"Tashabbuskorlik, kreativ qobiliyatga egalik, kreativ faollik, izlanuvchanlik","answers":{"a":"Pedagogning kompetentlik potensiali darajasini aniqlovchi mezonlar","b":"Pedagogning ijodkorlik potensiali darajasini aniqlovchi mezonlar","c":"Pedagogning kreativ potensiali darajasini aniqlovchi mezonlar","d":"Pedagogning kasbiy mahorati darajasini aniqlovchi mezonlar"},"correct":"c"},{"question":"Tembr -","answers":{"a":"monotonlik, temporitmning oshib ketishi","b":"tovushning yoqimliligi, jarangdorligi","c":"tovush rangdorligi, yorqinligi hamda uning yoqimliligi va alohidaligidir","d":"noto\u02bbg\u02bbri diksiya, so\u02bbzlarni noo\u02bbrin qo\u02bbllash, til qoidalarini buzish"},"correct":"c"},{"question":"Web-texnologiyalari va an'anaviy ta'limning o'zaro birligi asosida tashkil etiladigan seminar","answers":{"a":"Yuksak texnologiyalar","b":"Innovatsion texnologiyalar","c":"Vebinar texnologiyalar","d":"Oddiy texnologiyalar"},"correct":"c"},{"question":"Yangi g'oyalar, tizim, faoliyat yo'nalishini o'zgatirishga qaratilgan aniq maqsadlar, noan'anaviy yondashuvlar, odatiy bo'lmagan tashabbuslar, ilg'or ish uslublari. Ularning ko'rinishlari","answers":{"a":"Texnologiya","b":"Innovatsiya","c":"Metodika","d":"Loyihalash"},"correct":"b"},{"question":"Yangi ijtimoiy talablarning an'anaviy me'yorlarga mos kelmasligi yoki yangi g'oyalarning eski g'oyalarni inkor etishi natijasida vujudga keladigan majmuali muammolarni yechishga qaratilgan faoliyat","answers":{"a":"Ijtimoiy faoliyat","b":"Pedagogik faoliyat","c":"Ijodiy faoliyat","d":"Innovatsion faoliyat"},"correct":"d"},{"question":"&laquo;Bilish obyektlarini ularning modellarida tadqiq qilish uslubi; aniq mavjud predmetlar, voqealar va tuziladigan obyektlarning tavsifnomalarini aniqlash yoki yaxshilash, ularni yasash usullarini qulaylashtirish, boshqarish kabilar uchun yasash va o\u02bbrganish&raquo;. Bu","answers":{"a":"Rejalashtirish","b":"Loyihalashtirish","c":"Modellashtirish","d":"Konstruktorlik ishi"},"correct":"c"}];
+
+    // Savollarni aralashtirish funksiyasi
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Javob variantlarini aralashtirish
+    function shuffleAnswers(quiz) {
+        quiz.forEach(item => {
+            const answersArray = Object.entries(item.answers);
+            shuffle(answersArray);
+            item.answers = Object.fromEntries(answersArray);
+            item.correct = answersArray.find(([key, value]) => value === item.answers[item.correct])[0]; // To'g'ri javobni yangilash
+        });
+    }
+    // Savollarni aralashtiramiz
+    // shuffle(quizData);
+
+    shuffleAnswers(quizData);
+
+    const quizContainer = document.getElementById('quiz');
+    const submitButton = document.getElementById('submit');
+    const resultsContainer = document.getElementById('results');
+    const finalResultsContainer = document.getElementById('finalResults');
+    const numberPagination = document.getElementById('numberPagination');
+    const timerDisplay = document.getElementById('timer');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+
+    let totalQuestions = quizData.length;
+    const timePerQuestion = 48; // 6 soniya
+    let timeLeft = totalQuestions * timePerQuestion;
+    let currentQuestionIndex = 0;
+
+    const selectedAnswers = Array(totalQuestions).fill(null);
+
+    function startTimer() {
+        const timerInterval = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `Vaqt: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Vaqt tugadi!");
+                submitButton.click();
+            }
+            timeLeft--;
+        }, 1000);
+    }
+
+    function loadQuestion() {
+        const item = quizData[currentQuestionIndex];
+        quizContainer.innerHTML = `
+            <div class="question">
+                <p>${currentQuestionIndex + 1}. ${item.question}</p>
+                ${Object.keys(item.answers).map(letter => {
+            const isChecked = selectedAnswers[currentQuestionIndex] === letter ? 'checked' : '';
+            const bgColor = selectedAnswers[currentQuestionIndex] === letter ? 'lightblue' : '#ccf3ff';
+            return `
+                        <label class="answer" id="answer${letter}" style="background-color: ${bgColor};">
+                            <input type="checkbox" name="question${currentQuestionIndex}" value="${letter}" ${isChecked} onchange="updateAnswer('${letter}')">
+                           ${item.answers[letter]}
+                        </label>
+                    `;
+        }).join('')}
+            </div>
+        `;
+        updateNumberPagination();
+        updateNavigationButtons();
+    }
+
+    function updateNavigationButtons() {
+        prevButton.style.display = currentQuestionIndex === 0 ? 'none' : 'inline-block';
+        nextButton.style.display = currentQuestionIndex === totalQuestions - 1 ? 'none' : 'inline-block';
+    }
+
+    function updateAnswer(selected) {
+        selectedAnswers[currentQuestionIndex] = selected;
+        loadQuestion(); // Savolni yangilash
+        updateNumberPagination();
+    }
+
+    function updateNumberPagination() {
+        numberPagination.innerHTML = '';
+        quizData.forEach((_, index) => {
+            const button = document.createElement('button');
+            button.textContent = index + 1;
+            button.className = selectedAnswers[index] === null ? '' : selectedAnswers[index] === quizData[index].correct ? 'answered-correct' : 'answered-incorrect';
+            button.style.backgroundColor = selectedAnswers[index] === null ? 'white' : 'lightblue';
+            button.onclick = () => goToQuestion(index);
+            numberPagination.appendChild(button);
+        });
+    }
+
+    function goToQuestion(index) {
+        currentQuestionIndex = index;
+        loadQuestion();
+    }
+
+    function getResults() {
+        resultsContainer.innerHTML = '';
+        let correctCount = 0;
+        quizData.forEach((item, index) => {
+            if (selectedAnswers[index] === item.correct) {
+                correctCount++;
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="correct">To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else if (selectedAnswers[index] === null) {
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="incorrect">Javob berilmagan! To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else {
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="incorrect">Noto'g'ri! To'g'ri javob: ${item.answers[item.correct]} (Siz: ${item.answers[selectedAnswers[index]]})</span></div>`;
+            }
+        });
+        finalResultsContainer.innerHTML = `<h2>Umumiy natija: ${correctCount} / ${totalQuestions}</h2>`;
+        resultsContainer.style.display = 'block';
+        finalResultsContainer.style.display = 'block';
+        updatePaginationResults();
+    }
+
+    function updatePaginationResults() {
+        numberPagination.querySelectorAll('button').forEach((button, index) => {
+            button.style.backgroundColor = selectedAnswers[index] === quizData[index].correct ? 'lightgreen' : 'lightcoral';
+        });
+    }
+
+    submitButton.addEventListener('click', getResults);
+    prevButton.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentQuestionIndex < totalQuestions - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+    });
+
+    loadQuestion();
+    startTimer();
+</script>
+</body>
+</html>
+    </div>
+</main>
+
+<footer id="footer" class="mt-auto py-3 bg-light">
+    <div class="container">
+        <div class="row text-muted">
+            <div class="col-md-6 text-center text-md-start">&copy; My Company 2024</div>
+            <div class="col-md-6 text-center text-md-end">Powered by <a href="https://www.yiiframework.com/" rel="external">Yii Framework</a></div>
+        </div>
+    </div>
+</footer>
+
+<div id="yii-debug-toolbar" data-url="/web/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag=6707307ad9609" data-skip-urls="[]" style="display:none" class="yii-debug-toolbar-bottom"></div><style>#yii-debug-toolbar-logo{position:fixed;right:31px;bottom:4px}@media print{.yii-debug-toolbar{display:none !important}}.yii-debug-toolbar{font:11px Verdana, Arial, sans-serif;text-align:left;width:96px;transition:width .3s ease;z-index:1000000}.yii-debug-toolbar.yii-debug-toolbar_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__bar{overflow:visible;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.yii-debug-toolbar.yii-debug-toolbar_iframe_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__resize-handle{display:block;height:4px;cursor:ns-resize;margin-bottom:0;z-index:1000001;position:absolute;left:0;right:0}.yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar,.yii-debug-toolbar.yii-debug-toolbar_animating .yii-debug-toolbar__bar{height:40px}.yii-debug-toolbar_active{width:100%}.yii-debug-toolbar_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(0);transform:rotate(0)}.yii-debug-toolbar_position_top{margin:0 0 20px 0;width:100%}.yii-debug-toolbar_position_bottom{position:fixed;right:0;bottom:0;margin:0}.yii-debug-toolbar__bar{position:relative;padding:0;font:11px Verdana, Arial, sans-serif;text-align:left;overflow:hidden;box-sizing:content-box;display:flex;flex-wrap:wrap;background:#fff;background:-moz-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:-webkit-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f7f7f7', GradientType=0);border:1px solid rgba(0,0,0,0.11);direction:ltr}.yii-debug-toolbar__bar::after{content:'';display:table;clear:both}.yii-debug-toolbar__view{height:0;overflow:hidden;background:white}.yii-debug-toolbar__view iframe{margin:0;padding:10px 0 0;height:100%;width:100%;border:0}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__view{height:100%}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__external{display:block}.yii-debug-toolbar_iframe_animating .yii-debug-toolbar__view{transition:height .3s ease}.yii-debug-toolbar__block{margin:0;border-right:1px solid rgba(0,0,0,0.11);border-bottom:1px solid rgba(0,0,0,0.11);padding:4px 8px;line-height:32px;white-space:nowrap}@media (max-width: 767.98px){.yii-debug-toolbar__block{flex-grow:1;text-align:center}}.yii-debug-toolbar__block a{display:inline-block;text-decoration:none;color:black}.yii-debug-toolbar__block img{vertical-align:middle;width:30px;height:30px}.yii-debug-toolbar__block_active,.yii-debug-toolbar__ajax:hover{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__label{display:inline-block;padding:2px 4px;font-size:12px;font-weight:normal;line-height:14px;white-space:nowrap;vertical-align:middle;max-width:100px;overflow-x:hidden;text-overflow:ellipsis;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.25);background-color:#737373;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}.yii-debug-toolbar__label:empty{display:none}a.yii-debug-toolbar__label:hover,a.yii-debug-toolbar__label:focus{color:#ffffff;text-decoration:none;cursor:pointer}.yii-debug-toolbar__label_important,.yii-debug-toolbar__label_error{background-color:#b94a48}.yii-debug-toolbar__label_important[href]{background-color:#953b39}.yii-debug-toolbar__label_warning,.yii-debug-toolbar__badge_warning{background-color:#f89406}.yii-debug-toolbar__label_warning[href]{background-color:#c67605}.yii-debug-toolbar__label_success{background-color:#217822}.yii-debug-toolbar__label_success[href]{background-color:#356635}.yii-debug-toolbar__label_info{background-color:#0b72b8}.yii-debug-toolbar__label_info[href]{background-color:#2d6987}.yii-debug-toolbar__label_inverse,.yii-debug-toolbar__badge_inverse{background-color:#333333}.yii-debug-toolbar__label_inverse[href],.yii-debug-toolbar__badge_inverse[href]{background-color:#1a1a1a}.yii-debug-toolbar__title{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__block_last{width:80px;height:40px;float:left}.yii-debug-toolbar__toggle,.yii-debug-toolbar__external{cursor:pointer;position:absolute;width:30px;height:30px;font-size:25px;font-weight:100;line-height:28px;color:#ffffff;text-align:center;opacity:0.5;filter:alpha(opacity=50);transition:opacity .3s ease}.yii-debug-toolbar__toggle:hover,.yii-debug-toolbar__toggle:focus,.yii-debug-toolbar__external:hover,.yii-debug-toolbar__external:focus{color:#ffffff;text-decoration:none;opacity:0.9;filter:alpha(opacity=90)}.yii-debug-toolbar__toggle-icon,.yii-debug-toolbar__external-icon{display:inline-block;background-position:50% 50%;background-repeat:no-repeat}.yii-debug-toolbar__toggle{right:10px;bottom:4px}.yii-debug-toolbar__toggle-icon{padding:7px 0;width:10px;height:16px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMTUuNTYzIDQwLjgzNmEuOTk3Ljk5NyAwIDAgMCAxLjQxNCAwbDE1LTE1YTEgMSAwIDAgMCAwLTEuNDE0bC0xNS0xNWExIDEgMCAwIDAtMS40MTQgMS40MTRMMjkuODU2IDI1LjEzIDE1LjU2MyAzOS40MmExIDEgMCAwIDAgMCAxLjQxNHoiLz48L3N2Zz4=");transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;-webkit-transform:rotate(180deg);transform:rotate(180deg)}.yii-debug-toolbar__external{display:none;right:50px;bottom:4px}.yii-debug-toolbar__external-icon{padding:8px 0;width:14px;height:14px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMzkuNjQyIDkuNzIyYTEuMDEgMS4wMSAwIDAgMC0uMzgyLS4wNzdIMjguMTAzYTEgMSAwIDAgMCAwIDJoOC43NDNMMjEuNyAyNi43OWExIDEgMCAwIDAgMS40MTQgMS40MTVMMzguMjYgMTMuMDZ2OC43NDNhMSAxIDAgMCAwIDIgMFYxMC42NDZhMS4wMDUgMS4wMDUgMCAwIDAtLjYxOC0uOTI0eiIvPjxwYXRoIGQ9Ik0zOS4yNiAyNy45ODVhMSAxIDAgMCAwLTEgMXYxMC42NmgtMjh2LTI4aDEwLjY4M2ExIDEgMCAwIDAgMC0ySDkuMjZhMSAxIDAgMCAwLTEgMXYzMGExIDEgMCAwIDAgMSAxaDMwYTEgMSAwIDAgMCAxLTF2LTExLjY2YTEgMSAwIDAgMC0xLTF6Ii8+PC9zdmc+")}.yii-debug-toolbar__switch-icon{margin-left:10px;padding:5px 10px;width:18px;height:18px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDUwIDUwIiB2ZXJzaW9uPSIxLjEiPjxwYXRoIGQ9Im00MS4xIDIzYy0wLjYgMC0xIDAuNC0xIDF2MTAuN2wtMjUuNi0wLjFjMCAwIDAtMiAwLTIuOCAwLTAuOC0wLjctMS0xLTAuNmwtMy41IDMuNWMtMC42IDAuNi0wLjYgMS4zIDAgMmwzLjQgMy40YzAuNCAwLjQgMS4xIDAuMiAxLTAuNmwwLTIuOWMwIDAgMjAuOCAwLjEgMjYuNiAwIDAuNiAwIDEtMC40IDEtMXYtMTEuN2MwLTAuNi0wLjQtMS0xLTF6TTkgMjYuOSA5IDI2LjkgOSAyNi45IDkgMjYuOSIvPjxwYXRoIGQ9Im05IDI2LjljMC42IDAgMS0wLjQgMS0xdi0xMC43bDI1LjYgMC4xYzAgMCAwIDIgMCAyLjggMCAwLjggMC43IDEgMSAwLjZsMy41LTMuNWMwLjYtMC42IDAuNi0xLjMgMC0ybC0zLjQtMy40Yy0wLjQtMC40LTEuMS0wLjItMSAwLjZsMCAyLjljMCAwLTIwLjgtMC4xLTI2LjYgMC0wLjYgMC0xIDAuNC0xIDF2MTEuN2MwIDAuNiAwLjQgMSAxIDF6Ii8+PC9zdmc+")}.yii-debug-toolbar__ajax{position:relative}.yii-debug-toolbar__ajax:hover .yii-debug-toolbar__ajax_info,.yii-debug-toolbar__ajax:focus .yii-debug-toolbar__ajax_info{visibility:visible}.yii-debug-toolbar__ajax a{color:#337ab7}.yii-debug-toolbar__ajax table{width:100%;table-layout:auto;border-spacing:0;border-collapse:collapse}.yii-debug-toolbar__ajax table td{padding:4px;font-size:12px;line-height:normal;vertical-align:top;border-top:1px solid #ddd}.yii-debug-toolbar__ajax table th{padding:4px;font-size:11px;line-height:normal;vertical-align:bottom;border-bottom:2px solid #ddd}.yii-debug-toolbar__ajax_info{visibility:hidden;transition:visibility .2s linear;background-color:white;box-shadow:inset 0 -10px 10px -10px #e1e1e1;position:absolute;bottom:40px;left:-1px;padding:10px;max-width:480px;max-height:480px;word-wrap:break-word;overflow:hidden;overflow-y:auto;box-sizing:border-box;border:1px solid rgba(0,0,0,0.11);z-index:1000001}.yii-debug-toolbar__ajax_request_status{color:white;padding:2px 5px}.yii-debug-toolbar__ajax_request_url{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+</style><script>(function () {
+    'use strict';
+
+    var findToolbar = function () {
+            return document.querySelector('#yii-debug-toolbar');
+        },
+        ajax = function (url, settings) {
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            settings = settings || {};
+            xhr.open(settings.method || 'GET', url, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Accept', 'text/html');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 && settings.success) {
+                        settings.success(xhr);
+                    } else if (xhr.status !== 200 && settings.error) {
+                        settings.error(xhr);
+                    }
+                }
+            };
+            xhr.send(settings.data || '');
+        },
+        url,
+        div,
+        toolbarEl = findToolbar(),
+        toolbarAnimatingClass = 'yii-debug-toolbar_animating',
+        barSelector = '.yii-debug-toolbar__bar',
+        viewSelector = '.yii-debug-toolbar__view',
+        blockSelector = '.yii-debug-toolbar__block',
+        toggleSelector = '.yii-debug-toolbar__toggle',
+        externalSelector = '.yii-debug-toolbar__external',
+
+        CACHE_KEY = 'yii-debug-toolbar',
+        ACTIVE_STATE = 'active',
+
+        animationTime = 300,
+
+        activeClass = 'yii-debug-toolbar_active',
+        iframeActiveClass = 'yii-debug-toolbar_iframe_active',
+        iframeAnimatingClass = 'yii-debug-toolbar_iframe_animating',
+        titleClass = 'yii-debug-toolbar__title',
+        blockClass = 'yii-debug-toolbar__block',
+        ignoreClickClass = 'yii-debug-toolbar__ignore_click',
+        blockActiveClass = 'yii-debug-toolbar__block_active',
+        requestStack = [];
+
+    if (toolbarEl) {
+        url = toolbarEl.getAttribute('data-url');
+
+        ajax(url, {
+            success: function (xhr) {
+                div = document.createElement('div');
+                div.innerHTML = xhr.responseText;
+
+                toolbarEl.parentNode && toolbarEl.parentNode.replaceChild(div, toolbarEl);
+
+                showToolbar(findToolbar());
+
+                var event;
+                if (typeof(Event) === 'function') {
+                    event = new Event('yii.debug.toolbar_attached', {'bubbles': true});
+                } else {
+                    event = document.createEvent('Event');
+                    event.initEvent('yii.debug.toolbar_attached', true, true);
+                }
+
+                div.dispatchEvent(event);
+            },
+            error: function (xhr) {
+                toolbarEl.innerText = xhr.responseText;
+            }
+        });
+    }
+
+    function showToolbar(toolbarEl) {
+        var barEl = toolbarEl.querySelector(barSelector),
+            viewEl = toolbarEl.querySelector(viewSelector),
+            toggleEl = toolbarEl.querySelector(toggleSelector),
+            externalEl = toolbarEl.querySelector(externalSelector),
+            blockEls = barEl.querySelectorAll(blockSelector),
+            blockLinksEls = document.querySelectorAll(blockSelector + ':not(.' + titleClass + ') a'),
+            iframeEl = viewEl.querySelector('iframe'),
+            iframeHeight = function () {
+                return (window.innerHeight * (toolbarEl.dataset.height / 100) - barEl.clientHeight) + 'px';
+            },
+            isIframeActive = function () {
+                return toolbarEl.classList.contains(iframeActiveClass);
+            },
+            resizeIframe = function(mouse) {
+                var availableHeight = window.innerHeight - barEl.clientHeight;
+                viewEl.style.height = Math.min(availableHeight, availableHeight - mouse.y) + "px";
+            },
+            showIframe = function (href) {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.add(iframeActiveClass);
+
+                iframeEl.src = externalEl.href = href;
+                iframeEl.removeAttribute('tabindex');
+
+                viewEl.style.height = iframeHeight();
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            hideIframe = function () {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.remove(iframeActiveClass);
+                iframeEl.setAttribute("tabindex", "-1");
+                removeActiveBlocksCls();
+
+                externalEl.href = '#';
+                viewEl.style.height = '';
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            removeActiveBlocksCls = function () {
+                [].forEach.call(blockEls, function (el) {
+                    el.classList.remove(blockActiveClass);
+                });
+            },
+            toggleToolbarClass = function (className) {
+                toolbarEl.classList.add(toolbarAnimatingClass);
+                if (toolbarEl.classList.contains(className)) {
+                    toolbarEl.classList.remove(className);
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.setAttribute('tabindex', "-1");
+                    });
+                } else {
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.removeAttribute('tabindex');
+                    });
+                    toolbarEl.classList.add(className);
+                }
+                setTimeout(function () {
+                    toolbarEl.classList.remove(toolbarAnimatingClass);
+                }, animationTime);
+            },
+            toggleStorageState = function (key, value) {
+                if (window.localStorage) {
+                    var item = localStorage.getItem(key);
+
+                    if (item) {
+                        localStorage.removeItem(key);
+                    } else {
+                        localStorage.setItem(key, value);
+                    }
+                }
+            },
+            restoreStorageState = function (key) {
+                if (window.localStorage) {
+                    return localStorage.getItem(key);
+                }
+            },
+            togglePosition = function () {
+                if (isIframeActive()) {
+                    hideIframe();
+                } else {
+                    toggleToolbarClass(activeClass);
+                    toggleStorageState(CACHE_KEY, ACTIVE_STATE);
+                }
+            };
+
+        if (restoreStorageState(CACHE_KEY) === ACTIVE_STATE) {
+            var transition = toolbarEl.style.transition;
+            toolbarEl.style.transition = 'none';
+            toolbarEl.classList.add(activeClass);
+            setTimeout(function () {
+                toolbarEl.style.transition = transition;
+            }, animationTime);
+        } else {
+            [].forEach.call(blockLinksEls, function (el) {
+                el.setAttribute('tabindex', "-1");
+            });
+        }
+
+        toolbarEl.style.display = 'block';
+
+        window.onresize = function () {
+            if (toolbarEl.classList.contains(iframeActiveClass)) {
+                viewEl.style.height = iframeHeight();
+            }
+        };
+
+        toolbarEl.addEventListener("mousedown", function(e) {
+            if (isIframeActive() && (e.y - toolbarEl.offsetTop < 4 /* 4px click zone */)) {
+                document.addEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        document.addEventListener("mouseup", function(){
+            if (isIframeActive()) {
+                document.removeEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        barEl.onclick = function (e) {
+            var target = e.target,
+                block = findAncestor(target, blockClass);
+
+            if (block
+                && !block.classList.contains(titleClass)
+                && !block.classList.contains(ignoreClickClass)
+                && e.which !== 2 && !e.ctrlKey // not mouse wheel and not ctrl+click
+            ) {
+                while (target !== this) {
+                    if (target.href) {
+                        removeActiveBlocksCls();
+                        block.classList.add(blockActiveClass);
+                        showIframe(target.href);
+                    }
+                    target = target.parentNode;
+                }
+
+                e.preventDefault();
+            }
+        };
+
+        toggleEl.onclick = togglePosition;
+    }
+
+    function findAncestor(el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls)) ;
+        return el;
+    }
+
+    function renderAjaxRequests() {
+        var requestCounter = document.getElementsByClassName('yii-debug-toolbar__ajax_counter');
+        if (!requestCounter.length) {
+            return;
+        }
+        var ajaxToolbarPanel = document.querySelector('.yii-debug-toolbar__ajax');
+        var tbodies = document.getElementsByClassName('yii-debug-toolbar__ajax_requests');
+        var state = 'ok';
+        if (tbodies.length) {
+            var tbody = tbodies[0];
+            var rows = document.createDocumentFragment();
+            if (requestStack.length) {
+                var firstItem = requestStack.length > 20 ? requestStack.length - 20 : 0;
+                for (var i = firstItem; i < requestStack.length; i++) {
+                    var request = requestStack[i];
+                    var row = document.createElement('tr');
+                    rows.appendChild(row);
+
+                    var methodCell = document.createElement('td');
+                    methodCell.innerHTML = request.method;
+                    row.appendChild(methodCell);
+
+                    var statusCodeCell = document.createElement('td');
+                    var statusCode = document.createElement('span');
+                    if (request.statusCode < 300) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success');
+                    } else if (request.statusCode < 400) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_warning');
+                    } else {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_error');
+                    }
+                    statusCode.textContent = request.statusCode || '-';
+                    statusCodeCell.appendChild(statusCode);
+                    row.appendChild(statusCodeCell);
+
+                    var pathCell = document.createElement('td');
+                    pathCell.className = 'yii-debug-toolbar__ajax_request_url';
+                    pathCell.innerHTML = request.url;
+                    pathCell.setAttribute('title', request.url);
+                    row.appendChild(pathCell);
+
+                    var durationCell = document.createElement('td');
+                    durationCell.className = 'yii-debug-toolbar__ajax_request_duration';
+                    if (request.duration) {
+                        durationCell.innerText = request.duration + " ms";
+                    } else {
+                        durationCell.innerText = '-';
+                    }
+                    row.appendChild(durationCell);
+                    row.appendChild(document.createTextNode(' '));
+
+                    var profilerCell = document.createElement('td');
+                    if (request.profilerUrl) {
+                        var profilerLink = document.createElement('a');
+                        profilerLink.setAttribute('href', request.profilerUrl);
+                        profilerLink.innerText = request.profile;
+                        profilerCell.appendChild(profilerLink);
+                    } else {
+                        profilerCell.innerText = 'n/a';
+                    }
+                    row.appendChild(profilerCell);
+
+                    if (request.error) {
+                        if (state !== "loading" && i > requestStack.length - 4) {
+                            state = 'error';
+                        }
+                    } else if (request.loading) {
+                        state = 'loading'
+                    }
+                    row.className = 'yii-debug-toolbar__ajax_request';
+                }
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+                tbody.appendChild(rows);
+            }
+            ajaxToolbarPanel.style.display = 'block';
+        }
+        requestCounter[0].innerText = requestStack.length;
+        var className = 'yii-debug-toolbar__label yii-debug-toolbar__ajax_counter';
+        if (state === 'ok') {
+            className += ' yii-debug-toolbar__label_success';
+        } else if (state === 'error') {
+            className += ' yii-debug-toolbar__label_error';
+        }
+        requestCounter[0].className = className;
+    }
+
+    /**
+     * Should AJAX request to be logged in debug panel
+     *
+     * @param requestUrl
+     * @returns {boolean}
+     */
+    function shouldTrackRequest(requestUrl) {
+        if (!toolbarEl) {
+            return false;
+        }
+        var a = document.createElement('a');
+        a.href = requestUrl;
+        var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'));
+        if (Array.isArray(skipAjaxRequestUrls) && skipAjaxRequestUrls.length && skipAjaxRequestUrls.includes(requestUrl)) {
+            return false;
+        }
+        return a.host === location.host;
+    }
+
+    var proxied = XMLHttpRequest.prototype.open;
+
+    XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
+        var self = this;
+
+        if (shouldTrackRequest(url)) {
+            var stackElement = {
+                loading: true,
+                error: false,
+                url: url,
+                method: method,
+                start: new Date()
+            };
+            requestStack.push(stackElement);
+            this.addEventListener('readystatechange', function () {
+                if (self.readyState === 4) {
+                    stackElement.duration = self.getResponseHeader('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = self.status;
+                    stackElement.error = self.status < 200 || self.status >= 400;
+                    stackElement.profile = self.getResponseHeader('X-Debug-Tag');
+                    stackElement.profilerUrl = self.getResponseHeader('X-Debug-Link');
+                    renderAjaxRequests();
+                }
+            }, false);
+            renderAjaxRequests();
+        }
+        proxied.apply(this, Array.prototype.slice.call(arguments));
+    };
+
+    // catch fetch AJAX requests
+    if (window.fetch) {
+        var originalFetch = window.fetch;
+
+        window.fetch = function (input, init) {
+            var method;
+            var url;
+            if (typeof input === 'string') {
+                method = (init && init.method) || 'GET';
+                url = input;
+            } else if (window.URL && input instanceof URL) { // fix https://github.com/yiisoft/yii2-debug/issues/296
+                method = (init && init.method) || 'GET';
+                url = input.href;
+            } else if (window.Request && input instanceof Request) {
+                method = input.method;
+                url = input.url;
+            }
+            var promise = originalFetch(input, init);
+
+            if (shouldTrackRequest(url)) {
+                var stackElement = {
+                    loading: true,
+                    error: false,
+                    url: url,
+                    method: method,
+                    start: new Date()
+                };
+                requestStack.push(stackElement);
+                promise.then(function (response) {
+                    stackElement.duration = response.headers.get('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = response.status;
+                    stackElement.error = response.status < 200 || response.status >= 400;
+                    stackElement.profile = response.headers.get('X-Debug-Tag');
+                    stackElement.profilerUrl = response.headers.get('X-Debug-Link');
+                    renderAjaxRequests();
+
+                    return response;
+                }).catch(function (error) {
+                    stackElement.loading = false;
+                    stackElement.error = true;
+                    renderAjaxRequests();
+
+                    throw error;
+                });
+                renderAjaxRequests();
+            }
+
+            return promise;
+        };
+    }
+
+})();
+</script><script src="/web/assets/11166fe9/jquery.js"></script>
+<script src="/web/assets/547ad073/yii.js"></script>
+<script src="/web/js/script.js"></script>
+<script src="/web/assets/9912f47d/dist/js/bootstrap.bundle.js"></script></body>
+</html>

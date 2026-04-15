@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-100">
+<head>
+    <title></title>
+    <meta name="csrf-param" content="_csrf">
+<meta name="csrf-token" content="p-fzJ2fj10ALp7AC5qa759gQli2mamzy14Tx73gQpCPAiYJwDoXjE2He13Ct79OpqVL3b-c4B7qT576FPFrDTA==">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link type="image/x-icon" href="/web/favicon.ico" rel="icon">
+<link href="/web/assets/9912f47d/dist/css/bootstrap.css" rel="stylesheet">
+<link href="/web/css/site.css" rel="stylesheet"></head>
+<body class="d-flex flex-column h-100">
+
+<header id="header">
+    <nav id="w0" class="navbar-expand-md navbar-dark bg-dark navbar">
+<div class="container">
+<a class="navbar-brand" href="/web/index.php">Test rejimida ishlamoqda</a>
+<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#w0-collapse" aria-controls="w0-collapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div id="w0-collapse" class="collapse navbar-collapse">
+<ul id="w1" class="navbar-nav nav"><li class="nav-item"><a class="nav-link" href="/web/index.php?r=fan%2Findex">Fanlar</a></li>
+<li class="nav-item"><a class="nav-link" href="/web/index.php?r=quiz%2Findex">Testlar</a></li>
+<li class="nav-item"><form action="/web/index.php?r=site%2Flogout" method="post">
+<input type="hidden" name="_csrf" value="p-fzJ2fj10ALp7AC5qa759gQli2mamzy14Tx73gQpCPAiYJwDoXjE2He13Ct79OpqVL3b-c4B7qT576FPFrDTA=="><button type="submit" class="nav-link btn btn-link logout">Logout (azizbek_mahkamov)</button></form></li></ul></div>
+</div>
+</nav></header>
+
+<main id="main" class="flex-shrink-0" role="main">
+    <div class="container">
+                        <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanidan test savollari</title>
+    <style>
+        input[type="checkbox"] { display: none; }
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        #header{
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+        .answer {
+
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            border-bottom-color: #0a0a0a;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .number-pagination button {
+            margin: 0 2px;
+            padding: 5px 10px;
+            border: 1px solid #0a0a0a; /* Chegara qo'shildi */
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #b0e0e6;
+        }
+        .answered-correct {
+            background-color: lightgreen;
+        }
+        .answered-incorrect {
+            background-color: lightcoral;
+        }
+        .unanswered {
+            background-color: #c4c4c4;
+        }
+        #navigationButtons {
+            text-align: center;
+            margin: 10px 0;
+        }
+        #navigationButtons button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: #b0e0e6;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 style="text-align: center">Axborot-kommunikatsiya tizimlari va texnologiyalarining dolzarb muammolari fanidan test savollari</h3>
+    <div class="timer" id="timer">144.8:48</div>
+    <div id="quiz"></div>
+    <div id="navigationButtons">
+        <button id="prevButton" style="display: none;">Oldingi</button>
+        <button id="nextButton">Keyingi</button>
+    </div>
+    <div class="pagination">
+        <div class="number-pagination" id="numberPagination"></div>
+    </div>
+    <button id="submit">Natijalarni yuborish</button>
+    <div id="results" style="display: none;"></div>
+    <div id="finalResults" style="display: none;"></div>
+</div>
+
+<script>
+    
+    const quizData=[{"question":" &lt;?php","answers":{"a":"Saqlanish teg","b":"Ochuvchi teg","c":"Yopuvchi teg","d":"Printerga chiqaruvchi teg"},"correct":"b"},{"question":" Anonim sinf bu -","answers":{"a":"nomga ega bo\u02bblmagan sinf","b":"tanasi yozilmaydigan sinf","c":"lokal sinf","d":"qo\u02bbshimcha sinf"},"correct":"a"},{"question":" API qisqartmasi qanday nomlanadi?","answers":{"a":"Application Programming Interaction","b":"Android Program Interface","c":"Android Programming Interaction","d":"Application Programming Interface"},"correct":"d"},{"question":" background-origin xususiyati","answers":{"a":"jadvalni qayerda turishini va qayerdan boshlashini aniqlashtirish (ko\u02bbrsatish ) mumkin","b":"rasmni qayerda turishini va qayerdan boshlashini aniqlashtirish (ko\u02bbrsatish ) mumkin","c":"fon tasviri qayerda turishini va qayerdan boshlashini aniqlashtirish (ko\u02bbrsatish ) mumkin","d":"freym qayerda turishini va qayerdan boshlashini aniqlashtirish (ko\u02bbrsatish ) mumkin"},"correct":"c"},{"question":" GoogleForm-da taklif qilingan bir nechta variantlardan bitta to\u02bbg\u02bbri javobni tanlash uchun foydalaniladi.","answers":{"a":"Tekst (stroka)","b":"Tekst (abzats)","c":"Odin iz spiska","d":"neskolko iz spiska"},"correct":"c"},{"question":" GoogleForm-da talabaning matn bilan qanchalik rozi yoki noroziligini aniqlash uchun yoki biron-bir vazifani baholash uchun ishlatiladi","answers":{"a":"otsenka","b":"shkala","c":"Tekst (stroka)","d":"Tekst (abzats)"},"correct":"b"},{"question":" GoogleForm-dagi aniq sanani topish uchun ishlatiladi.","answers":{"a":"vremya","b":"tochnaya data","c":"god","d":"data"},"correct":"d"},{"question":" GoogleForm-dagi aniq vaqtni topish uchun ishlatiladi.","answers":{"a":"god","b":"tochnaya data","c":"vremya","d":"data"},"correct":"d"},{"question":" GoogleSlassroom da vazifalar qaysi tizimda baholanadi?","answers":{"a":"50","b":"5","c":"10","d":"100"},"correct":"d"},{"question":" Ijtimoiy tarmoq elementlari bilan uch o\u02bblchovli virtual dunyo texnologiyasi","answers":{"a":"3D texnologiyasi","b":"Virtual reallikga to\u02bbliq kirmaydigan texnologiya","c":"Virtual reallikga o\u02bbz infrastrukturasi bilan qiradigan texnologiya","d":"Virtual reallikga to\u02bbliq kiradigan texnologiya"},"correct":"c"},{"question":" Ijtimoiy &laquo;bulut&raquo;","answers":{"a":"keng omma tomonidan bepul foydalanishga mo\u02bbljallangan infratuzilma","b":"bu ikki yoki undan ko\u02bbp turli xil bulutli infratuzilmalarning kombinatsiyasi","c":"Umumiy vazifalari bo\u02bblgan tashkilotlar iste\u02bcmolchilarining ma\u02bclum bir hamjamiyati foydalanishi uchun mo\u02bbljallangan infratuzilma turi","d":"bir nechta mijozlar bilan bitta tashkilot tomonidan foydalanish uchun mo\u02bbljallangan infratuzilma"},"correct":"c"},{"question":" Ikki o\u02bblchovli fazoda ishlashga imkon beradigan manipulyatorlar","answers":{"a":"2D-kontroller","b":"4D-kontroller","c":"treking tizimlari","d":"3D-kontroller"},"correct":"a"},{"question":" Jadvalning har bir satrda bitta to\u02bbg\u02bbri javobni tanlash uchun ishlatiladi. GoogleForm-da moslashtirish vazifalarda ishlatiladi.","answers":{"a":"Tekst (abzats)","b":"Setka (mnojestvennyy vybor)","c":"shkala","d":"Tekst (stroka)"},"correct":"b"},{"question":" Shaxsiy akkaunt egallari GoogleSlassroom da qancha kurslarga kirishlari mumkin?","answers":{"a":"100 kursga","b":"10 kursga","c":"50 kursga","d":"30 kursga"},"correct":"a"},{"question":"... buyrug&lsquo;i yordamida root dan foydalanuvchi yaratamiz.","answers":{"a":"Useradd username","b":"su","c":"su username","d":"DECRIBE &lt;table&gt;."},"correct":"a"},{"question":"... komandasi bilan root ni ochamiz,","answers":{"a":"su","b":"Useradd username","c":"su username","d":"DECRIBE &lt;table&gt;."},"correct":"a"},{"question":"1 EB","answers":{"a":"1 million gigabayt","b":"1 milliard gigabayt","c":"1 ming gigabayt","d":"1 yuz gigabit"},"correct":"b"},{"question":"1 ZB","answers":{"a":"1024 kilobayt","b":"1 ekzabayt","c":"1024 gigabayt","d":"1024 ekzabayt"},"correct":"d"},{"question":"2003 yilda","answers":{"a":"Google File System chiqdi.","b":"katta fayllarni saqlash va ularga kirish imkoniyati yedi, va umuman aytganda bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarni nazarda tutiladi","c":"ma&rsquo;lumotlarni s\u043e&lsquo;rash va tahlil qilish uchun Apache Hadoop- ning tepasida qurilgan ma&rsquo;lumotlar ombori dasturining loyihasi yaratildi","d":"Hadoop TeraSort tanlovida g&lsquo;olib chiqdi"},"correct":"a"},{"question":"2004 yilda","answers":{"a":"MapReduce asoslari chiqarildi.","b":"katta fayllarni saqlash va ularga kirish imkoniyati yedi, va umuman aytganda bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarni nazarda tutiladi","c":"Google File System chiqdi.","d":"Hadoop TeraSort tanlovida g&lsquo;olib chiqdi"},"correct":"a"},{"question":"2004 yilda","answers":{"a":"katta fayllarni saqlash va ularga kirish imkoniyati yedi, va umuman aytganda bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarni nazarda tutiladi","b":"Google File System chiqdi.","c":"MapReduce asoslari chiqarildi.","d":"Hadoop TeraSort tanlovida g&lsquo;olib chiqdi"},"correct":"c"},{"question":"2006 yilda","answers":{"a":"MapReduce dasturiy modelidan foydalangan holda katta ma&rsquo;lumotlarni tarqatish va qayta ishlash uchun dasturiy ta&rsquo;minotni taqdim yetuvchi Hadoop tashkil yetildi","b":"katta fayllarni saqlash va ularga kirish imkoniyati yedi, va umuman aytganda bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarni nazarda tutiladi","c":"Google File System chiqdi.","d":"Hadoop TeraSort tanlovida g&lsquo;olib chiqdi"},"correct":"a"},{"question":"2006 yilda","answers":{"a":"MapReduce dasturiy modelidan foydalangan holda katta ma&rsquo;lumotlarni tarqatish va qayta ishlash uchun dasturiy ta&rsquo;minotni taqdim yetuvchi Hadoop tashkil yetildi","b":"katta fayllarni saqlash va ularga kirish imkoniyati yedi, va umuman aytganda bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarni nazarda tutiladi","c":"Hadoop TeraSort tanlovida g&lsquo;olib chiqdi","d":"Google File System chiqdi."},"correct":"a"},{"question":"2008 yilda","answers":{"a":"Hadoop TeraSort tanlovida g&lsquo;olib chiqdi","b":"katta fayllarni saqlash va ularga kirish imkoniyati yedi, va umuman aytganda bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarni nazarda tutiladi","c":"Google File System chiqdi.","d":"ma&rsquo;lumotlarni s\u043e&lsquo;rash va tahlil qilish uchun Apache Hadoop- ning tepasida qurilgan ma&rsquo;lumotlar ombori dasturining loyihasi yaratildi"},"correct":"a"},{"question":"2008 yilda","answers":{"a":"Google File System chiqd","b":"ma&rsquo;lumotlarni s\u043e&lsquo;rash va tahlil qilish uchun Apache Hadoop- ning tepasida qurilgan ma&rsquo;lumotlar ombori dasturining loyihasi yaratildi","c":"Hadoop TeraSort tanlovida g&lsquo;olib chiqdi","d":"katta fayllarni saqlash va ularga kirish imkoniyati yedi, va umuman aytganda bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarni nazarda tutiladi"},"correct":"c"},{"question":"2010 yilda","answers":{"a":"ma&rsquo;lumotlarni s\u043e&lsquo;rash va tahlil qilish uchun Apache Hadoop- ning tepasida qurilgan ma&rsquo;lumotlar ombori dasturining loyihasi yaratildi","b":"katta fayllarni saqlash va ularga kirish imkoniyati yedi, va umuman aytganda bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarni nazarda tutiladi","c":"Google File System chiqdi.","d":"Hadoop TeraSort tanlovida g&lsquo;olib chiqdi"},"correct":"a"},{"question":"Abstrakt metod bu -","answers":{"a":"tanasi yozilmaydigan funksiya","b":"abstrakt sinf turlaridan biri","c":"abstrakt sinf vorisi hisoblanadi","d":"qayta yuklanadigan metod"},"correct":"a"},{"question":"Abstrakt sinf bu -","answers":{"a":"nomga ega bo\u02bblmagan sinf","b":"faqatgina bitta obyekt yaratish uchun mo\u02bbljallangan sinf","c":"tanasi yozilmaydigan va abstrakt metodga ega sinf","d":"obyekt yaratish imkoniyati mavjud bo\u02bblmagan sinf"},"correct":"d"},{"question":"Activity nima?","answers":{"a":"parallel jarayonlarni boshqaruvchi .java kengaytmali fayl","b":"android ilova interfeysi","c":"ilovadagi hodisalarni boshqaruvchi tugmalar jamlanmasi","d":"ilova interfeysini boshqaruvchi asosiy .java kengaytmali fayl"},"correct":"d"},{"question":"Adapter interfeysi nima uchun ishlatiladi?","answers":{"a":"Android SDK versiyalari o\u02bbrtasida bog\u02bbliklikni amalga oshiradi","b":"mobil qurilmaga qo\u02bbshimcha ma\u02bclumot yuklash uchun portlarni aktivlashtiradi","c":"resurs va komponentalar o\u02bbrtasidagi bog\u02bbliqlikni ta\u02bcminlab beradi","d":"bunday interfeysdan foydalanib bo\u02bblmaydi chunki u abstrakt"},"correct":"c"},{"question":"ADT da yangi Android loyiha yaratildi, va ushbu loyiha ishga tushirilgandan keyin yaratiladigan. apk fayli qayerda (loyihaning qaysi papkasida) joylashadi?","answers":{"a":"src papkasida","b":"gen papkasida","c":"bin papkasida","d":"res papkasida"},"correct":"c"},{"question":"ADT da yangi Android loyiha yaratildi. Ushbu yaratilgan loyiha ichida avtomatik hosil bo\u02bblgan AndroidManifest. xml faylini izohlang?","answers":{"a":"asosiy activity fayl hisoblanadi","b":"ilova haqidagi asosiy ma\u02bclumotlarni saqlovchi fayl hisoblanadi","c":"ilovadagi faqat activitylar haqidagi ma\u02bclumotlarni saqlovchi fayl hisoblanadi","d":"asosiy layout fayl hisoblanadi"},"correct":"b"},{"question":"ADT da yangi Android loyiha yaratildi. Ushbu yaratilgan loyiha ichida avtomatik hosil bo\u02bblgan gen papkasida nimalar joylashadi?","answers":{"a":"bunday papka majud emas, bu faqat AndroidStudio orqali yaratilgan loyihalarda mavjud bo\u02bbladi","b":"loyihaga tegishli resurslar (layout, string, style va h.k.lar)","c":"asosiy .java fayllar","d":"loyiha uchun generatsiyalangan fayl (R.java)"},"correct":"d"},{"question":"ADT da yangi Android loyiha yaratildi. Ushbu yaratilgan loyiha ichida avtomatik hosil bo\u02bblgan res papkasida nimalar joylashadi?","answers":{"a":"asosiy .java fayllar","b":"loyihaga tegishli resurslar (layout, string, style va h.k.lar)","c":"AndroidManifest.xml fayli joylashadi","d":"loyiha interfeys fayllari"},"correct":"b"},{"question":"ADT da yangi Android loyiha yaratildi. Ushbu yaratilgan loyiha ichida avtomatik hosil bo\u02bblgan src papkasida nimalar joylashadi?","answers":{"a":"asosiy .java fayllar","b":"AndroidManifest.xml fayli joylashadi","c":"loyiha interfeys fayllari","d":"loyihaga tegishli resurslar (layout, string, style va h.k.lar)"},"correct":"a"},{"question":"Agar jadval mavjud b\u043e&lsquo;lsa jadvalni \u043e&lsquo;chirish","answers":{"a":"DROP TABLE IF EXISTS &lt;table&gt;.","b":"DECRIBE &lt;table&gt;","c":"Using &ldquo;&ndash;&ldquo;","d":"SHOW FUNCTIONS."},"correct":"a"},{"question":"AlertDialog bu:","answers":{"a":"joriy sana va vaqtni belgilab beruvchi dialog oynasi","b":"qandaydir jarayonni ko\u02bbrsatib beruvchi dialog oynasi","c":"sarlavha, 3 tagacha tugma, qiymatlarni belgilash va tanlash mumkin bo\u02bblgan ro\u02bbyhatdan iborat dialog oynasi","d":"shaxsiy dialog oynasini yaratish uchun konteyner"},"correct":"c"},{"question":"Alpha animatsiya bu -","answers":{"a":"obyektni burish","b":"obyektni bir joydan ikkinchi joyga harakatlanishi","c":"obyektning shaffoflik darajasi o\u02bbzgarishi","d":"obyektning o\u02bblchami o\u02bbzgargan holda bor yoki yo\u02bbq bo\u02bblishi"},"correct":"c"},{"question":"Android dasturlarida EditText komponentani (misol uchun ushbu komponenta id si &laquo;edittext1&quot;ga teng)id bo\u02bbyicha to\u02bbg\u02bbri chaqirilgan javobni ko\u02bbrsating?","answers":{"a":"R.res.id.edittext1","b":"R.layout.id[edittext1]","c":"R.id.edittext1","d":"R.layout.edittext1"},"correct":"c"},{"question":"Android ilova yaratilaytganda loyihaning qaysi faylida ilova haqidagi umumiy ma\u02bclumotlar saqlanadi?","answers":{"a":"AndroidManifest.java","b":"bin\/AndroidManifest.xml","c":"res\/layout\/main.xml","d":"AndroidManifest.xml"},"correct":"d"},{"question":"Android ilovadarida ekranning to\u02bbrtta burchagi hisobiga komponentalarni boshqarish nima deb ataladi?","answers":{"a":"Resizing and repositioning","b":"Anchoring","c":"Display orientation","d":"RelativeLayout"},"correct":"b"},{"question":"Android ilovalarida asosan qanday menyular mavjud?","answers":{"a":"Context menu, Grid menu","b":"Grid menu, Option menu","c":"Layout menu, Grid menu","d":"Option menu, Context menu"},"correct":"d"},{"question":"Android operatsion tizim platformasi nechta asosiy qismdan iborat?","answers":{"a":"4 ta,Application, Application Framework, Genymotion va Linux kernel","b":"5 ta,Application Framework, Genymotion, Linux kernel, Libraries,","c":"3 ta, Application, IntelliJ IDEA va Linux kernel","d":"5 ta, Application, Application Framework, Android Runtime, Libraries, Linux Kernel"},"correct":"d"},{"question":"Android operatsion tizimi uchun dasturiy vositalar yaratishdaasosan qanday dasturlash tillaridan foydalaniladi?","answers":{"a":"HTML5, CSS, JavaScript","b":"Objective &ndash; C, Objective Pascal","c":"Java, qisman C\/C++","d":"Faqat Java va C#"},"correct":"c"},{"question":"Android operatsion tizimi uchun dasturiy vositalar yaratishdaqanday instrumental dasturiy vositalar o\u02bbrnatiladi?","answers":{"a":"ADT (Android Developer Tools) va AVD (Android Virtual Device)","b":"JDK (Java Development Kit), ADT (Android Developer Tools-Eclipse) va AVD (Android Virtual Device)","c":"JDK (Java Development Kit) va Android SDK (Software Development Kit)","d":"IntelliJ IDEA, JDK (Java Development Kit), AVD (Android Virtual Device)"},"correct":"b"},{"question":"Android SDK nima uchun ishlatiladi?","answers":{"a":"Android ilovalarini yaratishda standart klasslarni kompilyatsiya qiladi","b":"Virtual mashinani to\u02bbliq boshqaradi","c":"Java virtual mashinasi ishlashi uchun kutubxona","d":"Android ilovalarini yaratishda ishlatiladigan kutubxona, kodlar tasnifi va debugger hisoblanadi"},"correct":"d"},{"question":"Android tizimida ilovaning displey bo\u02bbylab joylashuvining qanday oriyentatsiya turlari mavjud?","answers":{"a":"horizontal, relative","b":"relative, portrait","c":"portrait, landscape","d":"portrait, horizontal"},"correct":"c"},{"question":"Android-ilovalarida foydalanuvchi grafik interfeysini yaratishda qaysi razmetkali tildan foydalaniladi?","answers":{"a":"xml","b":"gml","c":"html","d":"xhtml"},"correct":"a"},{"question":"Androidning Jelly Bean nomli turi qaysi qaysi versiyalar va API level ni o\u02bbz ichiga oladi?","answers":{"a":"Android 4.3, 4.4 va 18-19 API level larni","b":"Jelly Bean versiyada API level mavjud emas","c":"Android 4.3, 4.4, 5.0 va 18-20 API level larni","d":"Android 4.1, 4.2, 4.3 va 16-18 API level larni"},"correct":"d"},{"question":"An\u02bcanaviy kompyuter tizimlariga to\u02bbliq taqqoslanadigan qurilmalar tizimi, insonning barcha beshta sezgilariga ta\u02bcsir ko\u02bbrsatib, virtual muhit bilan o\u02bbzaro ta\u02bcsirini taqlid qilishga imkon yaratadi","answers":{"a":"telekomunikatsiya tizimlari","b":"kompyuter tizimlari","c":"tarmoq tizimi","d":"Virtual reallik tizimlari"},"correct":"d"},{"question":"Atrof-muhit haqida ma\u02bclumotni to\u02bbldirish maqsadida sensor ma\u02bclumotlarni sezgir ma\u02bclumotlarga idrok qilish","answers":{"a":"Aralash haqiqat","b":"Kengaytirilgan haqiqat","c":"Gibrid haqiqat","d":"Virtual haqiqat"},"correct":"b"},{"question":"AutoCompleteTextView va EditText komponentalarning bir-biridan farqi nimada?","answers":{"a":"AutoCompleteTextView komponentasida matn to\u02bbliq ko\u02bbrinadi","b":"AutoCompleteTextView komponentasiga faqat matn kiritiladi","c":"Ikkalasi ham bir xil funksiyani bajaradi","d":"AutoCompleteTextView komponentasi kiritilayotgan matnni avtomatik to\u02bbldirish imkoniyatini beradi"},"correct":"d"},{"question":"AVD ning o\u02bbrniga qanday virtual mashinalardan foydalanish mumkin?","answers":{"a":"JDK, Android SDK, Genymotion","b":"Genymotion, BlueStacks","c":"Android SDK, Eclipse, IntelliJ IDEA,","d":"BlueStacks, Android SDK, Eclipse"},"correct":"b"},{"question":"Avtorlik dasturiy vositalari qanday nomlanadi?","answers":{"a":"CMS","b":"Authoring tools","c":"SCORM","d":"LMS"},"correct":"b"},{"question":"a[href^=\u02bchttp:\/\/website\u02bc] mos keluvchi satr","answers":{"a":":&lt;a href=\u02bc\/\/website.com\u02bc&gt;","b":"&lt;a href=\u02bchttp:\/\/mywebsite.com\u02bc&gt;","c":"&lt;a href=\u02bc\/\/mywebsite.com\u02bc&gt;","d":":&lt;a href=\u02bchttp:\/\/website.com\u02bc&gt;"},"correct":"d"},{"question":"background-clip xususiyati","answers":{"a":"fon ishlatish yoki yo\u02bbqligini aniqlaydi, fon chegaralangan soxada ichida bo\u02bblsinmi yoki tashqarisidami, shuni aniqlash uchun ishlatiladi","b":"fon bor mi yoki yo\u02bbq mi aniqlash uchun ishlatiladi","c":"Rasmni belgilaydi","d":"fonni belgilaydi"},"correct":"a"},{"question":"BaseAdapter sinfining voris sinflari qaysilar?","answers":{"a":"ArrayAdapter, ListAdapter, SpinnerAdapter, CursorAdapter","b":"SpinnerAdapter, CursorAdapter, Spinner, Gallery","c":"ListView,GridView, SpinnerView,Gallery","d":"ListAdapter, SpinnerAdapter,ListView,GridView"},"correct":"a"},{"question":"Bepul tarqatiladigan kutubxonalar, utilitalar va freymvorklar to\u02bbplami, yuzlab va minglab tugunlar klasterlarida ishlaydigan tarqatilgan dasturlarni ishlab chiqish va bajarish uchun ishlatiladi","answers":{"a":"Kraudsorsing","b":"Mashinali o\u02bbrgatish","c":"Hadoop","d":"Data Mining"},"correct":"c"},{"question":"Big Data - bu &hellip;","answers":{"a":"bu katta hajm, tezlik, xilma-xillik va ishonchlilik bilan boshqariladigan ma&rsquo;lumotlar t\u043e&lsquo;plamidir","b":"bu ma&rsquo;lumotlar t\u043e&lsquo;plamidir","c":"bu katta tezlik bilan boshqarilmaydigan ma&rsquo;lumotlar t\u043e&lsquo;plamidir","d":"bu katta tezlik bilan boshqariladigan ma&rsquo;lumotlar t\u043e&lsquo;plamidir"},"correct":"a"},{"question":"Big Data Analytics vositalari ...","answers":{"a":"foydalanuvchilarga turli xil tahlil paketlari va modullarini taklif qiladi","b":"foydalanuvchilarga bir xil tahlil paketlari va modullarini taklif qiladi","c":"foydalanuvchilarga tahlil paketlari taklif qiladi","d":"foydalanuvchilarga turli xil modullarini taklif qiladi"},"correct":"a"},{"question":"Binar operatorining vazifasini ko\u02bbrsating?","answers":{"a":"Belgining o\u02bbzgarishi uchun to\u02bbldirish operatsiyasini bajarishda, inkramentda xamda dekrementda ishlatiladi","b":"2 ta operandni birlashtiradi","c":"O\u02bbzgaruvchilarning qiymatini solishtirish uchun ishlatiladi","d":"Ular aloxida bitlar bilan ishlash operatorlari xisoblanadi"},"correct":"b"},{"question":"Bir nomli lekin turli xil parametrli funksiyalar va ularga murojaat qilish nima deyiladi?","answers":{"a":"metodlarni parametrsiz yuklash","b":"metodlarni parametrli yuklash","c":"metodlarni qayta yozish","d":"metodlarni qayta yuklash"},"correct":"d"},{"question":"Bir nomli va bir xil parametrli funksiyalar va ularga murojaat qilish nima deyiladi?","answers":{"a":"metodlarni parametrsiz yuklash","b":"metodlarni parametrli yuklash","c":"metodlarni qayta yozish","d":"metodlarni qayta yuklash"},"correct":"c"},{"question":"Birinchi Android smartfonlari qachon yaratilgan?","answers":{"a":"2007","b":"2005","c":"2006","d":"2008"},"correct":"a"},{"question":"Birinchi rasmiy Android operatsion tizimi qachon yaratilgan?","answers":{"a":"2007 yil 13-sentabr","b":"2008 yil 23-sentabr","c":"2008yil 23-oktabr","d":"2007 yil 29-iyul"},"correct":"b"},{"question":"Birinchi rasmiy iOS operatsion tizimi qachon yaratilgan?","answers":{"a":"2007 yil 29-iyul","b":"2008yil 23-oktabr","c":"2008 yil 23-sentabr","d":"2007 yil 13-sentabr"},"correct":"a"},{"question":"Boshqaruv o\u02bbtkazuvchi operatorlarni ko\u02bbrsating?","answers":{"a":"Break va switch","b":"If va else","c":"Break va continue","d":"Continue va else"},"correct":"c"},{"question":"Boshqaruv o\u02bbtkazuvchi operatorlarning ishlash prinsipini ko\u02bbrsating?","answers":{"a":"Sikl yoki uning alohida iteratsiya ishini ochib beradi","b":"Sikl yoki uning alohida iteratsiya ishini tezda to\u02bbxtatadi","c":"Sikl oxirini ochib beradi","d":"Belgilarni yo\u02bbqotadi"},"correct":"b"},{"question":"Bu teglarni qaysi biri PHP blok ochilishi va yopilishi uchun mos emas?","answers":{"a":"&lt;? ?&gt;","b":"&lt;?php ?&gt;","c":"&lt;! !&gt;","d":"&lt;?= ?&gt;"},"correct":"c"},{"question":"bu xaritani yozish va qisqartirish funksiyalaridan iborat dasturiy model","answers":{"a":"MapReduce","b":"HTFT","c":"GTFT","d":"HTTP"},"correct":"a"},{"question":"Bulutli xizmatlarni yaratish, integratsiyalash va taqdim etish uchun mo\u02bbljallangan muhit va mahsus utilitalar - bu","answers":{"a":"Bulutli hisoblash platformasi","b":"bulutli hisoblash usullari","c":"bulutli hisoblash texnologiyasi","d":"bulutli hisoblash prinsiplari"},"correct":"a"},{"question":"classroom. google. com","answers":{"a":"GoogleClassroom ning rasmiy sayti","b":"Google bulutli hisoblash platformasi","c":"GoogleApp ning rasmiy sayti","d":"Google ning rasmiy sayti"},"correct":"a"},{"question":"Cloud xisoblashlar konsepsiyasining moxiyati","answers":{"a":"Foydalanuvchilarga xizmatlarga, xisoblash resurslariga va ilovalariga (operatsion tizimlar va infrastrukturani kiritgan xolda) internet orqali masofaviy dinamik ruxsatni taqdim etish","b":"savdo, marketing va mijozlarga xizmat ko\u02bbrsatish kabi mijozlar jarayonlarini avtomatlashtirishda","c":"bir vaqtning o\u02bbzida turli xil ma\u02bclumotlar turlarini boshqarishi mumkin","d":"yilda zarur resurslarni qidirish, resurs holati, saqlash va yetkazib berish axborot to\u02bbplash"},"correct":"a"},{"question":"Comments (only Hue and Scripts)","answers":{"a":"Using &ldquo;&ndash;&ldquo;","b":"DECRIBE &lt;table&gt;","c":"SHOW FUNCTIONS.","d":"Agar jadval mavjud b\u043e&lsquo;lsa jadvalni \u043e&lsquo;chirish"},"correct":"a"},{"question":"Cookie nima?","answers":{"a":"Kliyent kompyuterida saqlanuvchi va u har safar serverga murojaat qilayotganda wyeb-serverga yuboriladigan matn satridir.","b":"Kliyent kompyuterida saqlanuvchi va u har safar serverga murojaat qilayotganda wyeb-serverga yuboriladigan ma\u02bclumotlar tiplaridir.","c":"Har safar serverga murojaat qilayotganda wyeb-serverga yuboriladigan ma\u02bclumotlardir","d":"Kliyent kompyuterida saqlanuvchi ma\u02bclumot."},"correct":"a"},{"question":"Cookie ning amal qilish muddati qaysi parametric orqali ifodalanadi?","answers":{"a":"domain","b":"expire","c":"date","d":"path"},"correct":"b"},{"question":"Cookie qiymatini o\u02bbrnatish uchun qanday funksiyadan foydalaniladi?","answers":{"a":"set","b":"getcookie","c":"settipe","d":"setcookie"},"correct":"d"},{"question":"CSS ning birinchi versiyalari qaysi yilda ishlab chiqilgan","answers":{"a":"2000","b":"1990","c":"1985","d":"1996"},"correct":"d"},{"question":"fizik xajmning kattaligi.","answers":{"a":"Volume&nbsp;","b":"Velocity&nbsp;","c":"Variety&nbsp;","d":"Vorm"},"correct":"a"},{"question":"Formaning qanday ko\u02bbrinishini ko\u02bbrish uchun siz... funksiyasidan foydalanishingiz mumkin. forma shablonini GoogleForm-da.","answers":{"a":"Yuqori o\u02bbng burchakda ko\u02bbrish","b":"faqat bitta va ro\u02bbyxatdagi bir nechta","c":"ro\u02bbyxatdan faqat bittasi","d":"Pastki o\u02bbng burchakda ko\u02bbrish"},"correct":"a"},{"question":"framework ishga kirishni&hellip;.. juftlari t\u043e&lsquo;plami sifatida k\u043e&lsquo;rib chiqadi va ishning natijasi sifatida &hellip;&hellip;. juftlari t\u043e&lsquo;plamini hosil qiladi","answers":{"a":"&lt;key, value&gt; , &lt;key, value&gt;","b":"&lt;key, key&gt; , &lt;key, key&gt;","c":"&lt;value, value&gt; , &lt;key, key&gt;","d":"&lt;key, value, value&gt; , &lt;key, key&gt;"},"correct":"a"},{"question":"Funksiya tasnifi","answers":{"a":"DESCRIBE FUNCTION &lt;function&gt;.","b":"DECRIBE &lt;table&gt;","c":"Using &ldquo;&ndash;&ldquo;","d":"SHOW FUNCTIONS."},"correct":"a"},{"question":"GFT maqsadi -","answers":{"a":"katta fayllarni saqlash va  umuman aytganda bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarni nazarda tutiladi","b":"fayllarni saqlash va ularga kirish imkoniyati  va bitta qattiq diskda saqlanib b\u043e&lsquo;ladigan fayllarni nazarda tutiladi","c":"kichik fayllarni saqlash va qattiq diskda sailanadigan fayllarni nazarda tutiladi","d":"kup fayllarni saqlash va ularga bitta qattiq diskda saqlanib b\u043e&lsquo;lmaydigan fayllarning tizimi nazarda tutiladi"},"correct":"a"},{"question":"Google Fayl System (GFS)","answers":{"a":"Google tomonidan ishlatiladigan taqsimlangan fayl tizimi","b":"Mcrosoft tomonidan ishlatiladigan taqsimlangan fayl tizimi","c":"Apple tomonidan ishlatiladigan taqsimlangan fayl tizimi","d":"Hadoop tomonidan ishlatiladigan taqsimlangan fayl tizimi"},"correct":"a"},{"question":"Google File System chiqdi.","answers":{"a":"2003 yilda","b":"2004 yilda","c":"2008 yilda","d":"2010 yilda"},"correct":"a"},{"question":"GoogleApp","answers":{"a":"Google texnologiyasi","b":"Google bulutli hisoblash platformasi","c":"Google elektron pochtasi","d":"Google portali"},"correct":"b"},{"question":"GoogleClassroom da dars materiallarini qo\u02bbshish uchun qaysi yorlig\u02bbiga o\u02bbtish kerak?","answers":{"a":"zadaniye","b":"sozdat","c":"polzovateli","d":"lenta"},"correct":"a"},{"question":"GoogleForm da so\u02bbrov yoki anketa joylashtirilgan alohida veb-sahifa","answers":{"a":"anketa","b":"Forma","c":"vopros","d":"test"},"correct":"b"},{"question":"GoogleForm-da bir nechta jumlalardan iborat matnli javob.","answers":{"a":"Odin iz spiska","b":"Tekst (abzats)","c":"neskolko iz spiska","d":"Tekst (stroka)"},"correct":"b"},{"question":"GoogleForm-da bir nechta taklif qilingan variantlarni tanlash uchun foydalaniladi.","answers":{"a":"neskolko iz spiska","b":"Tekst (stroka)","c":"Tekst (abzats)","d":"Odin iz spiska"},"correct":"a"},{"question":"GoogleForm-da bitta qatorga to\u02bbg\u02bbri keladigan qisqa javob","answers":{"a":"neskolko iz spiska","b":"Tekst (stroka)","c":"Odin iz spiska","d":"Tekst (abzats)"},"correct":"b"},{"question":"GoogleForm-da to\u02bbg\u02bbri javob uchun ballarda avtomatik reytingni qanday sozlash mumkin?","answers":{"a":"ochiladigan ro\u02bbyxat","b":"bittadan, ro\u02bbyxatdan bir nechta, ochiladigan ro\u02bbyxat.","c":"soat","d":"daqiqa"},"correct":"b"},{"question":"GoogleSlassroom da dars materiallarini qo\u02bbshish uchun qaysi yorlig\u02bbiga o\u02bbtish kerak?","answers":{"a":"sozdat","b":"polzovateli","c":"lenta","d":"zadaniye"},"correct":"d"},{"question":"GoogleSlassroom da foydalanuvchi yaratgan kursga kod qanday beriladi?","answers":{"a":"avtomatik ravishda","b":"sanab beriladi","c":"foydalanuvchi o\u02bbzi beradi","d":"foydalanuvchining identifikatsion nomeri bo\u02bbyicha beriladi"},"correct":"a"},{"question":"GoogleSlassroom da gorizontal menyusida qanday uchta yorliq mavjud?","answers":{"a":"lenta, varaq, tuval","b":"o\u02bbqituvchi, talaba, foydalanuvchi","c":"tayinlash, o\u02bbqituvchi, foydalanuvchilar","d":"lenta, vazifa, foydalanuvchilar"},"correct":"d"},{"question":"GoogleSlassroom da gorizontal menyusining lenta yorlig\u02bbida muhokama uchun nimalar chop etiladi?","answers":{"a":"ma\u02bcruzalar","b":"savollar","c":"savollar va mavzular","d":"maqolalar"},"correct":"c"},{"question":"GoogleSlassroom da mashg\u02bbulot vazifalari qaysi yorliqda e\u02bclon qilinadi?","answers":{"a":"lenta","b":"zadaniye","c":"polzovateli","d":"sozdat"},"correct":"b"},{"question":"GoogleSlassroom ning gorizontal menyusida qancha obyektlarning yorliqlari joylashgan?","answers":{"a":"5","b":"3","c":"2","d":"4"},"correct":"b"},{"question":"GoogleSlassroom ning rasmiy sayti","answers":{"a":"classroom. google","b":"classroom. google. com","c":"classroom. com","d":"google. com"},"correct":"b"},{"question":"Hadoop - bu","answers":{"a":"ma&rsquo;lumotlar tahlilini amalga oshirish uchun tayanch vazifasini \u043e&lsquo;tashi mumkin b\u043e&lsquo;lgan ochiq manbali dasturlar t\u043e&lsquo;plami","b":"butun ma&rsquo;lumotlar tahlilini amalga oshirish uchun dasturlar t\u043e&lsquo;plami","c":"ma&rsquo;lumotlar tahlilini amalga oshirish uchun yopiq manbali dasturlar t\u043e&lsquo;plami","d":"kompyuter fayllarini saqlash uchun  ochiq manbali dasturlar t\u043e&lsquo;plami"},"correct":"a"},{"question":"Hadoop Common:","answers":{"a":"foydalanuvchi kompyuterlari uchun fayl tizimida saqlangan ma&rsquo;lumotni \u043e&lsquo;qish uchun zarur b\u043e&lsquo;lgan Java vositalari t\u043e&lsquo;plami.","b":"ushbu fayl tizimidagi ma&rsquo;lumotlarni \u043e&lsquo;qiydi va foydalanuvchilar sharxlashlari mumkin b\u043e&lsquo;lgan vizualizatsiyalarga formatlaydi.","c":"ma&rsquo;lumotni ulangan saqlash moslamalari tizimi orqali kirish mumkin b\u043e&lsquo;lgan formatda saqlashga imkon beradi.","d":"ma&rsquo;lumotlarni saqlash va tahlil qilish tizimlari resurslarini boshqaradi."},"correct":"a"},{"question":"Hadoop Distributed File System (HDFS) ustida ishlab chiqilgan ETL va ma&rsquo;lumotlarni saqlash vositasi","answers":{"a":"Hive","b":"MapReduce","c":"HTFT","d":"GTFT"},"correct":"a"},{"question":"Hadoop qancha moduldan iborat","answers":{"a":"4","b":"3","c":"2","d":"1"},"correct":"a"},{"question":"Hadoop taqsimlangan fayl tizimi","answers":{"a":"HTFT","b":"GTFT","c":"HTTP","d":"HTML"},"correct":"a"},{"question":"Hadoop TeraSort tanlovida g&lsquo;olib chiqdi","answers":{"a":"2008 yilda","b":"2004 yilda","c":"2006 yilda","d":"2010 yilda"},"correct":"a"},{"question":"Hadoop turli xil foydalanuvchilarining haqiqiyligini tekshirishda Hadoop foydalanuvchisi uchun &hellip;.. taqdim etish va uni turli foydalanuvchilar bilan b\u043e&lsquo;lishish talab qilinadi","answers":{"a":"ochiq \/ shaxsiy kalit juftligini","b":"ochiq \/ ochiq kalit juftligini","c":"shaxsiy \/ shaxsiy kalit juftligini","d":"ochiq  kalit"},"correct":"a"},{"question":"Hive","answers":{"a":"ma&rsquo;lumotlar ombori sifatida jadvallarda saqlanadigan ma&rsquo;lumotlarni boshqarish va s\u043e&lsquo;rov hosil qilish uchun m\u043e&lsquo;ljallangan.","b":"ma&rsquo;lumotlar ombori sifatida saqlanadi","c":"jadvallarni  boshqarish va  hosil qilish uchun m\u043e&lsquo;ljallangan.","d":"ma&rsquo;lumotlarni boshqarish va jadvallarni hosil qilish uchun m\u043e&lsquo;ljallangan."},"correct":"a"},{"question":"Hive -","answers":{"a":"bu Hadoop Distributed File System (HDFS) ustida ishlab chiqilgan ETL va ma&rsquo;lumotlarni saqlash vositasi","b":"bu GFS ustida ishlab chiqilgan ETL va ma&rsquo;lumotlarni saqlash vositasi","c":"bu MapReduce ustida ishlab chiqilgan ETL va ma&rsquo;lumotlarni saqlash vositasi","d":"bu Hadoop da ishlab chiqilgan va ma&rsquo;lumotlarni saqlash vositasi"},"correct":"a"},{"question":"Hive da","answers":{"a":"avval jadvallar va ma&rsquo;lumotlar bazalari yaratiladi, s\u043e&lsquo;ngra ma&rsquo;lumotlar ushbu jadvallarga yuklanadi.","b":"avval jadvallar  yaratiladi, s\u043e&lsquo;ngra ma&rsquo;lumotlar bazalari ushbu jadvallarga yuklanadi.","c":"avval ma&rsquo;lumotlar bazalari yaratiladi, s\u043e&lsquo;ngra unga jadvallar yuklanadi.","d":"jadvallar va ma&rsquo;lumotlar bazalari ohirida yaratiladi"},"correct":"a"},{"question":"Hive funksiyalarini k\u043e&lsquo;rsatish","answers":{"a":"SHOW FUNCTIONS.","b":"DECRIBE &lt;table&gt;","c":"Using &ldquo;&ndash;&ldquo;","d":"Agar jadval mavjud b\u043e&lsquo;lsa jadvalni \u043e&lsquo;chirish"},"correct":"a"},{"question":"HTFT","answers":{"a":"Hadoop taqsimlangan fayl tizimi","b":"taqsimlangan fayl tizimi","c":"Google taqsimlangan fayl tizimi","d":"Google tizimi"},"correct":"a"},{"question":"IDE","answers":{"a":"integratsiyalashgan yaratish vositalari","b":"integratsiyalashgan rivojlanish vositalari","c":"qiziqarli rivojlantirish vositalari","d":"aniqlangan rivojlanish vositalari"},"correct":"a"},{"question":"Identifikatsiyani boshqarish funksional imkoniyatlari tizimga kirish huquqiga ega b\u043e&lsquo;lgan barcha foydalanuvchilar, shu jumladan ...................boshqaradi","answers":{"a":"shaxsiy foydalanuvchilar, kompyuter uskunalari va dasturiy ta&rsquo;minotni identifikatsiyalash ma&rsquo;lumotlarini","b":"shaxsiy foydalanuvchilarma&rsquo;lumotlarini","c":"shaxsiy foydalanuvchilar, kompyuter uskunalari va dasturiy ta&rsquo;minotni","d":"kompyuter uskunalari va dasturiy ta&rsquo;minotni"},"correct":"a"},{"question":"ideone. com","answers":{"a":"onlayn IDE","b":"EDI","c":"ID","d":"ED"},"correct":"a"},{"question":"Ikki yoki undan ko\u02bbp turli xil bulutli infratuzilmalarning kombinatsiyasi","answers":{"a":"Ommaviy &laquo;bulut&raquo;","b":"Gibrid &laquo;bulut&raquo;","c":"Ijtimoiy &laquo;bulut&raquo;","d":"Xususiy &laquo;bulut&raquo;"},"correct":"b"},{"question":"integratsiyalashgan yaratish vositalari","answers":{"a":"ED","b":"ID","c":"IDE","d":"EDI"},"correct":"c"},{"question":"Jadval katalogidagi jadvallarni nusxalash fayllarini t\u043e&lsquo;ldiring","answers":{"a":"hdfs dfs -mv &lt;file&gt; &lt;table-dir&gt;","b":"DECRIBE &lt;table&gt;","c":"Using &ldquo;&ndash;&ldquo;","d":"SHOW FUNCTIONS."},"correct":"a"},{"question":"Jadval tasnifi","answers":{"a":"DECRIBE &lt;table&gt;.","b":"Using &ldquo;&ndash;&ldquo;","c":"SHOW FUNCTIONS.","d":"Agar jadval mavjud b\u043e&lsquo;lsa jadvalni \u043e&lsquo;chirish"},"correct":"a"},{"question":"Jadvalni HiveQL buyrug&lsquo;i bilan t\u043e&lsquo;ldirish","answers":{"a":"LOAD DATA INPATH '&lt;file&gt;' INTO TABLE &lt;table&gt;.","b":"DECRIBE &lt;table&gt;","c":"Using &ldquo;&ndash;&ldquo;","d":"SHOW FUNCTIONS."},"correct":"a"},{"question":"Jadvalni \u043e&lsquo;chirish","answers":{"a":"DROP TABLE &lt;table&gt;.","b":"DECRIBE &lt;table&gt;","c":"Using &ldquo;&ndash;&ldquo;","d":"SHOW FUNCTIONS."},"correct":"a"},{"question":"Katta ma&rsquo;lumotlar mukammal b\u043e&lsquo;ron deb ta&rsquo;riflagan texnologiyaning qanday uchta y\u043e&lsquo;nalishini birlashtirgan evolyusiyaning s\u043e&lsquo;nggi bosqichi sifatida paydo b\u043e&lsquo;ladi","answers":{"a":"hisoblash, ma&rsquo;lumotlar va konvergensiya","b":"hisoblash","c":"hisoblash, ma&rsquo;lumotlar","d":"ma&rsquo;lumotlar va konvergensiya"},"correct":"a"},{"question":"Katta ma&rsquo;lumotlar uchun &laquo;&hellip;..&raquo; deb nomlanuvchi an&rsquo;anaviy aniqlovchi xarakteristikalarni ajratish mumkin","answers":{"a":"3 V","b":"9 V","c":"1 V","d":"2 V"},"correct":"a"},{"question":"Local\/ mustaqil rejim -","answers":{"a":"tizimga Hadoop-ni yuklab olgandan s\u043e&lsquo;ng, u mustaqil rejimda ishlatilishi mumkin.","b":"bitta mashinada taqsimlangan simulyatsiya hisonlanadi.","c":"klaster sifatida kamida ikki yoki undan ortiq mashinalar bilan t\u043e&lsquo;liq taqsimlanadi","d":"bu GFS ustida ishlab chiqilgan ETL va ma&rsquo;lumotlarni saqlash vositasi"},"correct":"a"},{"question":"MapReduce","answers":{"a":"bu xaritani yozish va qisqartirish funksiyalaridan iborat dasturiy model","b":"Hadoop taqsimlangan fayl tizimi","c":"ma&rsquo;lumotni ulangan saqlash moslamalari tizimi orqali kirish mumkin b\u043e&lsquo;lgan formatda saqlashga imkon beradi.","d":"foydalanuvchi kompyuterlari uchun fayl tizimida saqlangan ma&rsquo;lumotni \u043e&lsquo;qish uchun zarur b\u043e&lsquo;lgan Java vositalari t\u043e&lsquo;plami."},"correct":"a"},{"question":"MapReduce algoritmi &hellip;. muhim vazifani \u043e&lsquo;z ichiga oladi","answers":{"a":"2","b":"3","c":"4","d":"5"},"correct":"a"},{"question":"MapReduce asoslari chiqarildi.","answers":{"a":"2004 yilda","b":"2006 yilda","c":"2008 yilda","d":"2010 yilda"},"correct":"a"},{"question":"MapReduce dasturiy modelidan foydalangan holda katta ma&rsquo;lumotlarni tarqatish va qayta ishlash uchun dasturiy ta&rsquo;minotni taqdim yetuvchi Hadoop tashkil yetildi","answers":{"a":"2006 yilda","b":"2004 yilda","c":"2008 yilda","d":"2010 yilda"},"correct":"a"},{"question":"MapReduce:","answers":{"a":"ushbu fayl tizimidagi ma&rsquo;lumotlarni \u043e&lsquo;qiydi va foydalanuvchilar sharxlashlari mumkin b\u043e&lsquo;lgan vizualizatsiyalarga formatlaydi.","b":"ma&rsquo;lumotni ulangan saqlash moslamalari tizimi orqali kirish mumkin b\u043e&lsquo;lgan formatda saqlashga imkon beradi.","c":"foydalanuvchi kompyuterlari uchun fayl tizimida saqlangan ma&rsquo;lumotni \u043e&lsquo;qish uchun zarur b\u043e&lsquo;lgan Java vositalari t\u043e&lsquo;plami.","d":"ma&rsquo;lumotlarni saqlash va tahlil qilish tizimlari resurslarini boshqaradi."},"correct":"a"},{"question":"Mashinali o\u02bbrgatish","answers":{"a":"Ma\u02bclumotlarda qaror qabul qilish uchun zarur bo\u02bblgan oldindan noma\u02bclum, arzimas, amaliy foydali bilimlarni aniqlash usullar to\u02bbplami","b":"Asosiy modellar asosida kompleks prognozlarni kilish uchun statistik tahlil yoki mashinali ta\u02bclim asosida yaratilgan modellardan foydalanish - bu:","c":"Mehnat munosabatlariga kirmasdan ishni bajarayotgan shaxslarning keng, noma\u02bclum doiralari bo\u02bbyicha olingan ma\u02bclumotlarni tasniflash va boyitish","d":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul"},"correct":"b"},{"question":"Ma\u02bclum tartibda tashkil etilmagan yoki dastlabki tuzilishga ega bo\u02bblmagan ma\u02bclumotlar.","answers":{"a":"katta ma\u02bclumotlar","b":"Strukturlanmagan ma\u02bclumotlar","c":"ma\u02bclumotlar","d":"strukturlangan ma\u02bclumotlar"},"correct":"b"},{"question":"Ma\u02bclumot xizmat sifatida","answers":{"a":"Iaas","b":"EaaS","c":"Saas","d":"Daas"},"correct":"d"},{"question":"ma&rsquo;lumotlarni s\u043e&lsquo;rash va tahlil qilish uchun Apache Hadoop- ning tepasida qurilgan ma&rsquo;lumotlar ombori dasturining loyihasi yaratildi","answers":{"a":"2010 yilda","b":"2004 yilda","c":"2006 yilda","d":"2008 yilda"},"correct":"a"},{"question":"Ma&rsquo;lumotlarning mohiyatini tavsiflash, ma&rsquo;lumotlarni taqdim etgan shachs bilan bog&lsquo;liqlikni \u043e&lsquo;rganish.","answers":{"a":"Statistik tahlilning 1-chi bosqichi","b":"Statistik tahlilning 2-chi bosqichi","c":"Statistik tahlilning 3-chi bosqichi","d":"Statistik tahlilning 4-chi bosqichi"},"correct":"a"},{"question":"Ma&rsquo;lumotni qayta ishlash xususiyatlari, ...... \u043e&lsquo;z ichiga oladi","answers":{"a":"ma&rsquo;lumotlarni t\u043e&lsquo;plash va tashkillashtirishni","b":"ma&rsquo;lumotlarni t\u043e&lsquo;plash","c":"ma&rsquo;lumotlarni tashkillashtirishni","d":"ma&rsquo;lumotlarni saqlash"},"correct":"a"},{"question":"Modeling, Data Mining, Data File Sources, File Exporting","answers":{"a":"Ma&rsquo;lumotlarni qayta ishlash texnologiyalari","b":"Ma&rsquo;lumotlarni qayta ishlash modellari","c":"Ma&rsquo;lumotlarni qayta ishlash usullari","d":"Ma&rsquo;lumotlarni qayta ishlash tizimlari"},"correct":"a"},{"question":"natijalarni olish uchun tezlikning oshishi va tezkor ishlov berishning tezligi.","answers":{"a":"Velocity&nbsp;","b":"Volume&nbsp;","c":"Variety&nbsp;","d":"Vorm"},"correct":"a"},{"question":"NoSQL ma&rsquo;lumotlar bazalari -","answers":{"a":"\u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lmagan, SQL-ga asoslangan emas va ma&rsquo;lumotni \u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lmagan ma&rsquo;lumotlar bilan yaxshi ishlaydigan kalit-qiymat juftliklarida saqlaydi","b":"\u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lgan, SQL-ga asoslangan  va ma&rsquo;lumotni \u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lgan ma&rsquo;lumotlar bilan  ishlaydigan kalit-qiymat juftliklarida saqlaydi","c":"\u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lmagan ma&rsquo;lumotni \u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lmagan ma&rsquo;lumotlar","d":"\u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lmagan, SQL-ga asoslangan emas va ma&rsquo;lumotni \u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lmagan ma&rsquo;lumotlar bilaydi"},"correct":"a"},{"question":"NoSQL odatda &quot;...&quot; deb talqin qilinadi","answers":{"a":"Faqat SQL emas","b":"SQL emas","c":"SQL","d":"Faqat SQL"},"correct":"a"},{"question":"Odam ko\u02bbzlarining harakatlarini kuzatib borib, qayerga qarayotganini aniqlashga imkon beradigan, shuningdek, odamning xarakatlarini virtual dunyoda takrorlashga ham imkon beruvchi tizim","answers":{"a":"treking tizimlari","b":"3D-kontroller","c":"2D-kontroller","d":"4D-kontroller"},"correct":"a"},{"question":"Odatiy holatda GoogleSlassroom da vazifalarni bajarish muddatlari.... qoladi","answers":{"a":"ochiq","b":"1 xafta ichida","c":"10 kun ichida","d":"yopiq"},"correct":"a"},{"question":"Ommaviy &laquo;bulut&raquo;","answers":{"a":"bu ikki yoki undan ko\u02bbp turli xil bulutli infratuzilmalarning kombinatsiyasi","b":"bir nechta mijozlar bilan bitta tashkilot tomonidan foydalanish uchun mo\u02bbljallangan infratuzilma","c":"Umumiy vazifalari bo\u02bblgan tashkilotlar iste\u02bcmolchilarining ma\u02bclum bir hamjamiyati foydalanishi uchun mo\u02bbljallangan infratuzilma turi","d":"keng omma tomonidan bepul foydalanishga mo\u02bbljallangan infratuzilma"},"correct":"d"},{"question":"onlayn IDE","answers":{"a":"id. google. com","b":"google. com","c":"ideone. com","d":"google. id. com"},"correct":"c"},{"question":"Pseudo taqsimlangan rejim -","answers":{"a":"bitta mashinada taqsimlangan simulyatsiya hisonlanadi.","b":"tizimga Hadoop-ni yuklab olgandan s\u043e&lsquo;ng, u mustaqil rejimda ishlatilishi mumkin.","c":"klaster sifatida kamida ikki yoki undan ortiq mashinalar bilan t\u043e&lsquo;liq taqsimlanadi","d":"bu GFS ustida ishlab chiqilgan ETL va ma&rsquo;lumotlarni saqlash vositasi"},"correct":"a"},{"question":"Qarorlarni boshqarish uchun bashoratli tahlillarni q\u043e&lsquo;llash.","answers":{"a":"Statistik tahlilning 5-chi bosqichi","b":"Statistik tahlilning 1-chi bosqichi","c":"Statistik tahlilning 2-chi bosqichi","d":"Statistik tahlilning 3-chi bosqichi"},"correct":"a"},{"question":"Rad etish.","answers":{"a":"Statistik tahlilning 4-chi bosqichi","b":"Statistik tahlilning 1-chi bosqichi","c":"Statistik tahlilning 2-chi bosqichi","d":"Statistik tahlilning 3-chi bosqichi"},"correct":"a"},{"question":"Rasm, tovush va kontrollerlar bilan keng ekranga uzatiladigan simulyatsiya texnologiyasi","answers":{"a":"Virtual reallikga to\u02bbliq qiradigan texnologiya","b":"3D texnologiyasi","c":"Virtual reallikga o\u02bbz infrastrukturasi bilan qiradigan texnologiya","d":"Virtual reallikga to\u02bbliq qirmaydigan texnologiya"},"correct":"d"},{"question":"Shaxsiy akkaunt egallari GoogleClassroom da bir kunda maksimum qancha kurs ishtiroqchilarga ruhsat berishlari mumkin?","answers":{"a":"50","b":"100","c":"500","d":"200"},"correct":"d"},{"question":"Shaxsiy akkaunt egallari GoogleClassroom da bir kunda maksimum qancha kurslarga kirishlari mumkin?","answers":{"a":"Kuniga 50 ta kurs","b":"Kuniga 10 ta kurs","c":"Kuniga 30 ta kurs","d":"Kuniga 100 ta kurs"},"correct":"c"},{"question":"Shaxsiy akkaunt egallari GoogleSlassroom da bir kunda maksimum qancha kurs ishtiroqchilarga ruhsat berishlari mumkin?","answers":{"a":"100","b":"200","c":"500","d":"50"},"correct":"b"},{"question":"Shaxsiy akkaunt egallari GoogleSlassroom da bir kunda maksimum qancha kurslarga kirishlari mumkin?","answers":{"a":"Kuniga 30 ta kurs","b":"Kuniga 10 ta kurs","c":"Kuniga 100 ta kurs","d":"Kuniga 50 ta kurs"},"correct":"a"},{"question":"Shaxsiy akkaunt egallari GoogleSlassroom da qancha kurs yaratish mumkin?","answers":{"a":"kuniga 30 ta kursgacha","b":"kuniga 10 ta kursgacha","c":"kuniga 30 dan ortiq kursla","d":"30 ta kurs"},"correct":"a"},{"question":"Siz GoogleForm-ga yuborganingizdan so\u02bbng talaba ko\u02bbradigan o\u02bbz matningizni yozishingiz mumkin.","answers":{"a":"Taqdimot funksiyasi","b":"javob funksiyasi","c":"Pastki chap burchakda ko\u02bbrish","d":"Yuqori chap burchakda ko\u02bbrish"},"correct":"a"},{"question":"Statistik tahlil qancha bosqichda amalga oshiriladi","answers":{"a":"5","b":"4","c":"3","d":"2"},"correct":"a"},{"question":"Statistik tahlilning 1-chi bosqichi","answers":{"a":"Ma&rsquo;lumotlarning mohiyatini tavsiflash, ma&rsquo;lumotlarni taqdim etgan shachs bilan bog&lsquo;liqlikni \u043e&lsquo;rganish.","b":"Ulanishlarni umumlashtirish uchun model yaratish.","c":"T\u043e&lsquo;g&lsquo;riligini isbotlash.","d":"Rad etish."},"correct":"a"},{"question":"Statistik tahlilning 2-chi bosqichi","answers":{"a":"Ulanishlarni umumlashtirish uchun model yaratish.","b":"Ma&rsquo;lumotlarning mohiyatini tavsiflash, ma&rsquo;lumotlarni taqdim etgan shachs bilan bog&lsquo;liqlikni \u043e&lsquo;rganish.","c":"T\u043e&lsquo;g&lsquo;riligini isbotlash.","d":"Rad etish."},"correct":"a"},{"question":"Statistik tahlilning 3-chi bosqichi","answers":{"a":"T\u043e&lsquo;g&lsquo;riligini isbotlash.","b":"Ma&rsquo;lumotlarning mohiyatini tavsiflash, ma&rsquo;lumotlarni taqdim etgan shachs bilan bog&lsquo;liqlikni \u043e&lsquo;rganish.","c":"Ulanishlarni umumlashtirish uchun model yaratish.","d":"Rad etish."},"correct":"a"},{"question":"Statistik tahlilning 4-chi bosqichi","answers":{"a":"Rad etish.","b":"Ma&rsquo;lumotlarning mohiyatini tavsiflash, ma&rsquo;lumotlarni taqdim etgan shachs bilan bog&lsquo;liqlikni \u043e&lsquo;rganish.","c":"Ulanishlarni umumlashtirish uchun model yaratish.","d":"T\u043e&lsquo;g&lsquo;riligini isbotlash."},"correct":"a"},{"question":"Statistik tahlilning 5-chi bosqichi","answers":{"a":"Qarorlarni boshqarish uchun bashoratli tahlillarni q\u043e&lsquo;llash.","b":"Ma&rsquo;lumotlarning mohiyatini tavsiflash, ma&rsquo;lumotlarni taqdim etgan shachs bilan bog&lsquo;liqlikni \u043e&lsquo;rganish.","c":"Ulanishlarni umumlashtirish uchun model yaratish.","d":"T\u043e&lsquo;g&lsquo;riligini isbotlash."},"correct":"a"},{"question":"Taqsimlangan fayl tizimi (Distributed File System):","answers":{"a":"ma&rsquo;lumotni ulangan saqlash moslamalari tizimi orqali kirish mumkin b\u043e&lsquo;lgan formatda saqlashga imkon beradi.","b":"ushbu fayl tizimidagi ma&rsquo;lumotlarni \u043e&lsquo;qiydi va foydalanuvchilar sharxlashlari mumkin b\u043e&lsquo;lgan vizualizatsiyalarga formatlaydi.","c":"foydalanuvchi kompyuterlari uchun fayl tizimida saqlangan ma&rsquo;lumotni \u043e&lsquo;qish uchun zarur b\u043e&lsquo;lgan Java vositalari t\u043e&lsquo;plami.","d":"ma&rsquo;lumotlarni saqlash va tahlil qilish tizimlari resurslarini boshqaradi."},"correct":"a"},{"question":"Ta\u02bclimdagi umum jahon tendensiyalari orasida -","answers":{"a":"uzluksiz va umr davomida ta\u02bclim olish trendga aylanmoqda","b":"uzluksiz va qariganda ta\u02bclim-tarbiya olish trendga aylanmoqda","c":"uzluksiz va qisqa davr davomida ta\u02bclim olish trendga aylanmoqda.","d":"uzluksiz va yoshlikda ta\u02bclim-tarbiya olish trendga aylanmoqda."},"correct":"a"},{"question":"Texnik vositalar yordamida yaratilgan dunyo, odamning sezgilari orqali ma\u02bclumotlarni qabul qilish imkonini yaratadi","answers":{"a":"kengaytirilgan reallik","b":"aralash reallik","c":"gibrid reallik","d":"Virtual reallik"},"correct":"d"},{"question":"Turli maqsadlar va vazifalar uchun strukturlangan va strukturlanmagan ma\u02bclumotlarni qayta ishlash","answers":{"a":"strukturlangan ma\u02bclumotlar","b":"strukturlanmagan ma\u02bclumotlar","c":"Katta ma\u02bclumotlar","d":"kichik ma\u02bclumotlar"},"correct":"c"},{"question":"turli tipdagi ma&rsquo;lumotlarga bir vaqtda ishlov berish imkoniyati.","answers":{"a":"Variety&nbsp;","b":"Volume&nbsp;","c":"Velocity&nbsp;","d":"Vorm"},"correct":"a"},{"question":"T\u043e&lsquo;g&lsquo;riligini isbotlash.","answers":{"a":"Statistik tahlilning 3-chi bosqichi","b":"Statistik tahlilning 1-chi bosqichi","c":"Statistik tahlilning 2-chi bosqichi","d":"Statistik tahlilning 4-chi bosqichi"},"correct":"a"},{"question":"T\u043e&lsquo;la taqsimlangan rejim -","answers":{"a":"klaster sifatida kamida ikki yoki undan ortiq mashinalar bilan t\u043e&lsquo;liq taqsimlanadi","b":"tizimga Hadoop-ni yuklab olgandan s\u043e&lsquo;ng, u mustaqil rejimda ishlatilishi mumkin.","c":"bitta mashinada taqsimlangan simulyatsiya hisonlanadi.","d":"bu GFS ustida ishlab chiqilgan ETL va ma&rsquo;lumotlarni saqlash vositasi"},"correct":"a"},{"question":"Uch o\u02bblchovli fazoda ishlashga imkon beradigan manipulyatorlar","answers":{"a":"4D-kontroller","b":"treking tizimlari","c":"2D-kontroller","d":"3D-kontroller"},"correct":"d"},{"question":"Uch o\u02bblchovli virtual obektlarni yoki gologrammalarni fizik fazoga proyeksiyalash","answers":{"a":"Kengaytirilgan haqiqat","b":"Virtual haqiqat","c":"Aralash haqiqat","d":"Gibrid haqiqat"},"correct":"c"},{"question":"Ulanishlarni umumlashtirish uchun model yaratish.","answers":{"a":"Statistik tahlilning 2-chi bosqichi","b":"Statistik tahlilning 1-chi bosqichi","c":"Statistik tahlilning 3-chi bosqichi","d":"Statistik tahlilning 4-chi bosqichi"},"correct":"a"},{"question":"Variety&nbsp;&mdash;","answers":{"a":"turli tipdagi ma&rsquo;lumotlarga bir vaqtda ishlov berish imkoniyati.","b":"fizik xajmning kattaligi.","c":"natijalarni olish uchun tezlikning oshishi va tezkor ishlov berishning tezligi.","d":"logik xajmning kattaligi."},"correct":"a"},{"question":"Velocity&nbsp;&mdash;","answers":{"a":"natijalarni olish uchun tezlikning oshishi va tezkor ishlov berishning tezligi.","b":"fizik xajmning kattaligi.","c":"turli tipdagi ma&rsquo;lumotlarga bir vaqtda ishlov berish imkoniyati.","d":"logik xajmning kattaligi."},"correct":"a"},{"question":"Virtual dunyoni yuqori darajada simulyatsiya qilib beradigan texnologiyasi","answers":{"a":"3D texnologiyasi","b":"Virtual reallikga to\u02bbliq qiradigan texnologiya","c":"Virtual reallikga o\u02bbz infrastrukturasi bilan qiradigan texnologiya","d":"Virtual reallikga to\u02bbliq qirmaydigan texnologiya"},"correct":"b"},{"question":"Vizualizatsiya","answers":{"a":"Mehnat munosabatlariga kirmasdan ishni bajarayotgan shaxslarning keng, noma\u02bclum doiralari bo\u02bbyicha olingan ma\u02bclumotlarni tasniflash va boyitish","b":"Ma\u02bclumotlarda qaror qabul qilish uchun zarur bo\u02bblgan oldindan noma\u02bclum, arzimas, amaliy foydali bilimlarni aniqlash usullar to\u02bbplami","c":"Ma\u02bclumotlarni chizma, diagramma va interfaol usullardan va animatsiyalardan foydalangan holda taqdim etish usuli","d":"Jarayonlarni aslida qanday borishini tasvirlaydigan modellarni yaratishga imkon beradigan usul"},"correct":"c"},{"question":"Volume&nbsp;&mdash;","answers":{"a":"fizik xajmning kattaligi.","b":"turli tipdagi ma&rsquo;lumotlarga bir vaqtda ishlov berish imkoniyati.","c":"natijalarni olish uchun tezlikning oshishi va tezkor ishlov berishning tezligi.","d":"logik xajmning kattaligi."},"correct":"a"},{"question":"YARN:","answers":{"a":"ma&rsquo;lumotlarni saqlash va tahlil qilish tizimlari resurslarini boshqaradi.","b":"ushbu fayl tizimidagi ma&rsquo;lumotlarni \u043e&lsquo;qiydi va foydalanuvchilar sharxlashlari mumkin b\u043e&lsquo;lgan vizualizatsiyalarga formatlaydi.","c":"ma&rsquo;lumotni ulangan saqlash moslamalari tizimi orqali kirish mumkin b\u043e&lsquo;lgan formatda saqlashga imkon beradi.","d":"foydalanuvchi kompyuterlari uchun fayl tizimida saqlangan ma&rsquo;lumotni \u043e&lsquo;qish uchun zarur b\u043e&lsquo;lgan Java vositalari t\u043e&lsquo;plami."},"correct":"a"},{"question":"&hellip; - \u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lmagan, SQL-ga asoslangan emas va ma&rsquo;lumotni \u043e&lsquo;zaro bog&lsquo;liq b\u043e&lsquo;lmagan ma&rsquo;lumotlar bilan yaxshi ishlaydigan kalit-qiymat juftliklarida saqlaydi","answers":{"a":"NoSQL ma&rsquo;lumotlar bazalari","b":"SQL ma&rsquo;lumotlar bazalari","c":"NQL ma&rsquo;lumotlar bazalari","d":"SQL emas ma&rsquo;lumotlar bazalari"},"correct":"a"},{"question":"&hellip; buyrug&lsquo;i yordamida mavjud foydalanuvchini ishga tushirish mumkin.","answers":{"a":"su username","b":"su","c":"DECRIBE &lt;table&gt;.","d":"Useradd username"},"correct":"a"},{"question":"&hellip;. - bu katta hajm, tezlik, xilma-xillik va ishonchlilik bilan boshqariladigan ma&rsquo;lumotlar t\u043e&lsquo;plamidir","answers":{"a":"Big Data","b":"Data","c":"MBBT","d":"Big Data System"},"correct":"a"},{"question":"&hellip;. dan chiqishni kirish sifatida qabul qiladigan va ma&rsquo;lumotlar katakchalarini kichikroq katakchalarga birlashtirish vazifani bajaradi","answers":{"a":"Map","b":"kamaytirish (Reduce)","c":"MapReduce","d":"Hive -"},"correct":"a"},{"question":"&hellip;. ma&rsquo;lumotlar t\u043e&lsquo;plamini oladi va ularni boshqa ma&rsquo;lumotlar t\u043e&lsquo;plamiga \u043e&lsquo;zgartiradi, bu yerda alohida yelementlar katakchalarga b\u043e&lsquo;linadi (kalit \/ qiymat juftlari)","answers":{"a":"Map","b":"kamaytirish (Reduce)","c":"MapReduce","d":"Hive -"},"correct":"a"},{"question":"&hellip;..vazifasi har doim xarita ishidan keyin bajariladi","answers":{"a":"kamaytirish (Reduce)","b":"Map","c":"MapReduce","d":"Hive -"},"correct":"a"},{"question":"&hellip;..vazifasi har doim xarita ishidan keyin bajariladi","answers":{"a":"&lt;key, value&gt;","b":"&lt;key, key&gt;","c":"&lt;value, value&gt;","d":"&lt;key, value, value&gt;"},"correct":"a"}];
+
+    // Savollarni aralashtirish funksiyasi
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Javob variantlarini aralashtirish
+    function shuffleAnswers(quiz) {
+        quiz.forEach(item => {
+            const answersArray = Object.entries(item.answers);
+            shuffle(answersArray);
+            item.answers = Object.fromEntries(answersArray);
+            item.correct = answersArray.find(([key, value]) => value === item.answers[item.correct])[0]; // To'g'ri javobni yangilash
+        });
+    }
+    // Savollarni aralashtiramiz
+    // shuffle(quizData);
+
+    shuffleAnswers(quizData);
+
+    const quizContainer = document.getElementById('quiz');
+    const submitButton = document.getElementById('submit');
+    const resultsContainer = document.getElementById('results');
+    const finalResultsContainer = document.getElementById('finalResults');
+    const numberPagination = document.getElementById('numberPagination');
+    const timerDisplay = document.getElementById('timer');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+
+    let totalQuestions = quizData.length;
+    const timePerQuestion = 48; // 6 soniya
+    let timeLeft = totalQuestions * timePerQuestion;
+    let currentQuestionIndex = 0;
+
+    const selectedAnswers = Array(totalQuestions).fill(null);
+
+    function startTimer() {
+        const timerInterval = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `Vaqt: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Vaqt tugadi!");
+                submitButton.click();
+            }
+            timeLeft--;
+        }, 1000);
+    }
+
+    function loadQuestion() {
+        const item = quizData[currentQuestionIndex];
+        quizContainer.innerHTML = `
+            <div class="question">
+                <p>${currentQuestionIndex + 1}. ${item.question}</p>
+                ${Object.keys(item.answers).map(letter => {
+            const isChecked = selectedAnswers[currentQuestionIndex] === letter ? 'checked' : '';
+            const bgColor = selectedAnswers[currentQuestionIndex] === letter ? 'lightblue' : '#ccf3ff';
+            return `
+                        <label class="answer" id="answer${letter}" style="background-color: ${bgColor};">
+                            <input type="checkbox" name="question${currentQuestionIndex}" value="${letter}" ${isChecked} onchange="updateAnswer('${letter}')">
+                           ${item.answers[letter]}
+                        </label>
+                    `;
+        }).join('')}
+            </div>
+        `;
+        updateNumberPagination();
+        updateNavigationButtons();
+    }
+
+    function updateNavigationButtons() {
+        prevButton.style.display = currentQuestionIndex === 0 ? 'none' : 'inline-block';
+        nextButton.style.display = currentQuestionIndex === totalQuestions - 1 ? 'none' : 'inline-block';
+    }
+
+    function updateAnswer(selected) {
+        selectedAnswers[currentQuestionIndex] = selected;
+        loadQuestion(); // Savolni yangilash
+        updateNumberPagination();
+    }
+
+    function updateNumberPagination() {
+        numberPagination.innerHTML = '';
+        quizData.forEach((_, index) => {
+            const button = document.createElement('button');
+            button.textContent = index + 1;
+            button.className = selectedAnswers[index] === null ? '' : selectedAnswers[index] === quizData[index].correct ? 'answered-correct' : 'answered-incorrect';
+            button.style.backgroundColor = selectedAnswers[index] === null ? 'white' : 'lightblue';
+            button.onclick = () => goToQuestion(index);
+            numberPagination.appendChild(button);
+        });
+    }
+
+    function goToQuestion(index) {
+        currentQuestionIndex = index;
+        loadQuestion();
+    }
+
+    function getResults() {
+        resultsContainer.innerHTML = '';
+        let correctCount = 0;
+        quizData.forEach((item, index) => {
+            if (selectedAnswers[index] === item.correct) {
+                correctCount++;
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="correct">To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else if (selectedAnswers[index] === null) {
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="incorrect">Javob berilmagan! To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else {
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="incorrect">Noto'g'ri! To'g'ri javob: ${item.answers[item.correct]} (Siz: ${item.answers[selectedAnswers[index]]})</span></div>`;
+            }
+        });
+        finalResultsContainer.innerHTML = `<h2>Umumiy natija: ${correctCount} / ${totalQuestions}</h2>`;
+        resultsContainer.style.display = 'block';
+        finalResultsContainer.style.display = 'block';
+        updatePaginationResults();
+    }
+
+    function updatePaginationResults() {
+        numberPagination.querySelectorAll('button').forEach((button, index) => {
+            button.style.backgroundColor = selectedAnswers[index] === quizData[index].correct ? 'lightgreen' : 'lightcoral';
+        });
+    }
+
+    submitButton.addEventListener('click', getResults);
+    prevButton.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentQuestionIndex < totalQuestions - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+    });
+
+    loadQuestion();
+    startTimer();
+</script>
+</body>
+</html>
+    </div>
+</main>
+
+<footer id="footer" class="mt-auto py-3 bg-light">
+    <div class="container">
+        <div class="row text-muted">
+            <div class="col-md-6 text-center text-md-start">&copy; My Company 2024</div>
+            <div class="col-md-6 text-center text-md-end">Powered by <a href="https://www.yiiframework.com/" rel="external">Yii Framework</a></div>
+        </div>
+    </div>
+</footer>
+
+<div id="yii-debug-toolbar" data-url="/web/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag=67072fdb4ed87" data-skip-urls="[]" style="display:none" class="yii-debug-toolbar-bottom"></div><style>#yii-debug-toolbar-logo{position:fixed;right:31px;bottom:4px}@media print{.yii-debug-toolbar{display:none !important}}.yii-debug-toolbar{font:11px Verdana, Arial, sans-serif;text-align:left;width:96px;transition:width .3s ease;z-index:1000000}.yii-debug-toolbar.yii-debug-toolbar_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__bar{overflow:visible;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.yii-debug-toolbar.yii-debug-toolbar_iframe_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__resize-handle{display:block;height:4px;cursor:ns-resize;margin-bottom:0;z-index:1000001;position:absolute;left:0;right:0}.yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar,.yii-debug-toolbar.yii-debug-toolbar_animating .yii-debug-toolbar__bar{height:40px}.yii-debug-toolbar_active{width:100%}.yii-debug-toolbar_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(0);transform:rotate(0)}.yii-debug-toolbar_position_top{margin:0 0 20px 0;width:100%}.yii-debug-toolbar_position_bottom{position:fixed;right:0;bottom:0;margin:0}.yii-debug-toolbar__bar{position:relative;padding:0;font:11px Verdana, Arial, sans-serif;text-align:left;overflow:hidden;box-sizing:content-box;display:flex;flex-wrap:wrap;background:#fff;background:-moz-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:-webkit-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f7f7f7', GradientType=0);border:1px solid rgba(0,0,0,0.11);direction:ltr}.yii-debug-toolbar__bar::after{content:'';display:table;clear:both}.yii-debug-toolbar__view{height:0;overflow:hidden;background:white}.yii-debug-toolbar__view iframe{margin:0;padding:10px 0 0;height:100%;width:100%;border:0}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__view{height:100%}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__external{display:block}.yii-debug-toolbar_iframe_animating .yii-debug-toolbar__view{transition:height .3s ease}.yii-debug-toolbar__block{margin:0;border-right:1px solid rgba(0,0,0,0.11);border-bottom:1px solid rgba(0,0,0,0.11);padding:4px 8px;line-height:32px;white-space:nowrap}@media (max-width: 767.98px){.yii-debug-toolbar__block{flex-grow:1;text-align:center}}.yii-debug-toolbar__block a{display:inline-block;text-decoration:none;color:black}.yii-debug-toolbar__block img{vertical-align:middle;width:30px;height:30px}.yii-debug-toolbar__block_active,.yii-debug-toolbar__ajax:hover{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__label{display:inline-block;padding:2px 4px;font-size:12px;font-weight:normal;line-height:14px;white-space:nowrap;vertical-align:middle;max-width:100px;overflow-x:hidden;text-overflow:ellipsis;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.25);background-color:#737373;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}.yii-debug-toolbar__label:empty{display:none}a.yii-debug-toolbar__label:hover,a.yii-debug-toolbar__label:focus{color:#ffffff;text-decoration:none;cursor:pointer}.yii-debug-toolbar__label_important,.yii-debug-toolbar__label_error{background-color:#b94a48}.yii-debug-toolbar__label_important[href]{background-color:#953b39}.yii-debug-toolbar__label_warning,.yii-debug-toolbar__badge_warning{background-color:#f89406}.yii-debug-toolbar__label_warning[href]{background-color:#c67605}.yii-debug-toolbar__label_success{background-color:#217822}.yii-debug-toolbar__label_success[href]{background-color:#356635}.yii-debug-toolbar__label_info{background-color:#0b72b8}.yii-debug-toolbar__label_info[href]{background-color:#2d6987}.yii-debug-toolbar__label_inverse,.yii-debug-toolbar__badge_inverse{background-color:#333333}.yii-debug-toolbar__label_inverse[href],.yii-debug-toolbar__badge_inverse[href]{background-color:#1a1a1a}.yii-debug-toolbar__title{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__block_last{width:80px;height:40px;float:left}.yii-debug-toolbar__toggle,.yii-debug-toolbar__external{cursor:pointer;position:absolute;width:30px;height:30px;font-size:25px;font-weight:100;line-height:28px;color:#ffffff;text-align:center;opacity:0.5;filter:alpha(opacity=50);transition:opacity .3s ease}.yii-debug-toolbar__toggle:hover,.yii-debug-toolbar__toggle:focus,.yii-debug-toolbar__external:hover,.yii-debug-toolbar__external:focus{color:#ffffff;text-decoration:none;opacity:0.9;filter:alpha(opacity=90)}.yii-debug-toolbar__toggle-icon,.yii-debug-toolbar__external-icon{display:inline-block;background-position:50% 50%;background-repeat:no-repeat}.yii-debug-toolbar__toggle{right:10px;bottom:4px}.yii-debug-toolbar__toggle-icon{padding:7px 0;width:10px;height:16px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMTUuNTYzIDQwLjgzNmEuOTk3Ljk5NyAwIDAgMCAxLjQxNCAwbDE1LTE1YTEgMSAwIDAgMCAwLTEuNDE0bC0xNS0xNWExIDEgMCAwIDAtMS40MTQgMS40MTRMMjkuODU2IDI1LjEzIDE1LjU2MyAzOS40MmExIDEgMCAwIDAgMCAxLjQxNHoiLz48L3N2Zz4=");transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;-webkit-transform:rotate(180deg);transform:rotate(180deg)}.yii-debug-toolbar__external{display:none;right:50px;bottom:4px}.yii-debug-toolbar__external-icon{padding:8px 0;width:14px;height:14px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMzkuNjQyIDkuNzIyYTEuMDEgMS4wMSAwIDAgMC0uMzgyLS4wNzdIMjguMTAzYTEgMSAwIDAgMCAwIDJoOC43NDNMMjEuNyAyNi43OWExIDEgMCAwIDAgMS40MTQgMS40MTVMMzguMjYgMTMuMDZ2OC43NDNhMSAxIDAgMCAwIDIgMFYxMC42NDZhMS4wMDUgMS4wMDUgMCAwIDAtLjYxOC0uOTI0eiIvPjxwYXRoIGQ9Ik0zOS4yNiAyNy45ODVhMSAxIDAgMCAwLTEgMXYxMC42NmgtMjh2LTI4aDEwLjY4M2ExIDEgMCAwIDAgMC0ySDkuMjZhMSAxIDAgMCAwLTEgMXYzMGExIDEgMCAwIDAgMSAxaDMwYTEgMSAwIDAgMCAxLTF2LTExLjY2YTEgMSAwIDAgMC0xLTF6Ii8+PC9zdmc+")}.yii-debug-toolbar__switch-icon{margin-left:10px;padding:5px 10px;width:18px;height:18px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDUwIDUwIiB2ZXJzaW9uPSIxLjEiPjxwYXRoIGQ9Im00MS4xIDIzYy0wLjYgMC0xIDAuNC0xIDF2MTAuN2wtMjUuNi0wLjFjMCAwIDAtMiAwLTIuOCAwLTAuOC0wLjctMS0xLTAuNmwtMy41IDMuNWMtMC42IDAuNi0wLjYgMS4zIDAgMmwzLjQgMy40YzAuNCAwLjQgMS4xIDAuMiAxLTAuNmwwLTIuOWMwIDAgMjAuOCAwLjEgMjYuNiAwIDAuNiAwIDEtMC40IDEtMXYtMTEuN2MwLTAuNi0wLjQtMS0xLTF6TTkgMjYuOSA5IDI2LjkgOSAyNi45IDkgMjYuOSIvPjxwYXRoIGQ9Im05IDI2LjljMC42IDAgMS0wLjQgMS0xdi0xMC43bDI1LjYgMC4xYzAgMCAwIDIgMCAyLjggMCAwLjggMC43IDEgMSAwLjZsMy41LTMuNWMwLjYtMC42IDAuNi0xLjMgMC0ybC0zLjQtMy40Yy0wLjQtMC40LTEuMS0wLjItMSAwLjZsMCAyLjljMCAwLTIwLjgtMC4xLTI2LjYgMC0wLjYgMC0xIDAuNC0xIDF2MTEuN2MwIDAuNiAwLjQgMSAxIDF6Ii8+PC9zdmc+")}.yii-debug-toolbar__ajax{position:relative}.yii-debug-toolbar__ajax:hover .yii-debug-toolbar__ajax_info,.yii-debug-toolbar__ajax:focus .yii-debug-toolbar__ajax_info{visibility:visible}.yii-debug-toolbar__ajax a{color:#337ab7}.yii-debug-toolbar__ajax table{width:100%;table-layout:auto;border-spacing:0;border-collapse:collapse}.yii-debug-toolbar__ajax table td{padding:4px;font-size:12px;line-height:normal;vertical-align:top;border-top:1px solid #ddd}.yii-debug-toolbar__ajax table th{padding:4px;font-size:11px;line-height:normal;vertical-align:bottom;border-bottom:2px solid #ddd}.yii-debug-toolbar__ajax_info{visibility:hidden;transition:visibility .2s linear;background-color:white;box-shadow:inset 0 -10px 10px -10px #e1e1e1;position:absolute;bottom:40px;left:-1px;padding:10px;max-width:480px;max-height:480px;word-wrap:break-word;overflow:hidden;overflow-y:auto;box-sizing:border-box;border:1px solid rgba(0,0,0,0.11);z-index:1000001}.yii-debug-toolbar__ajax_request_status{color:white;padding:2px 5px}.yii-debug-toolbar__ajax_request_url{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+</style><script>(function () {
+    'use strict';
+
+    var findToolbar = function () {
+            return document.querySelector('#yii-debug-toolbar');
+        },
+        ajax = function (url, settings) {
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            settings = settings || {};
+            xhr.open(settings.method || 'GET', url, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Accept', 'text/html');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 && settings.success) {
+                        settings.success(xhr);
+                    } else if (xhr.status !== 200 && settings.error) {
+                        settings.error(xhr);
+                    }
+                }
+            };
+            xhr.send(settings.data || '');
+        },
+        url,
+        div,
+        toolbarEl = findToolbar(),
+        toolbarAnimatingClass = 'yii-debug-toolbar_animating',
+        barSelector = '.yii-debug-toolbar__bar',
+        viewSelector = '.yii-debug-toolbar__view',
+        blockSelector = '.yii-debug-toolbar__block',
+        toggleSelector = '.yii-debug-toolbar__toggle',
+        externalSelector = '.yii-debug-toolbar__external',
+
+        CACHE_KEY = 'yii-debug-toolbar',
+        ACTIVE_STATE = 'active',
+
+        animationTime = 300,
+
+        activeClass = 'yii-debug-toolbar_active',
+        iframeActiveClass = 'yii-debug-toolbar_iframe_active',
+        iframeAnimatingClass = 'yii-debug-toolbar_iframe_animating',
+        titleClass = 'yii-debug-toolbar__title',
+        blockClass = 'yii-debug-toolbar__block',
+        ignoreClickClass = 'yii-debug-toolbar__ignore_click',
+        blockActiveClass = 'yii-debug-toolbar__block_active',
+        requestStack = [];
+
+    if (toolbarEl) {
+        url = toolbarEl.getAttribute('data-url');
+
+        ajax(url, {
+            success: function (xhr) {
+                div = document.createElement('div');
+                div.innerHTML = xhr.responseText;
+
+                toolbarEl.parentNode && toolbarEl.parentNode.replaceChild(div, toolbarEl);
+
+                showToolbar(findToolbar());
+
+                var event;
+                if (typeof(Event) === 'function') {
+                    event = new Event('yii.debug.toolbar_attached', {'bubbles': true});
+                } else {
+                    event = document.createEvent('Event');
+                    event.initEvent('yii.debug.toolbar_attached', true, true);
+                }
+
+                div.dispatchEvent(event);
+            },
+            error: function (xhr) {
+                toolbarEl.innerText = xhr.responseText;
+            }
+        });
+    }
+
+    function showToolbar(toolbarEl) {
+        var barEl = toolbarEl.querySelector(barSelector),
+            viewEl = toolbarEl.querySelector(viewSelector),
+            toggleEl = toolbarEl.querySelector(toggleSelector),
+            externalEl = toolbarEl.querySelector(externalSelector),
+            blockEls = barEl.querySelectorAll(blockSelector),
+            blockLinksEls = document.querySelectorAll(blockSelector + ':not(.' + titleClass + ') a'),
+            iframeEl = viewEl.querySelector('iframe'),
+            iframeHeight = function () {
+                return (window.innerHeight * (toolbarEl.dataset.height / 100) - barEl.clientHeight) + 'px';
+            },
+            isIframeActive = function () {
+                return toolbarEl.classList.contains(iframeActiveClass);
+            },
+            resizeIframe = function(mouse) {
+                var availableHeight = window.innerHeight - barEl.clientHeight;
+                viewEl.style.height = Math.min(availableHeight, availableHeight - mouse.y) + "px";
+            },
+            showIframe = function (href) {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.add(iframeActiveClass);
+
+                iframeEl.src = externalEl.href = href;
+                iframeEl.removeAttribute('tabindex');
+
+                viewEl.style.height = iframeHeight();
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            hideIframe = function () {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.remove(iframeActiveClass);
+                iframeEl.setAttribute("tabindex", "-1");
+                removeActiveBlocksCls();
+
+                externalEl.href = '#';
+                viewEl.style.height = '';
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            removeActiveBlocksCls = function () {
+                [].forEach.call(blockEls, function (el) {
+                    el.classList.remove(blockActiveClass);
+                });
+            },
+            toggleToolbarClass = function (className) {
+                toolbarEl.classList.add(toolbarAnimatingClass);
+                if (toolbarEl.classList.contains(className)) {
+                    toolbarEl.classList.remove(className);
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.setAttribute('tabindex', "-1");
+                    });
+                } else {
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.removeAttribute('tabindex');
+                    });
+                    toolbarEl.classList.add(className);
+                }
+                setTimeout(function () {
+                    toolbarEl.classList.remove(toolbarAnimatingClass);
+                }, animationTime);
+            },
+            toggleStorageState = function (key, value) {
+                if (window.localStorage) {
+                    var item = localStorage.getItem(key);
+
+                    if (item) {
+                        localStorage.removeItem(key);
+                    } else {
+                        localStorage.setItem(key, value);
+                    }
+                }
+            },
+            restoreStorageState = function (key) {
+                if (window.localStorage) {
+                    return localStorage.getItem(key);
+                }
+            },
+            togglePosition = function () {
+                if (isIframeActive()) {
+                    hideIframe();
+                } else {
+                    toggleToolbarClass(activeClass);
+                    toggleStorageState(CACHE_KEY, ACTIVE_STATE);
+                }
+            };
+
+        if (restoreStorageState(CACHE_KEY) === ACTIVE_STATE) {
+            var transition = toolbarEl.style.transition;
+            toolbarEl.style.transition = 'none';
+            toolbarEl.classList.add(activeClass);
+            setTimeout(function () {
+                toolbarEl.style.transition = transition;
+            }, animationTime);
+        } else {
+            [].forEach.call(blockLinksEls, function (el) {
+                el.setAttribute('tabindex', "-1");
+            });
+        }
+
+        toolbarEl.style.display = 'block';
+
+        window.onresize = function () {
+            if (toolbarEl.classList.contains(iframeActiveClass)) {
+                viewEl.style.height = iframeHeight();
+            }
+        };
+
+        toolbarEl.addEventListener("mousedown", function(e) {
+            if (isIframeActive() && (e.y - toolbarEl.offsetTop < 4 /* 4px click zone */)) {
+                document.addEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        document.addEventListener("mouseup", function(){
+            if (isIframeActive()) {
+                document.removeEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        barEl.onclick = function (e) {
+            var target = e.target,
+                block = findAncestor(target, blockClass);
+
+            if (block
+                && !block.classList.contains(titleClass)
+                && !block.classList.contains(ignoreClickClass)
+                && e.which !== 2 && !e.ctrlKey // not mouse wheel and not ctrl+click
+            ) {
+                while (target !== this) {
+                    if (target.href) {
+                        removeActiveBlocksCls();
+                        block.classList.add(blockActiveClass);
+                        showIframe(target.href);
+                    }
+                    target = target.parentNode;
+                }
+
+                e.preventDefault();
+            }
+        };
+
+        toggleEl.onclick = togglePosition;
+    }
+
+    function findAncestor(el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls)) ;
+        return el;
+    }
+
+    function renderAjaxRequests() {
+        var requestCounter = document.getElementsByClassName('yii-debug-toolbar__ajax_counter');
+        if (!requestCounter.length) {
+            return;
+        }
+        var ajaxToolbarPanel = document.querySelector('.yii-debug-toolbar__ajax');
+        var tbodies = document.getElementsByClassName('yii-debug-toolbar__ajax_requests');
+        var state = 'ok';
+        if (tbodies.length) {
+            var tbody = tbodies[0];
+            var rows = document.createDocumentFragment();
+            if (requestStack.length) {
+                var firstItem = requestStack.length > 20 ? requestStack.length - 20 : 0;
+                for (var i = firstItem; i < requestStack.length; i++) {
+                    var request = requestStack[i];
+                    var row = document.createElement('tr');
+                    rows.appendChild(row);
+
+                    var methodCell = document.createElement('td');
+                    methodCell.innerHTML = request.method;
+                    row.appendChild(methodCell);
+
+                    var statusCodeCell = document.createElement('td');
+                    var statusCode = document.createElement('span');
+                    if (request.statusCode < 300) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success');
+                    } else if (request.statusCode < 400) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_warning');
+                    } else {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_error');
+                    }
+                    statusCode.textContent = request.statusCode || '-';
+                    statusCodeCell.appendChild(statusCode);
+                    row.appendChild(statusCodeCell);
+
+                    var pathCell = document.createElement('td');
+                    pathCell.className = 'yii-debug-toolbar__ajax_request_url';
+                    pathCell.innerHTML = request.url;
+                    pathCell.setAttribute('title', request.url);
+                    row.appendChild(pathCell);
+
+                    var durationCell = document.createElement('td');
+                    durationCell.className = 'yii-debug-toolbar__ajax_request_duration';
+                    if (request.duration) {
+                        durationCell.innerText = request.duration + " ms";
+                    } else {
+                        durationCell.innerText = '-';
+                    }
+                    row.appendChild(durationCell);
+                    row.appendChild(document.createTextNode(' '));
+
+                    var profilerCell = document.createElement('td');
+                    if (request.profilerUrl) {
+                        var profilerLink = document.createElement('a');
+                        profilerLink.setAttribute('href', request.profilerUrl);
+                        profilerLink.innerText = request.profile;
+                        profilerCell.appendChild(profilerLink);
+                    } else {
+                        profilerCell.innerText = 'n/a';
+                    }
+                    row.appendChild(profilerCell);
+
+                    if (request.error) {
+                        if (state !== "loading" && i > requestStack.length - 4) {
+                            state = 'error';
+                        }
+                    } else if (request.loading) {
+                        state = 'loading'
+                    }
+                    row.className = 'yii-debug-toolbar__ajax_request';
+                }
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+                tbody.appendChild(rows);
+            }
+            ajaxToolbarPanel.style.display = 'block';
+        }
+        requestCounter[0].innerText = requestStack.length;
+        var className = 'yii-debug-toolbar__label yii-debug-toolbar__ajax_counter';
+        if (state === 'ok') {
+            className += ' yii-debug-toolbar__label_success';
+        } else if (state === 'error') {
+            className += ' yii-debug-toolbar__label_error';
+        }
+        requestCounter[0].className = className;
+    }
+
+    /**
+     * Should AJAX request to be logged in debug panel
+     *
+     * @param requestUrl
+     * @returns {boolean}
+     */
+    function shouldTrackRequest(requestUrl) {
+        if (!toolbarEl) {
+            return false;
+        }
+        var a = document.createElement('a');
+        a.href = requestUrl;
+        var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'));
+        if (Array.isArray(skipAjaxRequestUrls) && skipAjaxRequestUrls.length && skipAjaxRequestUrls.includes(requestUrl)) {
+            return false;
+        }
+        return a.host === location.host;
+    }
+
+    var proxied = XMLHttpRequest.prototype.open;
+
+    XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
+        var self = this;
+
+        if (shouldTrackRequest(url)) {
+            var stackElement = {
+                loading: true,
+                error: false,
+                url: url,
+                method: method,
+                start: new Date()
+            };
+            requestStack.push(stackElement);
+            this.addEventListener('readystatechange', function () {
+                if (self.readyState === 4) {
+                    stackElement.duration = self.getResponseHeader('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = self.status;
+                    stackElement.error = self.status < 200 || self.status >= 400;
+                    stackElement.profile = self.getResponseHeader('X-Debug-Tag');
+                    stackElement.profilerUrl = self.getResponseHeader('X-Debug-Link');
+                    renderAjaxRequests();
+                }
+            }, false);
+            renderAjaxRequests();
+        }
+        proxied.apply(this, Array.prototype.slice.call(arguments));
+    };
+
+    // catch fetch AJAX requests
+    if (window.fetch) {
+        var originalFetch = window.fetch;
+
+        window.fetch = function (input, init) {
+            var method;
+            var url;
+            if (typeof input === 'string') {
+                method = (init && init.method) || 'GET';
+                url = input;
+            } else if (window.URL && input instanceof URL) { // fix https://github.com/yiisoft/yii2-debug/issues/296
+                method = (init && init.method) || 'GET';
+                url = input.href;
+            } else if (window.Request && input instanceof Request) {
+                method = input.method;
+                url = input.url;
+            }
+            var promise = originalFetch(input, init);
+
+            if (shouldTrackRequest(url)) {
+                var stackElement = {
+                    loading: true,
+                    error: false,
+                    url: url,
+                    method: method,
+                    start: new Date()
+                };
+                requestStack.push(stackElement);
+                promise.then(function (response) {
+                    stackElement.duration = response.headers.get('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = response.status;
+                    stackElement.error = response.status < 200 || response.status >= 400;
+                    stackElement.profile = response.headers.get('X-Debug-Tag');
+                    stackElement.profilerUrl = response.headers.get('X-Debug-Link');
+                    renderAjaxRequests();
+
+                    return response;
+                }).catch(function (error) {
+                    stackElement.loading = false;
+                    stackElement.error = true;
+                    renderAjaxRequests();
+
+                    throw error;
+                });
+                renderAjaxRequests();
+            }
+
+            return promise;
+        };
+    }
+
+})();
+</script><script src="/web/assets/11166fe9/jquery.js"></script>
+<script src="/web/assets/547ad073/yii.js"></script>
+<script src="/web/js/script.js"></script>
+<script src="/web/assets/9912f47d/dist/js/bootstrap.bundle.js"></script></body>
+</html>

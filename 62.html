@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-100">
+<head>
+    <title></title>
+    <meta name="csrf-param" content="_csrf">
+<meta name="csrf-token" content="Euf_PDyGrvdJyfDuae96M-QWRtYPkHrb82lyA5V9wCV1iY5rVeCapCOwl5wiphJ9lVQnlE7CEZO3Cj1p0TenSg==">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link type="image/x-icon" href="/web/favicon.ico" rel="icon">
+<link href="/web/assets/9912f47d/dist/css/bootstrap.css" rel="stylesheet">
+<link href="/web/css/site.css" rel="stylesheet"></head>
+<body class="d-flex flex-column h-100">
+
+<header id="header">
+    <nav id="w0" class="navbar-expand-md navbar-dark bg-dark navbar">
+<div class="container">
+<a class="navbar-brand" href="/web/index.php">Test rejimida ishlamoqda</a>
+<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#w0-collapse" aria-controls="w0-collapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div id="w0-collapse" class="collapse navbar-collapse">
+<ul id="w1" class="navbar-nav nav"><li class="nav-item"><a class="nav-link" href="/web/index.php?r=fan%2Findex">Fanlar</a></li>
+<li class="nav-item"><a class="nav-link" href="/web/index.php?r=quiz%2Findex">Testlar</a></li>
+<li class="nav-item"><form action="/web/index.php?r=site%2Flogout" method="post">
+<input type="hidden" name="_csrf" value="Euf_PDyGrvdJyfDuae96M-QWRtYPkHrb82lyA5V9wCV1iY5rVeCapCOwl5wiphJ9lVQnlE7CEZO3Cj1p0TenSg=="><button type="submit" class="nav-link btn btn-link logout">Logout (azizbek_mahkamov)</button></form></li></ul></div>
+</div>
+</nav></header>
+
+<main id="main" class="flex-shrink-0" role="main">
+    <div class="container">
+                        <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanidan test savollari</title>
+    <style>
+        input[type="checkbox"] { display: none; }
+        #header{
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+
+        }
+
+        body {
+            font-family: 'Verdana', sans-serif;
+            /*background-color: #f4f4f4;*/
+            padding: 0px;
+        }
+
+
+        .container {
+            max-width:100%;
+            /*background: white;*/
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+            font-size: 18px; /* Savol shriftini kattalashtirdim */
+            /*background-color: #FFAAAA;*/
+        }
+        .answer {
+            display: block;
+            margin: 5px 0;
+        background-color: #ccf3ff;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-size: 14px; /* Javob shriftini kichik qildim */
+            /* font-weight: bold;*/ /* Savolni qalin qildim */
+        ;
+        }
+        .result {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .number-pagination button {
+            margin: 0 2px;
+            padding: 5px 10px;
+            border: 0;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #7bad2a;
+        }
+        .number-pagination .answered-correct {
+            background-color: lightgreen;
+        }
+        .number-pagination .answered-incorrect {
+            background-color: lightcoral;
+        }
+        .number-pagination .unanswered {
+            background-color: #b0e0e6;
+        }
+        #navigationButtons {
+            text-align: center;
+            margin: 10px 0;
+        }
+        #navigationButtons button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: #23b5ff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 style="text-align: center">Pedagogik faoliyatda raqamli kompetensiyalar fanidan test savollari</h3>
+    <div class="pagination">
+        <div class="number-pagination" id="numberPagination"></div>
+    </div>
+    <div class="timer" id="timer">51.2:12</div>
+    <div id="quiz"></div>
+    <div id="navigationButtons">
+        <button id="prevButton" style="display: none;">Oldingi</button>
+        <button id="nextButton">Keyingi</button>
+    </div>
+    <button id="submit">Natijalarni yuborish</button>
+    <div id="results"></div>
+    <div id="finalResults" style="display: none;"></div>
+</div>
+
+<script>
+    
+    const quizData=[{"question":"[353]... fanlararo tadqiqotlar sohasi bo'lib, texnik, axloqiy, huquqiy, ijtimoiy, siyosiy va falsafiy masalalarni ko'rib chiqishni o'z ichiga oladi.","answers":{"a":"Kompyuter etikasi","b":"Kiberxavfsizlik","c":"Axborot xavfsizligi","d":"Maxfiylik"},"correct":"a"},{"question":"[351]Agar mahsulot inson tomonidan o'z vazifalarini bajarish jarayonida yaratilgan bo'lsa (masalan, o'qituvchi masofaviy o'qitish kursini ishlab chiqqan bo'lsa), unda u qaysi huquqqa tegishli bo'ladi","answers":{"a":"ma'muriy huquqlar ish beruvchiga, mutlaq huquqlar muallifga","b":"shaxsiy huquqlar muallifga, nomulkiy huquqlar ish beruvchiga","c":"shaxsiy nomulkiy huquqlar muallifga, mutlaq huquqlar esa ish beruvchiga","d":"moliyaviy huquqlar muallifga, shaxsiy-nomulkiy huquqlar ish beruvchiga"},"correct":"c"},{"question":"[371]Axborotni izlashda raqamli ta'lim rerusrlarining Dasturlash komponenti nimani nazarda tutadi?","answers":{"a":"Bu talab o'quv va kognitiv faoliyatning tabiati bilan bog'liq. Hal qilinishi kerak bo'lgan muammoli vaziyatga duch kelganda, ta'lim oluvchilarning idrok etish faolligini oshiradi.","b":"Bu talab eng yangi ilmiy yutuqlarini hisobga olgan holda materialni yetarlicha chuqur va to'g'ri taqdim etish zarurligini bildiradi.","c":"Ta'lim oluvchining yoshi va individual xususiyatlariga muvofiq materialni taqdim etishning kognitiv murakkablik darajasini aniqlash zarurligini anglatadi.","d":"dasturiy ta'minotni loyihalash va ishlab chiqishga qaratilgan dasturlar uchun asosiy komponent hisoblanadi."},"correct":"d"},{"question":"[375]Axborotni izlashda raqamli ta'lim rerusrlarining instrumental komponenti nimani nazarda tutadi?","answers":{"a":"hamkorlikdagi ta'lim faoliyati","b":"raqamli ta'lim resurslari kompyuter simulyatsiyasi uchun dastur yoki tayyor muhit ekanligini anglatadi.","c":"o'quv faoliyatini amalga oshirish uchun vositalar manbaidan foydalanishni o'z ichiga oladi","d":"o'z-o'zini nazorat qilish, baholash, aks ettirishga qaratilgan rtr uchun etakchi hisoblanadi."},"correct":"c"},{"question":"[374]Axborotni izlashda raqamli ta'lim rerusrlarining Kompyuter simulyatsiyasi komponenti nimani nazarda tutadi?","answers":{"a":"dasturiy ta'minotni loyihalash va ishlab chiqishga qaratilgan dasturlar uchun asosiy komponent hisoblanadi.","b":"Hamkorlikdagi ta'lim faoliyati","c":"o'z-o'zini nazorat qilish, baholash, aks ettirishga qaratilgan RTR uchun etakchi hisoblanadi.","d":"Raqamli ta'lim resurslari kompyuter simulyatsiyasi uchun dastur yoki tayyor muhit ekanligini anglatadi."},"correct":"d"},{"question":"[372]Axborotni izlashda raqamli ta'lim rerusrlarining Nazorat qiluvchi komponenti nimani nazarda tutadi?","answers":{"a":"Ta'lim oluvchining yoshi va individual xususiyatlariga muvofiq materialni taqdim etishning kognitiv murakkablik darajasini aniqlash zarurligini anglatadi.","b":"dasturiy ta'minotni loyihalash va ishlab chiqishga qaratilgan dasturlar uchun asosiy komponent hisoblanadi.","c":"Bu talab eng yangi ilmiy yutuqlarini hisobga olgan holda materialni yetarlicha chuqur va to'g'ri taqdim etish zarurligini bildiradi.","d":"o'z-o'zini nazorat qilish, baholash, aks ettirishga qaratilgan RTR uchun etakchi hisoblanadi."},"correct":"d"},{"question":"[373]Axborotni izlashda raqamli ta'lim rerusrlarining telekommunikatsiya komponenti nimani nazarda tutadi?","answers":{"a":"o'z-o'zini nazorat qilish, baholash, aks ettirishga qaratilgan RTR uchun etakchi hisoblanadi.","b":"Hamkorlikdagi ta'lim faoliyatini nazarda tutadi","c":"dasturiy ta'minotni loyihalash va ishlab chiqishga qaratilgan dasturlar uchun asosiy komponent hisoblanadi.","d":"Bu talab eng yangi ilmiy yutuqlarini hisobga olgan holda materialni yetarlicha chuqur va to'g'ri taqdim etish zarurligini bildiradi."},"correct":"b"},{"question":"[343]Dinamik saytlar yaratish imkoniyatini beruvchi (kontentni boshqaruvchi) tizimlar (CMS-Content Management Systems) to'g'ri ko'rsatilgan javobni ko'rsating.","answers":{"a":"LearnWorlds, Articulate Storyline 360, G-Cube, iSpring, ProProfs, TBS, TalentLMS, Joomla, Magento, Umbraco, Shopify, Django CMS","b":"LearnWorlds, Articulate Storyline 360, Elucidat, Adobe Captivate, Lectora Online, iSpring Suite, EasyGenerator, isEazy, Evolve, H5P","c":"Moodle, e-khool, Atutor, Captivate Prime, G-Cube, iSpring, ProProfs, TBS, TalentLMS, GoToTraining, Coassemble, Teamie, eFront, Lessonly, Mindflash, Litmos LMS","d":"WordPress, Drupal, Joomla, Magento, Umbraco, Shopify, Sitecore, Kentico, Sitefinity, DNN, SharePoint, Typo3, Alfresco, DotCMS, Django CMS"},"correct":"d"},{"question":"[347]Distributiv (inglizcha distribute - tarqatish) nima?","answers":{"a":"Texnik vositalarni tarqatish shaklidir.","b":"Dasturiy vositalarni tarqatish shaklidir.","c":"Texnik ta'minotni tarqatish shaklidir.","d":"Dasturiy ta'minotni tarqatish shaklidir."},"correct":"d"},{"question":"[339]EDX akademik bepul masofaviy ta'lim platformasiga kim tomonidan asos solingan?","answers":{"a":"Illinoys, Duke, Google, IBM, Stenford, Imperial College London kabi yetakchi kompaniyalar va universitetlari","b":"Garvard universiteti, Massachuset texnologiya instituti va Berklidagi Kaliforniya universiteti tomonidan","c":"Massachuset texnologiya instituti va Google kompaniyasi tomonidan","d":"Stenford universiteti va Chikago universiteti tomonidan"},"correct":"b"},{"question":"[345]Elektron o'quv resurslarini yaratish imkoniyatini beruvchi pedagogik dasturiy ta'minotlar to'g'ri ko'rsatilgan javobni ko'rsating.","answers":{"a":"LearnWorlds, Articulate Storyline 360, Elucidat, Adobe Captivate, Lectora Online, iSpring Suite, EasyGenerator, isEazy, Evolve, H5P","b":"Moodle, e-khool, Atutor, Captivate Prime, G-Cube, iSpring, ProProfs, TBS, TalentLMS, GoToTraining, Coassemble, Teamie, eFront, Lessonly, Mindflash, Litmos LMS","c":"WordPress, Drupal, Joomla, Magento, Umbraco, Shopify, Sitecore, Kentico, Sitefinity, DNN, SharePoint, Typo3, Alfresco, DotCMS, Django CMS","d":"LearnWorlds, Articulate Storyline 360, G-Cube, iSpring, ProProfs, TBS, TalentLMS, Joomla, Magento, Umbraco, Shopify, Django CMS"},"correct":"a"},{"question":"[325]Elektron taqdimlar tayyorlash dasturlari","answers":{"a":"Movavi, Camtasia, iMovie, Flipgrid, Thinglink","b":"Canva, PosterMyWall, Piktochart, DesignCap, Visme","c":"Prezi, ClearSlide, VoiceThread, TopHat","d":"Prezi, ClearSlide, Piktochart, DesignCap, Visme"},"correct":"c"},{"question":"[330]Grafik muharrirlar - ...","answers":{"a":"... murakkab hisob-kitoblarni avtomatlashtirish talabaning diqqatini o'rganilayotgan hodisa yoki jarayonning mohiyatini tushunishga qaratish imkonini beradi.","b":"... murakkab tuzilishga ega bo'lgan ma'lumotlar bilan ishlash uchun mo'ljallangan bo'lib, ular ma'lumotlar bazasini yaratish, uni dastlabki ma'lumotlar bilan to'ldirish, keyinchalik ma'lumotlarni to'ldirish va o'zgartirish, shuningdek ma'lumotlar bazalarida qidirishni tashkil qilish uchun xizmat qiladi.","c":"... grafik tasvirlarni yaratish, grafik hujjatlarni, shu jumladan diagrammalar, rasmlar, chizmalar, jadvallarni qayta ishlash uchun mo'ljallangan.","d":"... turli manbalardan ovoz yozish, musiqani tahrirlash, raqs mikslarini yaratish, audio treklarni yozib olish va ijro etish imkonini beradi."},"correct":"c"},{"question":"[324]Grafika va infografika yaratish vositalari","answers":{"a":"Prezi, ClearSlide, Piktochart, DesignCap, Visme","b":"Prezi, ClearSlide, VoiceThread, TopHat","c":"Movavi, Camtasia, iMovie, Flipgrid, Thinglink","d":"Canva, PosterMyWall, Piktochart, DesignCap, Visme"},"correct":"d"},{"question":"[386]Himoyalangan veb-saytlar","answers":{"a":"httpl:\/\/","b":"http:\/\/","c":"htp","d":"https:\/\/"},"correct":"d"},{"question":"[341]Ilias - masofaviy ta'lim tizimi qanday tizim hisoblanadi?","answers":{"a":"forumlar va shaxsiy bloglar yaratish imkoniyatiga ega bepul platforma.","b":"Keng xususiylashtirish imkoniyatlariga ega bepul platforma","c":"Korporativ sektorga yo'naltirilgan platforma.","d":"virtual muhitni qurish uchun ta'lim platformasi."},"correct":"a"},{"question":"[362]Interfaollik darajasini oshirishning tadqiqotli shakllari...","answers":{"a":"... ular foydalanuvchining kontent bilan o'zaro aloqasi yo'qligi bilan tavsiflanadi, shu bilan birga kontent foydalanish paytida o'zgarmagan ko'rinishga ega bo'ladi.","b":"... tadqiqotlar taklif qilingan voqealarni o'rganishga emas, balki o'z voqealarini ishlab chiqarishga asoslanadi.","c":"... kontent elementlari bilan foydalanuvchi o'rtasidagi konstruktiv aloqa bilan tavsiflanadi.","d":"... ular kontent tarkibiy qismlari bilan elementar amallar bajarish orqali foydalanuvchining o'zaro ta'siri bilan tavsiflanadi."},"correct":"b"},{"question":"[340]iSpring Learn - masofaviy ta'lim tizimi qanday tizim hisoblanadi?","answers":{"a":"virtual muhitni qurish uchun ta'lim platformasi.","b":"forumlar va shaxsiy bloglar yaratish imkoniyatiga ega bepul platforma.","c":"Keng xususiylashtirish imkoniyatlariga ega bepul platforma","d":"Korporativ sektorga yo'naltirilgan platforma."},"correct":"d"},{"question":"[331]Jadval muharrirlari - ...","answers":{"a":"... bu MS PowerPoint, Prezi, SlideRocet, VoiceThread va boshqalar kabi taqdimotlarini yaratish va qo'llash uchun keng miqyosda qo'llaniladi.","b":"... matnli hujjatlarni yaratish, tahrirlash va formatlash uchun dasturlar hisoblanadi. Misollar: Microsoft Word, Word Perfect, ChiWriter, Multi-Edit, Open Office va boshqalar.","c":"... bu ma'lumotlarni jadvallar ko'rinishida taqdim etish, matematik ma'lumotlarni qayta ishlash, ma'lumotlarni vizuallashtirish va diagrammalar yaratish uchun mo'ljallangan dasturlar.","d":"... grafik tasvirlarni yaratish, grafik hujjatlarni, shu jumladan diagrammalar, rasmlar, chizmalar, jadvallarni qayta ishlash uchun mo'ljallangan."},"correct":"c"},{"question":"[328]Ko'p mehnat talab qiladigan hisoblash ishlari va raqamli tahlil bilan bog'liq faoliyatni avtomatlashtirish tizimlari - ...","answers":{"a":"... bu ma'lumotlarni jadvallar ko'rinishida taqdim etish, matematik ma'lumotlarni qayta ishlash, ma'lumotlarni vizuallashtirish va diagrammalar yaratish uchun mo'ljallangan dasturlar.","b":"... matnli hujjatlarni yaratish, tahrirlash va formatlash uchun dasturlar hisoblanadi. Misollar: Microsoft Word, Word Perfect, ChiWriter, Multi-Edit, Open Office va boshqalar.","c":"... murakkab hisob-kitoblarni avtomatlashtirish talabaning diqqatini o'rganilayotgan hodisa yoki jarayonning mohiyatini tushunishga qaratish imkonini beradi.","d":"... grafik tasvirlarni yaratish, grafik hujjatlarni, shu jumladan diagrammalar, rasmlar, chizmalar, jadvallarni qayta ishlash uchun mo'ljallangan."},"correct":"c"},{"question":"[329]Ma'lumotlar bazasini boshqarish tizimlari (MBBT) - ...","answers":{"a":"... murakkab hisob-kitoblarni avtomatlashtirish talabaning diqqatini o'rganilayotgan hodisa yoki jarayonning mohiyatini tushunishga qaratish imkonini beradi.","b":"... murakkab tuzilishga ega bo'lgan ma'lumotlar bilan ishlash uchun mo'ljallangan bo'lib, ular ma'lumotlar bazasini yaratish, uni dastlabki ma'lumotlar bilan to'ldirish, keyinchalik ma'lumotlarni to'ldirish va o'zgartirish, shuningdek ma'lumotlar bazalarida qidirishni tashkil qilish uchun xizmat qiladi.","c":"... turli manbalardan ovoz yozish, musiqani tahrirlash, raqs mikslarini yaratish, audio treklarni yozib olish va ijro etish imkonini beradi.","d":"... o'quv videolarini yaratish, audio va video ma'lumotlar bilan ishlash, videolarni tahrirlash va ko'rish uchun mo'ljallangan."},"correct":"b"},{"question":"[335]Masofali o'qitish jixatiga nima kirmaydi?","answers":{"a":"rigidlik","b":"o'qituvchi yangi roli","c":"modullik","d":"an'anaviy bilimlar nazorati usullari"},"correct":"d"},{"question":"[334]Masofali o'qitish tizimi uchun ishlab chikilgan spetsifikatsiya va standartlar tuplami qanday nomlanadi","answers":{"a":"XML","b":"SCORM","c":"Moodle","d":"TinCan"},"correct":"b"},{"question":"[346]Masofaviy ta'lim tushunchasi qanday ma'noni anglatadi?","answers":{"a":"o'qituvchi tomonidan yaratilgan resurslar talabalarning mustaqil ishini tashkil etishga imkon berishini anglatadi.","b":"talaba va o'qituvchi odatda auditoriya turib ta'lim jarayonini tashkil etilishini anglatadi.","c":"talaba va o'qituvchi odatda auditoriyada emas, balki bir-biridan masofadan turib ta'lim jarayonini tashkil etilishini anglatadi.","d":"Auditoriyada ota-onalar va o'qituvchilar o'rtasida muloqot qilish jarayonini tashkil etilishini anglatadi."},"correct":"c"},{"question":"[333]Matn muharrirlari - ...","answers":{"a":"... matnli hujjatlarni yaratish, tahrirlash va formatlash uchun dasturlar hisoblanadi. Misollar: Microsoft Word, Word Perfect, ChiWriter, Multi-Edit, Open Office va boshqalar.","b":"... bu MS PowerPoint, Prezi, SlideRocet, VoiceThread va boshqalar kabi taqdimotlarini yaratish va qo'llash uchun keng miqyosda qo'llaniladi.","c":"... bu ma'lumotlarni jadvallar ko'rinishida taqdim etish, matematik ma'lumotlarni qayta ishlash, ma'lumotlarni vizuallashtirish va diagrammalar yaratish uchun mo'ljallangan dasturlar.","d":"... grafik tasvirlarni yaratish, grafik hujjatlarni, shu jumladan diagrammalar, rasmlar, chizmalar, jadvallarni qayta ishlash uchun mo'ljallangan."},"correct":"a"},{"question":"[356]Merrillning integratsiya tamoyili to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"O'quv kontentlari tinglovchilarning faoliyatida duch keladigan aniq vazifalarni yengishga yordam berishi kerak.","b":"Onlayn kurs bo'yicha bilimlar tinglovchilarning faoliyatiga singib ketishi, amalda qo'llanilishi kerak.","c":"Onlayn kurs tinglovchilarning mavjud bilimlarini yangi ma'lumotlar bilan bog'lashga yordam beradi.","d":"Onlayn kurs tinglovchilari e'tiborini jalb qilishi va ma'lumotni yaxshiroq eslab qolishlari uchun yangi bilimlarni taqdim etishning turli usullaridan (ma'ruzalar, hikoyalar, videofilmlar, infografika) foydalanishi kerak."},"correct":"b"},{"question":"[358]Merrillning o'quv materiallari taqdimotining xilma-xilligi tamoyili to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"Onlayn kurs tinglovchilari e'tiborini jalb qilishi va ma'lumotni yaxshiroq eslab qolishlari uchun yangi bilimlarni taqdim etishning turli usullaridan (ma'ruzalar, hikoyalar, videofilmlar, infografika) foydalanishi kerak.","b":"Onlayn kurs bo'yicha bilimlar tinglovchilarning faoliyatiga singib ketishi, amalda qo'llanilishi kerak.","c":"O'quv kontentlari tinglovchilarning faoliyatida duch keladigan aniq vazifalarni yengishga yordam berishi kerak.","d":"Onlayn kurs tinglovchilarning mavjud bilimlarini yangi ma'lumotlar bilan bog'lashga yordam beradi."},"correct":"a"},{"question":"[357]Merrillning Qo'llash tamoyili to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"Tinglovchilar mashg'ulot jarayonida yangi bilimlarni mustaqil ravishda qo'llashlari kerak.","b":"Onlayn kurs tinglovchilari e'tiborini jalb qilishi va ma'lumotni yaxshiroq eslab qolishlari uchun yangi bilimlarni taqdim etishning turli usullaridan (ma'ruzalar, hikoyalar, videofilmlar, infografika) foydalanishi kerak.","c":"Onlayn kurs bo'yicha bilimlar tinglovchilarning faoliyatiga singib ketishi, amalda qo'llanilishi kerak.","d":"O'quv kontentlari tinglovchilarning faoliyatida duch keladigan aniq vazifalarni yengishga yordam berishi kerak."},"correct":"a"},{"question":"[359]Merrillning Tinglovchilar bilimiga murojaat tamoyili to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"O'quv kontentlari tinglovchilarning faoliyatida duch keladigan aniq vazifalarni yengishga yordam berishi kerak.","b":"Onlayn kurs tinglovchilarning mavjud bilimlarini yangi ma'lumotlar bilan bog'lashga yordam beradi.","c":"Onlayn kurs tinglovchilari e'tiborini jalb qilishi va ma'lumotni yaxshiroq eslab qolishlari uchun yangi bilimlarni taqdim etishning turli usullaridan (ma'ruzalar, hikoyalar, videofilmlar, infografika) foydalanishi kerak.","d":"Tinglovchilar mashg'ulot jarayonida yangi bilimlarni mustaqil ravishda qo'llashlari kerak."},"correct":"b"},{"question":"[360]Merrillning vazifalarga yo'naltirish tamoyili to'g'ri ko'rsatilgan qatorni belgilang.","answers":{"a":"Onlayn kurs tinglovchilarning mavjud bilimlarini yangi ma'lumotlar bilan bog'lashga yordam beradi.","b":"O'quv kontentlari tinglovchilarning faoliyatida duch keladigan aniq vazifalarni yengishga yordam berishi kerak.","c":"Onlayn kurs tinglovchilari e'tiborini jalb qilishi va ma'lumotni yaxshiroq eslab qolishlari uchun yangi bilimlarni taqdim etishning turli usullaridan (ma'ruzalar, hikoyalar, videofilmlar, infografika) foydalanishi kerak.","d":"Tinglovchilar mashg'ulot jarayonida yangi bilimlarni mustaqil ravishda qo'llashlari kerak."},"correct":"b"},{"question":"[336]MOOC (Massive Open Online Course (ommaviy ochik onlayn kurs) lar asosan qaysi turdagi ma'lumotlardan iborat?","answers":{"a":"amaliy ishlar","b":"tarqatma material","c":"keyslar","d":"Videma'ruzalar"},"correct":"d"},{"question":"[342]Moodle - masofaviy ta'lim tizimi qanday tizim hisoblanadi?","answers":{"a":"forumlar va shaxsiy bloglar yaratish imkoniyatiga ega bepul platforma.","b":"Keng xususiylashtirish imkoniyatlariga ega bepul platforma","c":"Korporativ sektorga yo'naltirilgan platforma.","d":"virtual muhitni qurish uchun ta'lim platformasi."},"correct":"b"},{"question":"[350]Mualliflik huquqi qachon yuzaga keladi?","answers":{"a":"mualliflik huquqi g'oya kelgandan yuzaga keladi","b":"mualliflik huquqi asar yaratilmasdan oldin yuzaga keladi","c":"mualliflik huquqi asar yaratilganda yuzaga keladi","d":"to'g'ri javob keltirilmagan"},"correct":"c"},{"question":"[352]Mualliflik huquqi qanday huquqlarga ajraladi?","answers":{"a":"moliyaviy mualliflik huquqi va shaxsiy-nomulkiy mualliflik huquqi","b":"shaxsiy mualliflik huquqi va nomulkiy mualliflik huquqi","c":"ma'muriy mualliflik huquqi va mutlaq mualliflik huquqi","d":"shaxsiy-nomulkiy mualliflik huquqi va mutlaq mualliflik huquqi"},"correct":"d"},{"question":"[326]Multimedia ma'lumotlari bilan ishlash uchun dasturiy vositalar - ...","answers":{"a":"... o'quv videolarini yaratish, audio va video ma'lumotlar bilan ishlash, videolarni tahrirlash va ko'rish uchun mo'ljallangan.","b":"... matnli hujjatlarni yaratish, tahrirlash va formatlash uchun dasturlar hisoblanadi. Misollar: Microsoft Word, Word Perfect, ChiWriter, Multi-Edit, Open Office va boshqalar.","c":"... bu ma'lumotlarni jadvallar ko'rinishida taqdim etish, matematik ma'lumotlarni qayta ishlash, ma'lumotlarni vizuallashtirish va diagrammalar yaratish uchun mo'ljallangan dasturlar.","d":"... grafik tasvirlarni yaratish, grafik hujjatlarni, shu jumladan diagrammalar, rasmlar, chizmalar, jadvallarni qayta ishlash uchun mo'ljallangan."},"correct":"a"},{"question":"[348]Pedagog tegishli muassasalarda yaratilgan elektron ta'lim resurslariga mualliflik huquqini qanday rasmiylashtirishi mumkin?","answers":{"a":"ruxsatsiz rasmiylashtira olmaydi","b":"rasmiylashtira olmaydi","c":"mustaqil ravishda rasmiylashtirishi mumkin","d":"ba'zi holatlarda rasmiylashtira olmaydi"},"correct":"c"},{"question":"[361]Pedagogik dizayn - bu ...","answers":{"a":"... onlayn ta'limni tashkil etishning asosiy usullaridan biri hisoblanib, kontentni aniq strategiyali, maqsadli va natijalarni tahlil qilish imkoniyatiga ega bo'lgan kursga aylantirish imkoniyatini beradi.","b":"... ular foydalanuvchining kontent bilan o'zaro aloqasi yo'qligi bilan tavsiflanadi, shu bilan birga kontent foydalanish paytida o'zgarmagan ko'rinishga ega bo'ladi.","c":"... kontent elementlari bilan foydalanuvchi o'rtasidagi konstruktiv aloqa bilan tavsiflanadi.","d":"... ular kontent tarkibiy qismlari bilan elementar amallar bajarish orqali foydalanuvchining o'zaro ta'siri bilan tavsiflanadi."},"correct":"a"},{"question":"[384]Raqamli didaktika tushunchasiga ta'rifi qaysi qatorda to'g'ri ko'rsatilgan?","answers":{"a":"Raqamli didaktika - pedagogikaning bir qismi hisoblanib, raqamli ta'lim muhitida o'quv jarayonini tashkil etish bo'yicha fan sifatida qaraladi.","b":"Raqamli didaktika - pedagogikaning bir qismi hisoblanib, raqamli ta'lim muhitida malaka oshirishni nazarda tutadi.","c":"Raqamli didaktika - veb portallar bilan ishlash imkoniyatini beradi.","d":"Raqamli didaktika - pedagogikaning bir qismi hisoblanib, o'quv jarayonini tashkil etish bo'yicha fan sifatida qaraladi."},"correct":"a"},{"question":"[355]Raqamli etika - bu ...","answers":{"a":"ommaviy axborot vositalari bilan ishlash, texnologik innovatsiyalar, raqamli kontent bilan ishlash, kompyuter texnikasi bilan ishlash, kommunikatsiya.","b":"kommunikatsiya,raqamli kontent bilan ishlash, kompyuter texnikasi bilan ishlash, ommaviy axborot vositalari bilan ishlash, texnologik innovatsiyalar.","c":"kompyuter texnikasi bilan ishlash, ommaviy axborot vositalari bilan ishlash, raqamli kontent bilan ishlash, texnologik innovatsiyalar, kommunikatsiya.","d":"onlayn muhitda o'zini tutish qoidalari va tamoyillari to'plamidir."},"correct":"d"},{"question":"[354]Raqamli etikaning asosiy tamoyillari to'g'ri ko'rsatilgan qatorni belgilang:","answers":{"a":"Xavfsizlik. Maxfiylik. Hurmat. Ishonchlilik. Mualliflik huquqi.Shaxsiy javobgarlik.","b":"Axborot xavfsizligi. Maxfiylik. Ishonchlilik. Mualliflik huquqi. Ko'p madaniyatlilik. Shaxsiy xususiyatlar.","c":"Xavfsizlik. Maxfiylik. Hurmat. Ishonchlilik. Mualliflik huquqi. Ko'p madaniyatlilik. Shaxsiy javobgarlik.","d":"Kiberxavfsizlik. Raqamli savodxonlik. Xavfsizlik. Maxfiylik. Hurmat. Ko'p madaniyatlilik. Shaxsiy javobgarlik."},"correct":"c"},{"question":"[385]Raqamli izni boshqarishning refleksiv komponenti ...","answers":{"a":"turli forumlar, suhbatlar, elektron pochta xabarlari asosida to'planadi;","b":"axborot-ta'lim sohasidagi faoliyat natijalarini ko'rsatadi;","c":"turli xil so'rovnomalar va sotsiologik tadqiqotlar natijalaridan kelib chiqadi.","d":"raqamli muhitdagi faoliyatni odatda foydalanadigan texnologiyalar, ya'ni IP-manzillar, qidiruvlar, ma'lumot almashish protokollari va boshqalar nuqtai nazaridan aks ettiradi;"},"correct":"c"},{"question":"[379]Raqamli ta'lim jarayonining Amaliyotga yo'naltirilganlik tamoyili - ...","answers":{"a":"vizualizatsiyaning batafsilroq didaktik tamoyili bo'lib, o'quv jarayonida idrok etishning vizual, eshitish va vosita (kinestetik) usullarini o'z ichiga oladi.","b":"mavjudlik, tizimlilik va izchillik didaktik tamoyili bilan bog'liq bo'lib, murakkablikni oshirish prinsipi izchil o'tishni o'z ichiga oladi: oddiydan murakkabga va murakkabdan oddiyga, umumiydan xususiyga va xususiydan umumiyga, individualdan guruhga va guruhdan individual va boshqa ta'lim jarayonlarini nazarda tutadi.","c":"individual ta'lim strategiyasini yaratish uchun ortiqcha axborot resurslarini talab qiladi. Bunday ortiqchalik tarmoq ta'lim resursi - yagona axborot ta'lim muhiti yordamida amalga oshirilishi mumkin.","d":"ta'limni hayot bilan bog'lashning an'anaviy didaktik tamoyili bilan bevosita bog'liq bo'lib, aniq maqsad va aniq natijalarni belgilashni talab qiladi."},"correct":"d"},{"question":"[380]Raqamli ta'lim jarayonining Hamkorlikda o'rganish tamoyili - ...","answers":{"a":"mavjudlik, tizimlilik va izchillik didaktik tamoyili bilan bog'liq bo'lib, murakkablikni oshirish prinsipi izchil o'tishni o'z ichiga oladi: oddiydan murakkabga va murakkabdan oddiyga, umumiydan xususiyga va xususiydan umumiyga, individualdan guruhga va guruhdan individual va boshqa ta'lim jarayonlarini nazarda tutadi.","b":"ta'limni hayot bilan bog'lashning an'anaviy didaktik tamoyili bilan bevosita bog'liq bo'lib, aniq maqsad va aniq natijalarni belgilashni talab qiladi.","c":"o'qituvchi va talaba o'rtasidagi faol ko'p tomonlama - real va tarmoqli aloqa asosida o'quv jarayonini qurishni talab qiladi hamda tarmoqni o'rganishning guruh shakllaridan foydalanishni o'z ichiga oladi.","d":"individual ta'lim strategiyasini yaratish uchun ortiqcha axborot resurslarini talab qiladi. Bunday ortiqchalik tarmoq ta'lim resursi - yagona axborot ta'lim muhiti yordamida amalga oshirilishi mumkin."},"correct":"c"},{"question":"[382]Raqamli ta'lim jarayonining Moslashuvchanlik tamoyili - ...","answers":{"a":"raqamli ta'lim jarayonining shartlariga qarab individual yondashuvni ishlab chiqish, shuningdek, o'quv materialini taqdim etish tartibi, usuli va sur'ati kabi jihatlarni hisobga olgan holda har bir talaba uchun dasturni avtomatik ravishda sozlash imkonini beradi.","b":"maqsadlarga erishishni, bilim, ko'nikma va malakalarni to'liq o'zlashtirishni talab qiladi &quot;tushuntirish - mustahkamlash - nazorat&quot; didaktik zanjirining yakuniy elementi hisoblanadi.","c":"o'qituvchi va talaba o'rtasidagi faol ko'p tomonlama - real va tarmoqli aloqa asosida o'quv jarayonini qurishni talab qiladi hamda tarmoqni o'rganishning guruh shakllaridan foydalanishni o'z ichiga oladi.","d":"ta'limni hayot bilan bog'lashning an'anaviy didaktik tamoyili bilan bevosita bog'liq bo'lib, aniq maqsad va aniq natijalarni belgilashni talab qiladi."},"correct":"a"},{"question":"[381]Raqamli ta'lim jarayonining Muvaffaqiyatlilik tamoyili - ...","answers":{"a":"o'qituvchi va talaba o'rtasidagi faol ko'p tomonlama - real va tarmoqli aloqa asosida o'quv jarayonini qurishni talab qiladi hamda tarmoqni o'rganishning guruh shakllaridan foydalanishni o'z ichiga oladi.","b":"maqsadlarga erishishni, bilim, ko'nikma va malakalarni to'liq o'zlashtirishni talab qiladi &quot;tushuntirish - mustahkamlash - nazorat&quot; didaktik zanjirining yakuniy elementi hisoblanadi.","c":"ta'limni hayot bilan bog'lashning an'anaviy didaktik tamoyili bilan bevosita bog'liq bo'lib, aniq maqsad va aniq natijalarni belgilashni talab qiladi.","d":"mavjudlik, tizimlilik va izchillik didaktik tamoyili bilan bog'liq bo'lib, murakkablikni oshirish prinsipi izchil o'tishni o'z ichiga oladi: oddiydan murakkabga va murakkabdan oddiyga, umumiydan xususiyga va xususiydan umumiyga, individualdan guruhga va guruhdan individual va boshqa ta'lim jarayonlarini nazarda tutadi."},"correct":"b"},{"question":"[378]Raqamli ta'lim jarayonining Ta'lim muhitining to'yinganligi tamoyili - ...","answers":{"a":"maqsadlilikning an'anaviy didaktik tamoyili bilan kesishadi: o'quv jarayonida faqat ma'lum bir talabaning ta'lim jarayonida belgilangan maqsadlarga maksimal darajada erishishni ta'minlaydigan raqamli texnologiyalardan foydalanish talab etiladi.","b":"vizualizatsiyaning batafsilroq didaktik tamoyili bo'lib, o'quv jarayonida idrok etishning vizual, eshitish va vosita (kinestetik) usullarini o'z ichiga oladi.","c":"butun o'quv jarayoni davomida talabalarning muvaffaqiyatini doimiy ravishda baholashni taqozo etadi.","d":"individual ta'lim strategiyasini yaratish uchun ortiqcha axborot resurslarini talab qiladi. Bunday ortiqchalik tarmoq ta'lim resursi - yagona axborot ta'lim muhiti yordamida amalga oshirilishi mumkin."},"correct":"d"},{"question":"[383]Raqamli ta'lim jarayonining Ustunlik tamoyili - ...","answers":{"a":"talabaning o'quv maqsadini mustaqil ravishda belgilash, o'quv jarayonining strategiyasini, o'quv dasturining rivojlanish sur'ati va darajasini tanlash qobiliyatini nazarda tutadi.","b":"raqamli ta'lim muhitida talabaning mustaqil ta'lim faoliyatiga qaratilgan bo'lib, o'quv jarayonini tashkil etish, o'quv jarayonida talabani qo'llab-quvvatlash va yordam berish lozimligin ko'rsatadi.","c":"maqsadlilikning an'anaviy didaktik tamoyili bilan kesishadi: o'quv jarayonida faqat ma'lum bir talabaning ta'lim jarayonida belgilangan maqsadlarga maksimal darajada erishishni ta'minlaydigan raqamli texnologiyalardan foydalanish talab etiladi.","d":"raqamli ta'lim jarayonining shartlariga qarab individual yondashuvni ishlab chiqish, shuningdek, o'quv materialini taqdim etish tartibi, usuli va sur'ati kabi jihatlarni hisobga olgan holda har bir talaba uchun dasturni avtomatik ravishda sozlash imkonini beradi."},"correct":"b"},{"question":"[377]Raqamli ta'lim resursi - ...","answers":{"a":"raqamli shaklda taqdim etiladigan ta'lim resursi bo'lib, mavzu tuzilmasi, mazmuni va metama'lumotlarni o'z ichiga oladi.","b":"raqamli shaklda taqdim etiladigan ta'lim resursi bo'lib, videodarsliklarga asoslangan metama'lumotlarni o'z ichiga oladi.","c":"raqamli shaklda taqdim etiladigan ta'lim resursi bo'lib, ochiq ma'lumotlarni o'z ichiga oladi.","d":"raqamli shaklda taqdim etiladigan ta'lim resursi bo'lib, ta'lim portallarida taqdim etiladigan ma'lumotlarni o'z ichiga oladi."},"correct":"a"},{"question":"[364]Raqamli ta'lim resurslarini ishlab chiqishda Bilimlarni o'zlashtirishning mustahkamlash didaktik talabi to'g'ri keltirilgan qatorni belgilang.","answers":{"a":"Bu talab o'quv va kognitiv faoliyatning tabiati bilan bog'liq. Hal qilinishi kerak bo'lgan muammoli vaziyatga duch kelganda, ta'lim oluvchilarning idrok etish faolligini oshiradi.","b":"Raqamli ta'lim resurslari yordamida muayyan harakatlarning takrorlanishini tashkil qilish, individual o'quv topshiriqlarining o'zgaruvchanligini oshirish mumkin bo'ladi.","c":"O'rganilayotgan obyektlar va jarayonlarni hissiy idrok etish qonuniyatlarini hisobga olish zarurligini anglatadi.","d":"O'quv jarayoni faolligini oshirish uchun RTR turli xil o'quv vaziyatlarini yaratishi, turli xil savollarni shakllantirishi, talabaga u yoki bu ta'lim trayektoriyasini tanlash imkoniyatini, hodisalarning borishini nazorat qilish qobiliyatini ta'minlashi kerak."},"correct":"b"},{"question":"[366]Raqamli ta'lim resurslarini ishlab chiqishda Faollik va onglilik didaktik talabi to'g'ri keltirilgan qatorni belgilang.","answers":{"a":"Raqamli ta'lim resurslari yordamida muayyan harakatlarning takrorlanishini tashkil qilish, individual o'quv topshiriqlarining o'zgaruvchanligini oshirish mumkin bo'ladi.","b":"Talabalar tomonidan o'rganilayotgan fan sohasidagi ma'lum bir bilim tizimini izchil o'zlashtirish zaruratidir.","c":"O'quv jarayoni faolligini oshirish uchun RTR turli xil o'quv vaziyatlarini yaratishi, turli xil savollarni shakllantirishi, talabaga u yoki bu ta'lim trayektoriyasini tanlash imkoniyatini, hodisalarning borishini nazorat qilish qobiliyatini ta'minlashi kerak.","d":"Raqamli ta'lim resurslari faqatgina ta'lim funksiyasi bilan cheklanib qolmasligi kerak, ular o'quvchilarning aqliy qobiliyatlarini rivojlantirishi, o'quv faoliyati uchun motivatsiyani ta'minlashi va bir qator tarbiyaviy funksiyalarni bajarishi kerak."},"correct":"c"},{"question":"[370]Raqamli ta'lim resurslarini ishlab chiqishda Ilmiylik didaktik talabi to'g'ri keltirilgan qatorni belgilang.","answers":{"a":"Ta'lim oluvchining yoshi va individual xususiyatlariga muvofiq materialni taqdim etishning kognitiv murakkablik darajasini aniqlash zarurligini anglatadi.","b":"Bu talab eng yangi ilmiy yutuqlarini hisobga olgan holda materialni yetarlicha chuqur va to'g'ri taqdim etish zarurligini bildiradi.","c":"Bu talab o'quv va kognitiv faoliyatning tabiati bilan bog'liq. Hal qilinishi kerak bo'lgan muammoli vaziyatga duch kelganda, ta'lim oluvchilarning idrok etish faolligini oshiradi.","d":"O'rganilayotgan obyektlar va jarayonlarni hissiy idrok etish qonuniyatlarini hisobga olish zarurligini anglatadi."},"correct":"b"},{"question":"[367]Raqamli ta'lim resurslarini ishlab chiqishda Ko'rgazmalilik didaktik talabi to'g'ri keltirilgan qatorni belgilang.","answers":{"a":"Talabalar tomonidan o'rganilayotgan fan sohasidagi ma'lum bir bilim tizimini izchil o'zlashtirish zaruratidir.","b":"O'quv jarayoni faolligini oshirish uchun RTR turli xil o'quv vaziyatlarini yaratishi, turli xil savollarni shakllantirishi, talabaga u yoki bu ta'lim trayektoriyasini tanlash imkoniyatini, hodisalarning borishini nazorat qilish qobiliyatini ta'minlashi kerak.","c":"O'rganilayotgan obyektlar va jarayonlarni hissiy idrok etish qonuniyatlarini hisobga olish zarurligini anglatadi.","d":"Raqamli ta'lim resurslari yordamida muayyan harakatlarning takrorlanishini tashkil qilish, individual o'quv topshiriqlarining o'zgaruvchanligini oshirish mumkin bo'ladi."},"correct":"c"},{"question":"[368]Raqamli ta'lim resurslarini ishlab chiqishda Muammolar yechimi didaktik talabi to'g'ri keltirilgan qatorni belgilang.","answers":{"a":"O'quv jarayoni faolligini oshirish uchun RTR turli xil o'quv vaziyatlarini yaratishi, turli xil savollarni shakllantirishi, talabaga u yoki bu ta'lim trayektoriyasini tanlash imkoniyatini, hodisalarning borishini nazorat qilish qobiliyatini ta'minlashi kerak.","b":"O'rganilayotgan obyektlar va jarayonlarni hissiy idrok etish qonuniyatlarini hisobga olish zarurligini anglatadi.","c":"Bu talab o'quv va kognitiv faoliyatning tabiati bilan bog'liq. Hal qilinishi kerak bo'lgan muammoli vaziyatga duch kelganda, ta'lim oluvchilarning idrok etish faolligini oshiradi.","d":"Talabalar tomonidan o'rganilayotgan fan sohasidagi ma'lum bir bilim tizimini izchil o'zlashtirish zaruratidir."},"correct":"c"},{"question":"[369]Raqamli ta'lim resurslarini ishlab chiqishda Ochiqlik didaktik talabi to'g'ri keltirilgan qatorni belgilang.","answers":{"a":"Bu talab o'quv va kognitiv faoliyatning tabiati bilan bog'liq. Hal qilinishi kerak bo'lgan muammoli vaziyatga duch kelganda, ta'lim oluvchilarning idrok etish faolligini oshiradi.","b":"Ta'lim oluvchining yoshi va individual xususiyatlariga muvofiq materialni taqdim etishning kognitiv murakkablik darajasini aniqlash zarurligini anglatadi.","c":"O'rganilayotgan obyektlar va jarayonlarni hissiy idrok etish qonuniyatlarini hisobga olish zarurligini anglatadi.","d":"O'quv jarayoni faolligini oshirish uchun RTR turli xil o'quv vaziyatlarini yaratishi, turli xil savollarni shakllantirishi, talabaga u yoki bu ta'lim trayektoriyasini tanlash imkoniyatini, hodisalarning borishini nazorat qilish qobiliyatini ta'minlashi kerak."},"correct":"b"},{"question":"[363]Raqamli ta'lim resurslarini ishlab chiqishda Rivojlantiruchi didaktik talabi to'g'ri keltirilgan qatorni belgilang.","answers":{"a":"Bu talab o'quv va kognitiv faoliyatning tabiati bilan bog'liq. Hal qilinishi kerak bo'lgan muammoli vaziyatga duch kelganda, ta'lim oluvchilarning idrok etish faolligini oshiradi.","b":"Raqamli ta'lim resurslari faqatgina ta'lim funksiyasi bilan cheklanib qolmasligi kerak, ular o'quvchilarning aqliy qobiliyatlarini rivojlantirishi, o'quv faoliyati uchun motivatsiyani ta'minlashi va bir qator tarbiyaviy funksiyalarni bajarishi kerak.","c":"O'rganilayotgan obyektlar va jarayonlarni hissiy idrok etish qonuniyatlarini hisobga olish zarurligini anglatadi.","d":"O'quv jarayoni faolligini oshirish uchun RTR turli xil o'quv vaziyatlarini yaratishi, turli xil savollarni shakllantirishi, talabaga u yoki bu ta'lim trayektoriyasini tanlash imkoniyatini, hodisalarning borishini nazorat qilish qobiliyatini ta'minlashi kerak."},"correct":"b"},{"question":"[365]Raqamli ta'lim resurslarini ishlab chiqishda Tizimlilik didaktik talabi to'g'ri keltirilgan qatorni belgilang.","answers":{"a":"Raqamli ta'lim resurslari yordamida muayyan harakatlarning takrorlanishini tashkil qilish, individual o'quv topshiriqlarining o'zgaruvchanligini oshirish mumkin bo'ladi.","b":"Talabalar tomonidan o'rganilayotgan fan sohasidagi ma'lum bir bilim tizimini izchil o'zlashtirish zaruratidir.","c":"Raqamli ta'lim resurslari faqatgina ta'lim funksiyasi bilan cheklanib qolmasligi kerak, ular o'quvchilarning aqliy qobiliyatlarini rivojlantirishi, o'quv faoliyati uchun motivatsiyani ta'minlashi va bir qator tarbiyaviy funksiyalarni bajarishi kerak.","d":"O'rganilayotgan obyektlar va jarayonlarni hissiy idrok etish qonuniyatlarini hisobga olish zarurligini anglatadi."},"correct":"b"},{"question":"[376]Raqamli ta'lim resurslarining didaktik vazifalari quyidagilarni o'z ichiga oladi:","answers":{"a":"Barcha javoblar to'g'ri","b":"Ta'lim faoliyatining yangi turlarini amalga oshirish va an'anaviy ta'lim turlarining yuqori sifat darajasida ishlashini qo'llab-quvvatlash;","c":"Ta'lim jarayoni ishtirokchilarining o'zaro munosabatlari xarakterini o'zgartirish imkoniyatini ta'minlash;","d":"Ta'lim jarayonini individuallashtirish va ta'lim mazmunini kengaytirish."},"correct":"a"},{"question":"[349]Resurs mualliflari o'zlarining asarlaridan erkin foydalanishga qarshi bo'lmasalar, uni qanday litsenziya bilan belgilaydilar?","answers":{"a":"Freeware litsenziyasi bilan","b":"Creative Commons litsenziyasi bilan","c":"Open Source litsenziyasi bilan","d":"Commercial litsenziyasi bilan"},"correct":"b"},{"question":"[332]Taqdimot tayyorlarlash dasturi - ...","answers":{"a":"... grafik tasvirlarni yaratish, grafik hujjatlarni, shu jumladan diagrammalar, rasmlar, chizmalar, jadvallarni qayta ishlash uchun mo'ljallangan.","b":"... matnli hujjatlarni yaratish, tahrirlash va formatlash uchun dasturlar hisoblanadi. Misollar: Microsoft Word, Word Perfect, ChiWriter, Multi-Edit, Open Office va boshqalar.","c":"... bu ma'lumotlarni jadvallar ko'rinishida taqdim etish, matematik ma'lumotlarni qayta ishlash, ma'lumotlarni vizuallashtirish va diagrammalar yaratish uchun mo'ljallangan dasturlar.","d":"... bu MS PowerPoint, Prezi, SlideRocet, VoiceThread va boshqalar kabi taqdimotlarini yaratish va qo'llash uchun keng miqyosda qo'llaniladi."},"correct":"d"},{"question":"[387]Tarmoq gigiyenasi (kibergigiyena) deganda nimani tushunasiz?","answers":{"a":"raqamli ma'lumotlarni qidirish, tushunish, arxivlash va uni tanqidiy aks ettirish bilan bog'liq bilim, ko'nikma, malaka, motivatsiya, mas'uliyat, shuningdek raqamli resurslardan foydalangan holda axborot obyektlarini yaratish","b":"ta'lim jarayoni bilan bevosita bog'liq bo'lgan kompetensiyalarni shakllantirishni, ya'ni ta'lim oluvchilarning mustaqil ishlash qobiliyatini rivojlantirishni ta'minlashga, shuningdek, guruh shaklida ishlashda samarali o'zaro ta'sirini amalga oshirishga qaratilgan kompetensiyalarini qamrab oladi","c":"pedagogning axborot resurslarini tanlash va ularni ta'lim oluvchilar ehtiyojlariga moslashtirish, o'z raqamli resurslarini yaratishi va o'quv jarayonining barcha subyektlari uchun ulardan xavfsiz foydalanishni ta'minlash qobiliyatini o'z ichiga oladi.","d":"Tarmoqdagi xavfsizlikni yaxshilash va tizimning ishlashini ta'minlash uchun har qanday qurilma foydalanuvchilari bajaradigan harakatlar to'plamidir."},"correct":"d"},{"question":"[337]Udacity loyihasining maqsadi nimadan iborat?","answers":{"a":"ta'limni demokratlashtirish","b":"an'anaviy ta'limga qaytarish","c":"ta'limni ommaviylashtirish","d":"ta'limni interaktivlashtirish"},"correct":"a"},{"question":"[338]Udacity notijorat MOOCga kim asos solgan?","answers":{"a":"Massachuset texnologiya instituti professori Stiven Douns","b":"Stenford professori Sebastyan Tran","c":"Stenford professori Devid Stavens","d":"Kembridj universiteti professori Dafna Koller"},"correct":"b"},{"question":"[344]Virgual ta'lnm jarayonini boshqaruvchi tizimlar (LMS-Leaming Management Systems) to'g'ri ko'rsatilgan javobni ko'rsating.","answers":{"a":"Moodle, e-khool, Atutor, Captivate Prime, G-Cube, iSpring, ProProfs, TBS, TalentLMS, GoToTraining, Coassemble, Teamie, eFront, Lessonly, Mindflash, Litmos LMS","b":"LearnWorlds, Articulate Storyline 360, Elucidat, Adobe Captivate, Lectora Online, iSpring Suite, EasyGenerator, isEazy, Evolve, H5P","c":"WordPress, Drupal, Joomla, Magento, Umbraco, Shopify, Sitecore, Kentico, Sitefinity, DNN, SharePoint, Typo3, Alfresco, DotCMS, Django CMS","d":"LearnWorlds, Articulate Storyline 360, G-Cube, iSpring, ProProfs, TBS, TalentLMS, Joomla, Magento, Umbraco, Shopify, Django CMS"},"correct":"a"},{"question":"[327]Virtual sintezatorlar, tovush va musiqa dasturlari - ...","answers":{"a":"... bu ma'lumotlarni jadvallar ko'rinishida taqdim etish, matematik ma'lumotlarni qayta ishlash, ma'lumotlarni vizuallashtirish va diagrammalar yaratish uchun mo'ljallangan dasturlar.","b":"... matnli hujjatlarni yaratish, tahrirlash va formatlash uchun dasturlar hisoblanadi. Misollar: Microsoft Word, Word Perfect, ChiWriter, Multi-Edit, Open Office va boshqalar.","c":"... turli manbalardan ovoz yozish, musiqani tahrirlash, raqs mikslarini yaratish, audio treklarni yozib olish va ijro etish imkonini beradi.","d":"... grafik tasvirlarni yaratish, grafik hujjatlarni, shu jumladan diagrammalar, rasmlar, chizmalar, jadvallarni qayta ishlash uchun mo'ljallangan."},"correct":"c"}];
+
+    // Savollarni aralashtirish funksiyasi
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Javob variantlarini aralashtirish
+    function shuffleAnswers(quiz) {
+        quiz.forEach(item => {
+            const answersArray = Object.entries(item.answers);
+            shuffle(answersArray);
+            item.answers = Object.fromEntries(answersArray);
+            item.correct = answersArray.find(([key, value]) => value === item.answers[item.correct])[0]; // To'g'ri javobni yangilash
+        });
+    }
+    // Savollarni aralashtiramiz
+    // shuffle(quizData);
+
+    shuffleAnswers(quizData);
+
+
+
+    const quizContainer = document.getElementById('quiz');
+    const submitButton = document.getElementById('submit');
+    const resultsContainer = document.getElementById('results');
+    const finalResultsContainer = document.getElementById('finalResults');
+    const numberPagination = document.getElementById('numberPagination');
+    const timerDisplay = document.getElementById('timer');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+
+    let totalQuestions = quizData.length;
+    const timePerQuestion = 48; // 48 soniya
+    let timeLeft = totalQuestions * timePerQuestion;
+    let currentQuestionIndex = 0;
+
+    const selectedAnswers = Array(totalQuestions).fill(null);
+
+    function startTimer() {
+        const timerInterval = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `Vaqt: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Vaqt tugadi!");
+                submitButton.click();
+            }
+            timeLeft--;
+        }, 1000);
+    }
+
+    function loadQuestion() {
+        const item = quizData[currentQuestionIndex];
+        quizContainer.innerHTML = `
+            <div class="question">
+                <p>${currentQuestionIndex + 1}. ${item.question}</p>
+                ${Object.keys(item.answers).map(letter => {
+            const isChecked = selectedAnswers[currentQuestionIndex] === letter ? 'checked' : '';
+            const bgColor = selectedAnswers[currentQuestionIndex] === letter ? (letter === item.correct ? 'lightgreen' : 'lightcoral') : '#ccf3ff';
+            return `
+                        <label class="answer" id="answer${letter}" style="background-color: ${bgColor};">
+<input type="checkbox" name="question${currentQuestionIndex}" value="${letter}" ${isChecked} onchange="updateAnswer('${letter}')">${item.answers[letter]}
+                        </label>
+                    `;
+        }).join('')}
+                <div class="result" id="result${currentQuestionIndex}">${getPreviousResult(currentQuestionIndex)}</div>
+            </div>
+        `;
+        updateNumberPagination();
+        updateNavigationButtons();
+    }
+
+    function updateNavigationButtons() {
+        prevButton.style.display = currentQuestionIndex === 0 ? 'none' : 'inline-block';
+        nextButton.style.display = currentQuestionIndex === totalQuestions - 1 ? 'none' : 'inline-block';
+    }
+
+    function updateAnswer(selected) {
+        const answers = document.querySelectorAll(`input[name="question${currentQuestionIndex}"]`);
+        answers.forEach(answer => {
+            const label = document.getElementById(`answer${answer.value}`);
+            if (answer.value === selected) {
+                answer.checked = true;
+                selectedAnswers[currentQuestionIndex] = selected;
+                label.style.backgroundColor = selected === quizData[currentQuestionIndex].correct ? 'lightgreen' : 'lightcoral';
+                showResult(selected);
+            } else {
+                label.style.backgroundColor = '#ccf3ff';
+                answer.checked = false;
+            }
+        });
+        updateNumberPagination();
+    }
+
+    function showResult(selected) {
+        const item = quizData[currentQuestionIndex];
+        const resultElement = document.getElementById(`result${currentQuestionIndex}`);
+        if (selected === item.correct) {
+            resultElement.innerHTML = `<span class="correct">Javob to'g'ri tanlangan!</span>`;
+        } else {
+            resultElement.innerHTML = `<span class="incorrect">Javob noto'g'ri tanlangan! To'g'ri javob: ${item.answers[item.correct]}</span>`;
+        }
+    }
+
+    function getPreviousResult(index) {
+        if (selectedAnswers[index] === null) return '';
+        const selectedAnswer = selectedAnswers[index];
+        const item = quizData[index];
+        if (selectedAnswer === item.correct) {
+            return `<span class="correct">Javob to'g'ri tanlangan!</span>`;
+        } else {
+            return `<span class="incorrect">Javob noto'g'ri tanlangan! To'g'ri javob: ${item.answers[item.correct]}</span>`;
+        }
+    }
+
+    function updateNumberPagination() {
+        numberPagination.innerHTML = '';
+        quizData.forEach((_, index) => {
+            const button = document.createElement('button');
+            button.textContent = index + 1;
+            button.className = selectedAnswers[index] === quizData[index].correct ? 'answered-correct' : selectedAnswers[index] === null ? 'unanswered' : 'answered-incorrect';
+            button.onclick = () => goToQuestion(index);
+            numberPagination.appendChild(button);
+        });
+    }
+
+    function goToQuestion(index) {
+        currentQuestionIndex = index;
+        loadQuestion();
+    }
+
+    function getResults() {
+        resultsContainer.innerHTML = '';
+        let correctCount = 0;
+        quizData.forEach((item, index) => {
+            if (selectedAnswers[index] === item.correct) {
+                correctCount++;
+                resultsContainer.innerHTML += `<div class="result" style="color: green">Savol ${index + 1}: <span class="correct">To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else if (selectedAnswers[index] === null) {
+                resultsContainer.innerHTML += `<div class="result" style="color:blue">Savol ${index + 1}: <span class="incorrect">Javob berilmagan! To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else {
+                resultsContainer.innerHTML += `<div class="result" style="color:red">Savol ${index + 1}: <span class="incorrect">Noto'g'ri! To'g'ri javob: ${item.answers[item.correct]} (Siz: ${item.answers[selectedAnswers[index]]})</span></div>`;
+            }
+        });
+        finalResultsContainer.innerHTML = `<h2>Umumiy natija: ${correctCount} / ${totalQuestions}</h2>`;
+        resultsContainer.style.display = 'block';
+        finalResultsContainer.style.display = 'block';
+    }
+
+    submitButton.addEventListener('click', getResults);
+    prevButton.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentQuestionIndex < totalQuestions - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+    });
+
+    loadQuestion();
+    startTimer();
+</script>
+</body>
+</html>
+    </div>
+</main>
+
+<footer id="footer" class="mt-auto py-3 bg-light">
+    <div class="container">
+        <div class="row text-muted">
+            <div class="col-md-6 text-center text-md-start">&copy; My Company 2024</div>
+            <div class="col-md-6 text-center text-md-end">Powered by <a href="https://www.yiiframework.com/" rel="external">Yii Framework</a></div>
+        </div>
+    </div>
+</footer>
+
+<div id="yii-debug-toolbar" data-url="/web/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag=67073099ab57d" data-skip-urls="[]" style="display:none" class="yii-debug-toolbar-bottom"></div><style>#yii-debug-toolbar-logo{position:fixed;right:31px;bottom:4px}@media print{.yii-debug-toolbar{display:none !important}}.yii-debug-toolbar{font:11px Verdana, Arial, sans-serif;text-align:left;width:96px;transition:width .3s ease;z-index:1000000}.yii-debug-toolbar.yii-debug-toolbar_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__bar{overflow:visible;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.yii-debug-toolbar.yii-debug-toolbar_iframe_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__resize-handle{display:block;height:4px;cursor:ns-resize;margin-bottom:0;z-index:1000001;position:absolute;left:0;right:0}.yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar,.yii-debug-toolbar.yii-debug-toolbar_animating .yii-debug-toolbar__bar{height:40px}.yii-debug-toolbar_active{width:100%}.yii-debug-toolbar_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(0);transform:rotate(0)}.yii-debug-toolbar_position_top{margin:0 0 20px 0;width:100%}.yii-debug-toolbar_position_bottom{position:fixed;right:0;bottom:0;margin:0}.yii-debug-toolbar__bar{position:relative;padding:0;font:11px Verdana, Arial, sans-serif;text-align:left;overflow:hidden;box-sizing:content-box;display:flex;flex-wrap:wrap;background:#fff;background:-moz-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:-webkit-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f7f7f7', GradientType=0);border:1px solid rgba(0,0,0,0.11);direction:ltr}.yii-debug-toolbar__bar::after{content:'';display:table;clear:both}.yii-debug-toolbar__view{height:0;overflow:hidden;background:white}.yii-debug-toolbar__view iframe{margin:0;padding:10px 0 0;height:100%;width:100%;border:0}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__view{height:100%}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__external{display:block}.yii-debug-toolbar_iframe_animating .yii-debug-toolbar__view{transition:height .3s ease}.yii-debug-toolbar__block{margin:0;border-right:1px solid rgba(0,0,0,0.11);border-bottom:1px solid rgba(0,0,0,0.11);padding:4px 8px;line-height:32px;white-space:nowrap}@media (max-width: 767.98px){.yii-debug-toolbar__block{flex-grow:1;text-align:center}}.yii-debug-toolbar__block a{display:inline-block;text-decoration:none;color:black}.yii-debug-toolbar__block img{vertical-align:middle;width:30px;height:30px}.yii-debug-toolbar__block_active,.yii-debug-toolbar__ajax:hover{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__label{display:inline-block;padding:2px 4px;font-size:12px;font-weight:normal;line-height:14px;white-space:nowrap;vertical-align:middle;max-width:100px;overflow-x:hidden;text-overflow:ellipsis;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.25);background-color:#737373;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}.yii-debug-toolbar__label:empty{display:none}a.yii-debug-toolbar__label:hover,a.yii-debug-toolbar__label:focus{color:#ffffff;text-decoration:none;cursor:pointer}.yii-debug-toolbar__label_important,.yii-debug-toolbar__label_error{background-color:#b94a48}.yii-debug-toolbar__label_important[href]{background-color:#953b39}.yii-debug-toolbar__label_warning,.yii-debug-toolbar__badge_warning{background-color:#f89406}.yii-debug-toolbar__label_warning[href]{background-color:#c67605}.yii-debug-toolbar__label_success{background-color:#217822}.yii-debug-toolbar__label_success[href]{background-color:#356635}.yii-debug-toolbar__label_info{background-color:#0b72b8}.yii-debug-toolbar__label_info[href]{background-color:#2d6987}.yii-debug-toolbar__label_inverse,.yii-debug-toolbar__badge_inverse{background-color:#333333}.yii-debug-toolbar__label_inverse[href],.yii-debug-toolbar__badge_inverse[href]{background-color:#1a1a1a}.yii-debug-toolbar__title{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__block_last{width:80px;height:40px;float:left}.yii-debug-toolbar__toggle,.yii-debug-toolbar__external{cursor:pointer;position:absolute;width:30px;height:30px;font-size:25px;font-weight:100;line-height:28px;color:#ffffff;text-align:center;opacity:0.5;filter:alpha(opacity=50);transition:opacity .3s ease}.yii-debug-toolbar__toggle:hover,.yii-debug-toolbar__toggle:focus,.yii-debug-toolbar__external:hover,.yii-debug-toolbar__external:focus{color:#ffffff;text-decoration:none;opacity:0.9;filter:alpha(opacity=90)}.yii-debug-toolbar__toggle-icon,.yii-debug-toolbar__external-icon{display:inline-block;background-position:50% 50%;background-repeat:no-repeat}.yii-debug-toolbar__toggle{right:10px;bottom:4px}.yii-debug-toolbar__toggle-icon{padding:7px 0;width:10px;height:16px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMTUuNTYzIDQwLjgzNmEuOTk3Ljk5NyAwIDAgMCAxLjQxNCAwbDE1LTE1YTEgMSAwIDAgMCAwLTEuNDE0bC0xNS0xNWExIDEgMCAwIDAtMS40MTQgMS40MTRMMjkuODU2IDI1LjEzIDE1LjU2MyAzOS40MmExIDEgMCAwIDAgMCAxLjQxNHoiLz48L3N2Zz4=");transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;-webkit-transform:rotate(180deg);transform:rotate(180deg)}.yii-debug-toolbar__external{display:none;right:50px;bottom:4px}.yii-debug-toolbar__external-icon{padding:8px 0;width:14px;height:14px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMzkuNjQyIDkuNzIyYTEuMDEgMS4wMSAwIDAgMC0uMzgyLS4wNzdIMjguMTAzYTEgMSAwIDAgMCAwIDJoOC43NDNMMjEuNyAyNi43OWExIDEgMCAwIDAgMS40MTQgMS40MTVMMzguMjYgMTMuMDZ2OC43NDNhMSAxIDAgMCAwIDIgMFYxMC42NDZhMS4wMDUgMS4wMDUgMCAwIDAtLjYxOC0uOTI0eiIvPjxwYXRoIGQ9Ik0zOS4yNiAyNy45ODVhMSAxIDAgMCAwLTEgMXYxMC42NmgtMjh2LTI4aDEwLjY4M2ExIDEgMCAwIDAgMC0ySDkuMjZhMSAxIDAgMCAwLTEgMXYzMGExIDEgMCAwIDAgMSAxaDMwYTEgMSAwIDAgMCAxLTF2LTExLjY2YTEgMSAwIDAgMC0xLTF6Ii8+PC9zdmc+")}.yii-debug-toolbar__switch-icon{margin-left:10px;padding:5px 10px;width:18px;height:18px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDUwIDUwIiB2ZXJzaW9uPSIxLjEiPjxwYXRoIGQ9Im00MS4xIDIzYy0wLjYgMC0xIDAuNC0xIDF2MTAuN2wtMjUuNi0wLjFjMCAwIDAtMiAwLTIuOCAwLTAuOC0wLjctMS0xLTAuNmwtMy41IDMuNWMtMC42IDAuNi0wLjYgMS4zIDAgMmwzLjQgMy40YzAuNCAwLjQgMS4xIDAuMiAxLTAuNmwwLTIuOWMwIDAgMjAuOCAwLjEgMjYuNiAwIDAuNiAwIDEtMC40IDEtMXYtMTEuN2MwLTAuNi0wLjQtMS0xLTF6TTkgMjYuOSA5IDI2LjkgOSAyNi45IDkgMjYuOSIvPjxwYXRoIGQ9Im05IDI2LjljMC42IDAgMS0wLjQgMS0xdi0xMC43bDI1LjYgMC4xYzAgMCAwIDIgMCAyLjggMCAwLjggMC43IDEgMSAwLjZsMy41LTMuNWMwLjYtMC42IDAuNi0xLjMgMC0ybC0zLjQtMy40Yy0wLjQtMC40LTEuMS0wLjItMSAwLjZsMCAyLjljMCAwLTIwLjgtMC4xLTI2LjYgMC0wLjYgMC0xIDAuNC0xIDF2MTEuN2MwIDAuNiAwLjQgMSAxIDF6Ii8+PC9zdmc+")}.yii-debug-toolbar__ajax{position:relative}.yii-debug-toolbar__ajax:hover .yii-debug-toolbar__ajax_info,.yii-debug-toolbar__ajax:focus .yii-debug-toolbar__ajax_info{visibility:visible}.yii-debug-toolbar__ajax a{color:#337ab7}.yii-debug-toolbar__ajax table{width:100%;table-layout:auto;border-spacing:0;border-collapse:collapse}.yii-debug-toolbar__ajax table td{padding:4px;font-size:12px;line-height:normal;vertical-align:top;border-top:1px solid #ddd}.yii-debug-toolbar__ajax table th{padding:4px;font-size:11px;line-height:normal;vertical-align:bottom;border-bottom:2px solid #ddd}.yii-debug-toolbar__ajax_info{visibility:hidden;transition:visibility .2s linear;background-color:white;box-shadow:inset 0 -10px 10px -10px #e1e1e1;position:absolute;bottom:40px;left:-1px;padding:10px;max-width:480px;max-height:480px;word-wrap:break-word;overflow:hidden;overflow-y:auto;box-sizing:border-box;border:1px solid rgba(0,0,0,0.11);z-index:1000001}.yii-debug-toolbar__ajax_request_status{color:white;padding:2px 5px}.yii-debug-toolbar__ajax_request_url{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+</style><script>(function () {
+    'use strict';
+
+    var findToolbar = function () {
+            return document.querySelector('#yii-debug-toolbar');
+        },
+        ajax = function (url, settings) {
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            settings = settings || {};
+            xhr.open(settings.method || 'GET', url, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Accept', 'text/html');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 && settings.success) {
+                        settings.success(xhr);
+                    } else if (xhr.status !== 200 && settings.error) {
+                        settings.error(xhr);
+                    }
+                }
+            };
+            xhr.send(settings.data || '');
+        },
+        url,
+        div,
+        toolbarEl = findToolbar(),
+        toolbarAnimatingClass = 'yii-debug-toolbar_animating',
+        barSelector = '.yii-debug-toolbar__bar',
+        viewSelector = '.yii-debug-toolbar__view',
+        blockSelector = '.yii-debug-toolbar__block',
+        toggleSelector = '.yii-debug-toolbar__toggle',
+        externalSelector = '.yii-debug-toolbar__external',
+
+        CACHE_KEY = 'yii-debug-toolbar',
+        ACTIVE_STATE = 'active',
+
+        animationTime = 300,
+
+        activeClass = 'yii-debug-toolbar_active',
+        iframeActiveClass = 'yii-debug-toolbar_iframe_active',
+        iframeAnimatingClass = 'yii-debug-toolbar_iframe_animating',
+        titleClass = 'yii-debug-toolbar__title',
+        blockClass = 'yii-debug-toolbar__block',
+        ignoreClickClass = 'yii-debug-toolbar__ignore_click',
+        blockActiveClass = 'yii-debug-toolbar__block_active',
+        requestStack = [];
+
+    if (toolbarEl) {
+        url = toolbarEl.getAttribute('data-url');
+
+        ajax(url, {
+            success: function (xhr) {
+                div = document.createElement('div');
+                div.innerHTML = xhr.responseText;
+
+                toolbarEl.parentNode && toolbarEl.parentNode.replaceChild(div, toolbarEl);
+
+                showToolbar(findToolbar());
+
+                var event;
+                if (typeof(Event) === 'function') {
+                    event = new Event('yii.debug.toolbar_attached', {'bubbles': true});
+                } else {
+                    event = document.createEvent('Event');
+                    event.initEvent('yii.debug.toolbar_attached', true, true);
+                }
+
+                div.dispatchEvent(event);
+            },
+            error: function (xhr) {
+                toolbarEl.innerText = xhr.responseText;
+            }
+        });
+    }
+
+    function showToolbar(toolbarEl) {
+        var barEl = toolbarEl.querySelector(barSelector),
+            viewEl = toolbarEl.querySelector(viewSelector),
+            toggleEl = toolbarEl.querySelector(toggleSelector),
+            externalEl = toolbarEl.querySelector(externalSelector),
+            blockEls = barEl.querySelectorAll(blockSelector),
+            blockLinksEls = document.querySelectorAll(blockSelector + ':not(.' + titleClass + ') a'),
+            iframeEl = viewEl.querySelector('iframe'),
+            iframeHeight = function () {
+                return (window.innerHeight * (toolbarEl.dataset.height / 100) - barEl.clientHeight) + 'px';
+            },
+            isIframeActive = function () {
+                return toolbarEl.classList.contains(iframeActiveClass);
+            },
+            resizeIframe = function(mouse) {
+                var availableHeight = window.innerHeight - barEl.clientHeight;
+                viewEl.style.height = Math.min(availableHeight, availableHeight - mouse.y) + "px";
+            },
+            showIframe = function (href) {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.add(iframeActiveClass);
+
+                iframeEl.src = externalEl.href = href;
+                iframeEl.removeAttribute('tabindex');
+
+                viewEl.style.height = iframeHeight();
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            hideIframe = function () {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.remove(iframeActiveClass);
+                iframeEl.setAttribute("tabindex", "-1");
+                removeActiveBlocksCls();
+
+                externalEl.href = '#';
+                viewEl.style.height = '';
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            removeActiveBlocksCls = function () {
+                [].forEach.call(blockEls, function (el) {
+                    el.classList.remove(blockActiveClass);
+                });
+            },
+            toggleToolbarClass = function (className) {
+                toolbarEl.classList.add(toolbarAnimatingClass);
+                if (toolbarEl.classList.contains(className)) {
+                    toolbarEl.classList.remove(className);
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.setAttribute('tabindex', "-1");
+                    });
+                } else {
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.removeAttribute('tabindex');
+                    });
+                    toolbarEl.classList.add(className);
+                }
+                setTimeout(function () {
+                    toolbarEl.classList.remove(toolbarAnimatingClass);
+                }, animationTime);
+            },
+            toggleStorageState = function (key, value) {
+                if (window.localStorage) {
+                    var item = localStorage.getItem(key);
+
+                    if (item) {
+                        localStorage.removeItem(key);
+                    } else {
+                        localStorage.setItem(key, value);
+                    }
+                }
+            },
+            restoreStorageState = function (key) {
+                if (window.localStorage) {
+                    return localStorage.getItem(key);
+                }
+            },
+            togglePosition = function () {
+                if (isIframeActive()) {
+                    hideIframe();
+                } else {
+                    toggleToolbarClass(activeClass);
+                    toggleStorageState(CACHE_KEY, ACTIVE_STATE);
+                }
+            };
+
+        if (restoreStorageState(CACHE_KEY) === ACTIVE_STATE) {
+            var transition = toolbarEl.style.transition;
+            toolbarEl.style.transition = 'none';
+            toolbarEl.classList.add(activeClass);
+            setTimeout(function () {
+                toolbarEl.style.transition = transition;
+            }, animationTime);
+        } else {
+            [].forEach.call(blockLinksEls, function (el) {
+                el.setAttribute('tabindex', "-1");
+            });
+        }
+
+        toolbarEl.style.display = 'block';
+
+        window.onresize = function () {
+            if (toolbarEl.classList.contains(iframeActiveClass)) {
+                viewEl.style.height = iframeHeight();
+            }
+        };
+
+        toolbarEl.addEventListener("mousedown", function(e) {
+            if (isIframeActive() && (e.y - toolbarEl.offsetTop < 4 /* 4px click zone */)) {
+                document.addEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        document.addEventListener("mouseup", function(){
+            if (isIframeActive()) {
+                document.removeEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        barEl.onclick = function (e) {
+            var target = e.target,
+                block = findAncestor(target, blockClass);
+
+            if (block
+                && !block.classList.contains(titleClass)
+                && !block.classList.contains(ignoreClickClass)
+                && e.which !== 2 && !e.ctrlKey // not mouse wheel and not ctrl+click
+            ) {
+                while (target !== this) {
+                    if (target.href) {
+                        removeActiveBlocksCls();
+                        block.classList.add(blockActiveClass);
+                        showIframe(target.href);
+                    }
+                    target = target.parentNode;
+                }
+
+                e.preventDefault();
+            }
+        };
+
+        toggleEl.onclick = togglePosition;
+    }
+
+    function findAncestor(el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls)) ;
+        return el;
+    }
+
+    function renderAjaxRequests() {
+        var requestCounter = document.getElementsByClassName('yii-debug-toolbar__ajax_counter');
+        if (!requestCounter.length) {
+            return;
+        }
+        var ajaxToolbarPanel = document.querySelector('.yii-debug-toolbar__ajax');
+        var tbodies = document.getElementsByClassName('yii-debug-toolbar__ajax_requests');
+        var state = 'ok';
+        if (tbodies.length) {
+            var tbody = tbodies[0];
+            var rows = document.createDocumentFragment();
+            if (requestStack.length) {
+                var firstItem = requestStack.length > 20 ? requestStack.length - 20 : 0;
+                for (var i = firstItem; i < requestStack.length; i++) {
+                    var request = requestStack[i];
+                    var row = document.createElement('tr');
+                    rows.appendChild(row);
+
+                    var methodCell = document.createElement('td');
+                    methodCell.innerHTML = request.method;
+                    row.appendChild(methodCell);
+
+                    var statusCodeCell = document.createElement('td');
+                    var statusCode = document.createElement('span');
+                    if (request.statusCode < 300) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success');
+                    } else if (request.statusCode < 400) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_warning');
+                    } else {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_error');
+                    }
+                    statusCode.textContent = request.statusCode || '-';
+                    statusCodeCell.appendChild(statusCode);
+                    row.appendChild(statusCodeCell);
+
+                    var pathCell = document.createElement('td');
+                    pathCell.className = 'yii-debug-toolbar__ajax_request_url';
+                    pathCell.innerHTML = request.url;
+                    pathCell.setAttribute('title', request.url);
+                    row.appendChild(pathCell);
+
+                    var durationCell = document.createElement('td');
+                    durationCell.className = 'yii-debug-toolbar__ajax_request_duration';
+                    if (request.duration) {
+                        durationCell.innerText = request.duration + " ms";
+                    } else {
+                        durationCell.innerText = '-';
+                    }
+                    row.appendChild(durationCell);
+                    row.appendChild(document.createTextNode(' '));
+
+                    var profilerCell = document.createElement('td');
+                    if (request.profilerUrl) {
+                        var profilerLink = document.createElement('a');
+                        profilerLink.setAttribute('href', request.profilerUrl);
+                        profilerLink.innerText = request.profile;
+                        profilerCell.appendChild(profilerLink);
+                    } else {
+                        profilerCell.innerText = 'n/a';
+                    }
+                    row.appendChild(profilerCell);
+
+                    if (request.error) {
+                        if (state !== "loading" && i > requestStack.length - 4) {
+                            state = 'error';
+                        }
+                    } else if (request.loading) {
+                        state = 'loading'
+                    }
+                    row.className = 'yii-debug-toolbar__ajax_request';
+                }
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+                tbody.appendChild(rows);
+            }
+            ajaxToolbarPanel.style.display = 'block';
+        }
+        requestCounter[0].innerText = requestStack.length;
+        var className = 'yii-debug-toolbar__label yii-debug-toolbar__ajax_counter';
+        if (state === 'ok') {
+            className += ' yii-debug-toolbar__label_success';
+        } else if (state === 'error') {
+            className += ' yii-debug-toolbar__label_error';
+        }
+        requestCounter[0].className = className;
+    }
+
+    /**
+     * Should AJAX request to be logged in debug panel
+     *
+     * @param requestUrl
+     * @returns {boolean}
+     */
+    function shouldTrackRequest(requestUrl) {
+        if (!toolbarEl) {
+            return false;
+        }
+        var a = document.createElement('a');
+        a.href = requestUrl;
+        var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'));
+        if (Array.isArray(skipAjaxRequestUrls) && skipAjaxRequestUrls.length && skipAjaxRequestUrls.includes(requestUrl)) {
+            return false;
+        }
+        return a.host === location.host;
+    }
+
+    var proxied = XMLHttpRequest.prototype.open;
+
+    XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
+        var self = this;
+
+        if (shouldTrackRequest(url)) {
+            var stackElement = {
+                loading: true,
+                error: false,
+                url: url,
+                method: method,
+                start: new Date()
+            };
+            requestStack.push(stackElement);
+            this.addEventListener('readystatechange', function () {
+                if (self.readyState === 4) {
+                    stackElement.duration = self.getResponseHeader('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = self.status;
+                    stackElement.error = self.status < 200 || self.status >= 400;
+                    stackElement.profile = self.getResponseHeader('X-Debug-Tag');
+                    stackElement.profilerUrl = self.getResponseHeader('X-Debug-Link');
+                    renderAjaxRequests();
+                }
+            }, false);
+            renderAjaxRequests();
+        }
+        proxied.apply(this, Array.prototype.slice.call(arguments));
+    };
+
+    // catch fetch AJAX requests
+    if (window.fetch) {
+        var originalFetch = window.fetch;
+
+        window.fetch = function (input, init) {
+            var method;
+            var url;
+            if (typeof input === 'string') {
+                method = (init && init.method) || 'GET';
+                url = input;
+            } else if (window.URL && input instanceof URL) { // fix https://github.com/yiisoft/yii2-debug/issues/296
+                method = (init && init.method) || 'GET';
+                url = input.href;
+            } else if (window.Request && input instanceof Request) {
+                method = input.method;
+                url = input.url;
+            }
+            var promise = originalFetch(input, init);
+
+            if (shouldTrackRequest(url)) {
+                var stackElement = {
+                    loading: true,
+                    error: false,
+                    url: url,
+                    method: method,
+                    start: new Date()
+                };
+                requestStack.push(stackElement);
+                promise.then(function (response) {
+                    stackElement.duration = response.headers.get('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = response.status;
+                    stackElement.error = response.status < 200 || response.status >= 400;
+                    stackElement.profile = response.headers.get('X-Debug-Tag');
+                    stackElement.profilerUrl = response.headers.get('X-Debug-Link');
+                    renderAjaxRequests();
+
+                    return response;
+                }).catch(function (error) {
+                    stackElement.loading = false;
+                    stackElement.error = true;
+                    renderAjaxRequests();
+
+                    throw error;
+                });
+                renderAjaxRequests();
+            }
+
+            return promise;
+        };
+    }
+
+})();
+</script><script src="/web/assets/11166fe9/jquery.js"></script>
+<script src="/web/assets/547ad073/yii.js"></script>
+<script src="/web/js/script.js"></script>
+<script src="/web/assets/9912f47d/dist/js/bootstrap.bundle.js"></script></body>
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-100">
+<head>
+    <title></title>
+    <meta name="csrf-param" content="_csrf">
+<meta name="csrf-token" content="iMX-q_jDPctWuds3x0Z7vZuPcZsy5Vrsp5ZRaaHXOrbvq4_8kaUJmDzAvEWMDxPz6s0Q2XO3MaTj9R4D5Z1d2Q==">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link type="image/x-icon" href="/web/favicon.ico" rel="icon">
+<link href="/web/assets/9912f47d/dist/css/bootstrap.css" rel="stylesheet">
+<link href="/web/css/site.css" rel="stylesheet"></head>
+<body class="d-flex flex-column h-100">
+
+<header id="header">
+    <nav id="w0" class="navbar-expand-md navbar-dark bg-dark navbar">
+<div class="container">
+<a class="navbar-brand" href="/web/index.php">Test rejimida ishlamoqda</a>
+<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#w0-collapse" aria-controls="w0-collapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div id="w0-collapse" class="collapse navbar-collapse">
+<ul id="w1" class="navbar-nav nav"><li class="nav-item"><a class="nav-link" href="/web/index.php?r=fan%2Findex">Fanlar</a></li>
+<li class="nav-item"><a class="nav-link" href="/web/index.php?r=quiz%2Findex">Testlar</a></li>
+<li class="nav-item"><form action="/web/index.php?r=site%2Flogout" method="post">
+<input type="hidden" name="_csrf" value="iMX-q_jDPctWuds3x0Z7vZuPcZsy5Vrsp5ZRaaHXOrbvq4_8kaUJmDzAvEWMDxPz6s0Q2XO3MaTj9R4D5Z1d2Q=="><button type="submit" class="nav-link btn btn-link logout">Logout (azizbek_mahkamov)</button></form></li></ul></div>
+</div>
+</nav></header>
+
+<main id="main" class="flex-shrink-0" role="main">
+    <div class="container">
+                        <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanidan test savollari</title>
+    <style>
+        input[type="checkbox"] { display: none; }
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        #header{
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+        .answer {
+
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            border-bottom-color: #0a0a0a;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .number-pagination button {
+            margin: 0 2px;
+            padding: 5px 10px;
+            border: 1px solid #0a0a0a; /* Chegara qo'shildi */
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #b0e0e6;
+        }
+        .answered-correct {
+            background-color: lightgreen;
+        }
+        .answered-incorrect {
+            background-color: lightcoral;
+        }
+        .unanswered {
+            background-color: #c4c4c4;
+        }
+        #navigationButtons {
+            text-align: center;
+            margin: 10px 0;
+        }
+        #navigationButtons button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: #b0e0e6;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 style="text-align: center">Ta'lim sifatini baholash metodikalari fanidan test savollari</h3>
+    <div class="timer" id="timer">98.4:24</div>
+    <div id="quiz"></div>
+    <div id="navigationButtons">
+        <button id="prevButton" style="display: none;">Oldingi</button>
+        <button id="nextButton">Keyingi</button>
+    </div>
+    <div class="pagination">
+        <div class="number-pagination" id="numberPagination"></div>
+    </div>
+    <button id="submit">Natijalarni yuborish</button>
+    <div id="results" style="display: none;"></div>
+    <div id="finalResults" style="display: none;"></div>
+</div>
+
+<script>
+    
+    const quizData=[{"question":" 1-4 sinf o\u02bbquvchilarining o\u02bbqish va matnni tushunish yuzasidan o\u02bbtkaziladigan Xalqaro baholash dasturini toping.","answers":{"a":"PIRLS","b":"Pisa","c":"Tims","d":"Talis"},"correct":"a"},{"question":" o\u02bbquvchilarining o\u02bbqish va matnni tushunish, matematik va tabiiy savodxonligini aniqlash maqsadida o\u02bbtkaziladigan Xalqaro baholash dasturini toping.","answers":{"a":"PISA","b":"TALIS","c":"PIRLS","d":"TIMMS"},"correct":"d"},{"question":" TALIS &ndash;tadqiqotining asosiy vazifalaridan birini toping(5)","answers":{"a":"Uzluksiz malaka oshirish jarayonini takomillashtirish","b":"Matematik savodxonlikni orttirish.","c":"O\u02bbqish va matnni tushunish savodxonlikni orttirish.","d":"Tabiiy savodxonlikni orttirish"},"correct":"a"},{"question":" Xorijiy tajribaga ko\u02bbra, kredit-modul tizimida o\u02bbquv jarayoni har semestrda nechta moduldan iborat bo\u02bbladi.","answers":{"a":"Aniq o\u02bblchovi yo\u02bbq","b":"Bitta","c":"2 - 4 tagacha","d":"Bir nechta"},"correct":"c"},{"question":"1 USTS ga teng birlikni ko'rsating.","answers":{"a":"4 SATS","b":"2 ECTS","c":"2 SATS","d":"1 UCTS"},"correct":"b"},{"question":"1-4 sinf o\u02bbquvchilarining o\u02bbqish va matnni tushunish, matematik va tabiiy savodxonligini aniqlash maqsadida o\u02bbtkaziladigan Xalqaro baholash dasturini toping.","answers":{"a":"Timms","b":"Pisa","c":"Talis","d":"Pirls"},"correct":"a"},{"question":"15 yoshli o\u02bbquvchilar uchun o\u02bbtkaziladigan Xalqaro baholash dasturi PISA mezonining (1)birinchi darajasi Blum taksonomiyasining qaysi o\u02bbquv maqsadiga mosligini toping","answers":{"a":"Bilish","b":"Tushinish","c":"Amalda qo&lsquo;llash","d":"Tahlil sintez"},"correct":"a"},{"question":"15 yoshli o\u02bbquvchilar uchun o\u02bbtkaziladigan Xalqaro baholash dasturi PISA mezonining (2)ikkinchi darajasi Blum taksonomiyasining qaysi o\u02bbquv maqsadiga mosligini toping","answers":{"a":"Amalda qo&lsquo;llash","b":"tahlil sintez.","c":"Bilish, tushunish","d":"xulosa"},"correct":"c"},{"question":"15 yoshli o\u02bbquvchilar uchun o\u02bbtkaziladigan Xalqaro baholash dasturi PISA mezonining (3)uchinchi darajasi Blum taksonomiyasining qaysi o\u02bbquv maqsadiga mosligini toping","answers":{"a":"Tahlil sintez Amalda qo\u02bbllash","b":"Tushunish, xulosa tahlil sintez","c":"Bilish, tushunish, amalda qo\u02bbllash,","d":"Bilish, tushunish, xulosa"},"correct":"c"},{"question":"15 yoshli o\u02bbquvchilar uchun o\u02bbtkaziladigan Xalqaro baholash dasturi PISA mezonining (4)tortinchi darajasi Blum taksonomiyasining qaysi o\u02bbquv maqsadiga mosligini toping","answers":{"a":"Bilish, tushunish, amalda qo\u02bbllash, tahlil,","b":"Bilish, tushunish, amalda qo\u02bbllash, xulosa","c":"Bilish, tushunish, amalda qo\u02bbllash, taklif","d":"Bilish, tushunish, amalda qo\u02bbllash, sintez"},"correct":"a"},{"question":"15 yoshli o\u02bbquvchilar uchun o\u02bbtkaziladigan Xalqaro baholash dasturi PISA mezonining (5)beshinchi darajasi Blum taksonomiyasining qaysi o\u02bbquv maqsadiga mosligini toping","answers":{"a":"Tushunish, xulosa tahlil sintez","b":"Tahlil sintez Amalda qo\u02bbllash","c":"Bilish, tushunish, amalda qo\u02bbllash, tahlil, sintez","d":"Bilish, tushunish, xulosa"},"correct":"c"},{"question":"15 yoshli o\u02bbquvchilar uchun o\u02bbtkaziladigan Xalqaro baholash dasturi PISA mezonining (6)oltinchi darajasi Blum taksonomiyasining qaysi o\u02bbquv maqsadiga mosligini toping","answers":{"a":"Bilish, tushunish, amalda qo&lsquo;llash, tahlil, sintez, xulosa","b":"tushunish, xulosa Tahlil, sintez, Amalda qo&lsquo;llash","c":"tushunish, xulosa tahlil sintez.","d":"Bilish, tushunish, xulosa, tahlil sintez Amalda qo&lsquo;llash"},"correct":"a"},{"question":"15 yoshli o\u02bbquvchilar uchun o\u02bbtkaziladigan Xalqaro baholash dasturini toping.","answers":{"a":"PISA","b":"PROBLEM SOLVING AND FINANCIAL LITERACY","c":"TALIS","d":"IMMS"},"correct":"a"},{"question":"5 kreditlik fanni 70% ga o'zlashtirgan talaba necha kreditni qo'lga kiritadi?","answers":{"a":"3,5 kredit","b":"3 kredit","c":"4 kredit","d":"5 kredit"},"correct":"d"},{"question":"Akademik kreditga berilgan javobni toping","answers":{"a":"Oliy ta\u02bclimni tugatishiga asos bo\u02bbladigan talaba tomonidan to\u02bbplangan ramziy o\u02bblchov birligi","b":"Yaxlit, muayyan o\u02bbquv natijalariga erishishga qaratilgan, Reyting tizimi mezonlariga ega bulgan tizimli, izchil o\u02bbqish va o\u02bbrganish harakatlari jamlanmasi.","c":"Oliy ta\u02bclimning muayyan bosqichida ushbu ta\u02bclim darajasini qo\u02bblga kiritish maqsadida talaba tomonidan muntazam ravishda to\u02bbplab boriladigan ramziy o\u02bblchov birligi.","d":"Oliy ta\u02bclim faoliyatini nazorat qiladigan ramziy o\u02bblchov birligi."},"correct":"c"},{"question":"Akademik modulga berilgan javobni toping","answers":{"a":"Oliy ta\u02bclimning muayyan bosqichida ushbu ta\u02bclim darajasini qo\u02bblga kiritish maqsadida talaba tomonidan muntazam ravishda to\u02bbplab boriladigan ramziy o\u02bblchov birligi.","b":"Oliy ta\u02bclimni tugatishiga asos bo\u02bbladigan talaba tomonidan to\u02bbplangan ramziy o\u02bblchov birligi.","c":"Oliy ta\u02bclim faoliyatini nazorat qiladigan ramziy o\u02bblchov birligi.","d":"Yaxlit, muayyan o\u02bbquv natijalariga erishishga qaratilgan, Reyting tizimi mezonlariga ega bulgan tizimli, izchil o\u02bbqish va o\u02bbrganish harakatlari jamlanmasi."},"correct":"d"},{"question":"Amerika Qo'shma Shtatlari kredit tizimini ko'rsating.","answers":{"a":"ECTS","b":"SATS","c":"USCS","d":"UCTS"},"correct":"c"},{"question":"Bajarish, qo'llash, ijro qilish, hisoblash, o'zgartirish, mavzu bo'yicha suhbatlashish, tajriba o'tkazish, rasmiylashtirish, fikr almashish, chizish, foydalanish kabi amallar Blum taksonomiyasining qaysi kategoriyasiga tegishli?","answers":{"a":"bilish","b":"amalda qo'llash","c":"tushunish","d":"baholash"},"correct":"b"},{"question":"Bakalavriat ta\u02bclim yo\u02bbnalishi namunaviy o\u02bbquv rejasidan o\u02bbrin olgan o\u02bbquv modulidan auditoriyada tashkil etiladigan o\u02bbqitish shakllarini toping.","answers":{"a":"ma\u02bcruza, laboratoriya, amaliy va seminar mashg\u02bbulotlari","b":"Ma\u02bcruza, seminar va amaliy mashg\u02bbulotlar, mustaqil ta\u02bclim","c":"Ma\u02bcruza, seminar va amaliy mashg\u02bbulotlar, kurs ishi","d":"Ma\u02bcruza, laboratoriya, amaliy mashg\u02bbulotlar, fan to\u02bbgaragi"},"correct":"a"},{"question":"Bakalavriatda kechki va sirtqi ta'lim shakllari bo'yicha me'yoriy o'qish muddatlari kunduzgi shakldagidan ko'pi bilan qancha muddat farq qilishi mumkin?","answers":{"a":"6 oy","b":"2 yil","c":"1 yil","d":"1,5 yil"},"correct":"c"},{"question":"Bir o'quv yili uchun kunduzgi ta'limda amalga oshiriladigan ta'lim dasturining hajmi necha kreditga teng?","answers":{"a":"120","b":"30","c":"60","d":"240"},"correct":"c"},{"question":"Bolonya jarayoni ishtirokchi davlatlari OTM lari bilan akademik almashishga imkon beruvchi bandni ko'rsating.","answers":{"a":"professor-o'qituvchilarning xorijiy tajribasi","b":"magistrantlarning xorijda stajirovka o'tashi","c":"o'quv rejalarining xorijiy o'quv rejalariga mosligi","d":"xalqaro ilmiy anjumanlarda ishtirok etish"},"correct":"c"},{"question":"Dars jadvallari nimalar asosida tuziladi?","answers":{"a":"o'quv rejalari va akademik taqvim","b":"akademik guruhlar, o'quv rejalardagi fanlar va mashg'ulotlar hajmi, o'qituvchilar kontingenti, auditoriya fondi","c":"o'quv rejalari va auditoriya fondi","d":"o'quv rejalari, qo'shimcha fanlar, akademik taqvim, auditoriya fondi, o'qituvchilarning va talabalarning bo'sh vaqti"},"correct":"b"},{"question":"Eslash, nomlash, tasavvur qilish, aytib berish, tasvirlash, o'xshashini topish kabi amallar Blum taksonomiyasining qaysi kategoriyasiga tegishli?","answers":{"a":"amalda qo'llash","b":"bilish","c":"tahlil","d":"baholash"},"correct":"b"},{"question":"Fandan keyin o'zlashtirilishi nazarda tutiladigan bandni ko'rsating.","answers":{"a":"malakaviy amaliyotlar","b":"prerekvizitlar","c":"postrekvizitlar","d":"mustaqil ta'lim"},"correct":"c"},{"question":"Fandan oldin o'zlashtirilishi zarur bo'lgan bandni ko'rsating.","answers":{"a":"nazariy materiallar","b":"postrekvizitlar","c":"malakaviy amaliyotlar","d":"prerekvizitlar"},"correct":"d"},{"question":"Fanning o'quv-uslubiy majmuasi uchun asos bo'ladigan me'yoriy hujjatlarni ko'rsating.","answers":{"a":"soatlar taqsimoti, auditoriya va mustaqil ish turlari, laboratoriya anjomlari","b":"DTS, MT, o'quv reja, fan dasturi","c":"dars jadvali, talabaning shaxsiy o'quv rejasi","d":"auditoriya fondi, fan o'qituvchilari ro'yxati"},"correct":"b"},{"question":"Guruhlash, bog'lash, izohlash, ixchamlash, kengaytirish, tushuntirish, farqlash, boshqa shaklda ifodalash kabi amallar Blum taksonomiyasining qaysi kategoriyasiga tegishli?","answers":{"a":"baholash","b":"bilish","c":"sintez","d":"tushunish"},"correct":"d"},{"question":"Ikki karra o\u02bbtkaziladigan Xalqaro baholash dasturini toping.","answers":{"a":"PISA","b":"TALIS","c":"PIRLS","d":"TIMMS"},"correct":"a"},{"question":"Kompetensiyaning lug\u02bbaviy ma\u02bcnosini toping.","answers":{"a":"Lotincha competens &ndash; layoqatli, qobiliyatli","b":"Fransuzcha competens &ndash; uquvli, bilimli","c":"Inglizcha competens &ndash; layoqatli, uquvli","d":"Yunoncha competens &ndash; layoqatli, bilimli"},"correct":"a"},{"question":"Kredit-bu..... Ta\u02bcrifni to\u02bbldiring","answers":{"a":"O\u02bbqitishning modul texnologiyalari jamlamasi va kredit o\u02bblchovi asosida baholash modeli","b":"Yaxlit, muayyan o\u02bbquv natijalariga erishishga qaratilgan, Reyting tizimi mezonlariga ega bulgan tizimli, izchil o\u02bbqish va o\u02bbrganish harakatlari jamlanmasi.","c":"Talabaning modullarni o\u02bbqib o\u02bbrganishi va o\u02bbz&shy;lashtirishi uchun sarflangan o\u02bbquv yuklamasining (vaqtning) o\u02bblchov birligidir","d":"Oliy ta\u02bclimni tugatishiga asos bo\u02bbladigan talaba tomonidan to\u02bbplangan ramziy o\u02bblchov birligi."},"correct":"c"},{"question":"Kredit-modul tizimida akademik guruh jurnalida keltiriladigan bandni ko'rsating.","answers":{"a":"ilmiy-uslubiy, ilmiy-tadqiqot va &quot;ustoz-shogird&quot; yuklamalari","b":"fan nomi, kodi, mashg'ulotlar hajmi, talabalar soni","c":"fan kodi, o'quv auditoriyasi, fan o'qituvchisi","d":"O'RTMI baholari"},"correct":"d"},{"question":"Kredit-modul tizimida akademik guruh talabalari sonining minimal va maksimal qiymatlari nima asosida belgilanadi?","answers":{"a":"vaqt me'yorlari asosida, 20-25 ta oralig'ida belgilanadi","b":"auditoriya sig'imi, yuklamalarni optimallashtirish, o'qituvchi yuklamasi asosida belgilanadi","c":"faqat auditoriya sig'imi asosida","d":"o'qituvchi yuklamasi asosida"},"correct":"b"},{"question":"Kredit-modul tizimida akademik guruhlar qanday belgilanishi lozim?","answers":{"a":"1-kurs talabalarini tor ixtisosliklarga biriktirish asosida","b":"o'qishga qabul qilingan abituriyenlarni farmoyish bo'yicha guruhlarga taqsimlash orqali","c":"fanlarga va o'qituvchilarga yozilgan talabalar kontingentidan kelib chiqib, ruxsat etilgan chegarada","d":"vaqt me'yorlari asosida har bir guruhga 20-25 ta talabani biriktirish asosida"},"correct":"c"},{"question":"Kredit-modul tizimida amaliyotga joriy etilishi nazarda tutilgan &laquo;flipped classroom&raquo; texnologiyasining ma\u02bcnosi to\u02bbg\u02bbri berilgan javobni toping.","answers":{"a":"Modulli ta\u02bclim","b":"Kompetensiyali ta\u02bclim","c":"Aralash ta\u02bclim","d":"Majmuali ta\u02bclim"},"correct":"c"},{"question":"Kredit-modul tizimida dars jadvallari kim tomonidan tuziladi?","answers":{"a":"o'quv bo'limi","b":"dekanat","c":"registrator ofisi","d":"magistratura bo'limi"},"correct":"c"},{"question":"Kredit-modul tizimida dars jadvallarida keltiriladigan bandlarni ko'rsating.","answers":{"a":"fan nomi, kodi, mashg'ulotlar hajmi, talabalar soni","b":"fan kodi, o'quv auditoriyasi, fan o'qituvchisi, akademik guruh","c":"fan kodi, o'quv auditoriyasi, potoklar, murabbiylik soatlari, ma'naviy-ma'rifiy tadbirlar","d":"talabalar familiyasi, mashg'ulot mavzulari, baholar"},"correct":"b"},{"question":"Kredit-modul tizimida edvayzerning vazifasi nimadan iborat?","answers":{"a":"talabaning fanlarni o'zlashtirishiga, ilmiy ishlarni olib borishiga, ilmiy anjumanlarda ma'ruza qilishiga, maqola chop qilishiga yaqindan yordam ko'rsatish","b":"amaliy turdagi darslarni o'tish, talabalarga topshiriqlar berish, ularni nazorat qilish va bajarilishiga erishish","c":"amaliy va laboratoriya mashg'ulotlarini olib borish, kurs ishi va loyihalari, malakaviy amaliyotlar, ilmiy izlanishlariga rahbarlik qilish","d":"talabaga o'quv trayektoriyasini tanlashiga akademik maslahatchilik qilish, tanlov fanlarini tanlashiga, ishga joylashishiga yordam ko'rsatish"},"correct":"d"},{"question":"Kredit-modul tizimida fanlar katalogini ishlab chiqadigan komissiya turini ko'rsating.","answers":{"a":"o'qituvchilar faoliyatini nazorat qilish bo'yicha komissiya","b":"o'quv rejalari bo'yicha komissiya","c":"TMI sifatini nazorat qilish bo'yicha komissiya","d":"ishchi dasturlar bo'yicha komissiya"},"correct":"d"},{"question":"Kredit-modul tizimida fanning o'quv-uslubiy majmuasi tarkibiga kiruvchi elementni ko'rsating.","answers":{"a":"dars jadvallari","b":"o'qituvchi rahbarligidagi talabaning mustaqil ishlari","c":"tanlov fanlari katalogi","d":"talabaning axborot paketi"},"correct":"b"},{"question":"Kredit-modul tizimida har bir talaba nima bilan ta'minlanishi kerak?","answers":{"a":"murabbiyning ish rejasi","b":"kafedraning ish rejasi","c":"ma'lumotnoma-ko'rsatkich","d":"talabaning shaxsiy ish rejasi"},"correct":"c"},{"question":"Kredit-modul tizimida ishchi o'quv reja nima uchun tuziladi?","answers":{"a":"talabaning o'quv davrida o'qiydigan barcha fanlarini aniq belgilab qo'yish uchun","b":"dars jadvalini tuzish va fanlarni tanlovga taqdim qilish uchun","c":"dars jadvalini tuzish va o'quv yuklamalarini hisoblash uchun","d":"alohida har bir kafedra tomonidan olib boriladigan o'quv yuklamalarini belgilab qo'yish uchun"},"correct":"c"},{"question":"Kredit-modul tizimida ishchi o'quv rejalar qanday ishlab chiqiladi?","answers":{"a":"namunaviy o'quv rejalariga tanlov fanlarini qo'shish orqali","b":"eng ko'p talabalar kontingentining shaxsiy o'quv rejalari asosida","c":"talabaning shaxsiy o'quv rejasi asosida","d":"namunaviy o'quv reja asosida turdosh OTM lar bilan kelishilgan holda"},"correct":"b"},{"question":"Kredit-modul tizimida kafedra o'quv yuklamasida keltiriladigan bandlarni ko'rsating.","answers":{"a":"talabalar familiyasi, mashg'ulot mavzulari, baholar","b":"o'quv auditoriyasi, fan o'qituvchisi","c":"o'quv ishlari, ilmiy-uslubiy, ilmiy-tadqiqot va &quot;ustoz-shogird&quot; yuklamalari","d":"fan nomi, kodi, mashg'ulotlar hajmi"},"correct":"d"},{"question":"Kredit-modul tizimida lektorning vazifasi nimadan iborat?","answers":{"a":"leksiyalarni o'qish hamda talabalarda bilim, ko'nikma va malakalar hosil qilish","b":"nazariy bilim berish, talabalarga mustaqil ish topshiriqlari berish va ularni baholash","c":"nazariy bilim berish, talabaning mustaqil ta'limi uchun material tayyorlash","d":"ma'ruzalarni auditoriyada o'tish, talabalarning fan bo'yicha ma'ruza konspektlari to'liq bo'lishini ta'minlash, yakuniy nazorat olish"},"correct":"c"},{"question":"Kredit-modul tizimida o'quv rejalari necha marta tuziladi?","answers":{"a":"1 marta, butun o'quv davri uchun","b":"4 marta, har bir o'quv yili uchun","c":"8 marta, har bir o'quv semestri uchun","d":"2 marta, 1-2 kurs va 3-4 kurs uchun"},"correct":"b"},{"question":"Kredit-modul tizimida o'quv yili bo'yicha barcha fanlarni ijobiy bahoga topshirgan talaba ...","answers":{"a":"GPA balidan past ball olgan bo'lsa ham keyingi kursga o'tkaziladi","b":"GPA balidan yuqori ball olgan bo'lsa keyingi kursga o'tkaziladi","c":"kamida 3 ta fandan &quot;yaxshi&quot; baho olgan bo'lsa keyingi kursga o'tkaziladi","d":"kamida 1 ta fandan &quot;a'lo&quot; va 2 ta fandan &quot;yaxshi&quot; baho olgan bo'lsa keyingi kursga o'tkaziladi"},"correct":"b"},{"question":"Kredit-modul tizimida pedagogik yuklama turlari va me'yorlari nimaga qaratilgan bo'lishi zarur?","answers":{"a":"ilmiy daraja va unvonlar oshib borishi bilan yuklamalarni kamaytirishga","b":"o'quv yuklamalarini xronometraj asosida aniq belgilashga","c":"ta'lim sifatini va OTM reytingini oshirishga","d":"pedagogik yuklamani faqat o'quv yuklamalari asosida belgilashga"},"correct":"c"},{"question":"Kredit-modul tizimida prerekvizitlar va postrekvizitlar tizimini shakllantirish bo'yicha asosiy yondashuvlarni ishlab chiqadigan komissiya turini ko'rsating.","answers":{"a":"ishchi dasturlar bo'yicha komissiya","b":"o'quv rejalari bo'yicha komissiya","c":"TMI sifatini nazorat qilish bo'yicha komissiya","d":"o'qituvchilar faoliyatini nazorat qilish bo'yicha komissiya"},"correct":"b"},{"question":"Kredit-modul tizimida qaysi faoliyat turi pedagogning o'quv yuklamasiga kiritiladi?","answers":{"a":"talabalarning ilmiy-tadqiqot ishlari","b":"talabaning mustaqil ta'limi","c":"talabalarning o'quv-izlanish ishlari","d":"o'qituvchi rahbarligidagi talabaning mustaqil ishi"},"correct":"d"},{"question":"Kredit-modul tizimida qaysi faoliyat turi talabaning faqat o'zi tomonidan amalga oshiriladi?","answers":{"a":"talabalarning ilmiy-tadqiqot ishlari","b":"talabalarning o'quv-izlanish ishlari","c":"o'qituvchi rahbarligidagi talabaning mustaqil ishi","d":"talabaning mustaqil ta'limi"},"correct":"d"},{"question":"Kredit-modul tizimida talaba qanday akademik guruhda o'qiydi?","answers":{"a":"butun o'qish davri davomida bitta akademik guruhda","b":"o'z tanlovi asosida har bir semestrda boshqa akademik guruhda","c":"1-2 kurslarda boshqa, 3-4 kurslarda boshqa akademik guruhda","d":"talaba xohlagan paytda guruhini o'zgartirishi mumkin"},"correct":"b"},{"question":"Kredit-modul tizimida talabaga taqdim etiladigan ma'lumotnoma-ko'rsatkich tarkibiga kiruvchi elementni ko'rsating.","answers":{"a":"sillabuslar, o'quv adabiyotlari nusxalari","b":"yo'nalishning DTS, MT, o'quv rejalari","c":"OTM haqida ma'lumot, talabalarning yashash tarzi, ma'muriy tadbirlar","d":"o'tkaziladigan ma'naviy-ma'rifiy tadbirlar rejasi"},"correct":"c"},{"question":"Kredit-modul tizimida talabalarning mustaqil ishini baholash me'yorlarini ishlab chiqadigan komissiya turini ko'rsating.","answers":{"a":"o'qituvchilar faoliyatini nazorat qilish bo'yicha komissiya","b":"o'quv rejalari bo'yicha komissiya","c":"ishchi dasturlar bo'yicha komissiya","d":"TMI sifatini nazorat qilish bo'yicha komissiya"},"correct":"d"},{"question":"Kredit-modul tizimida talabaning axborot paketi tarkibiga nimalar kiradi?","answers":{"a":"yo'nalishning DTS, MT, o'quv rejalari","b":"ma'lumotnoma-ko'rsatkich, talabaning o'quv-uslubiy majmuasi","c":"sillabuslar, o'quv adabiyotlari nusxalari","d":"akademik kalendar, o'tkaziladigan tadbirlar rejasi"},"correct":"b"},{"question":"Kredit-modul tizimida talabaning fan o'qituvchisini tanlashi qanday amalga oshiriladi?","answers":{"a":"o'qituvchining ilmiy darajasi va unvoniga qarab","b":"semestr davomida xohlagan paytda va talabaning xohishiga ko'ra","c":"semestrning dastlabki haftasidagi o'qituvchilarning ochiq darslari va o'quv-me'yoriy hujjatlari orqali","d":"talabaning reytingi kamayib borishi tartibida hamda o'qituvchining tasdiqlangan shaxsiy ish rejasi va qat'iy belgilangan kafedra o'quv yuklamasi asosida"},"correct":"c"},{"question":"Kredit-modul tizimida talabaning o'quv-uslubiy majmuasi tarkibiga kiruvchi elementni ko'rsating.","answers":{"a":"akademik taqvim","b":"mustaqil ish bo'yicha ko'rsatmalar","c":"OTM haqida ma'lumotlar","d":"kredit-modul tizimida o'qish tartibi"},"correct":"b"},{"question":"Kredit-modul tizimida talabaning o'quv-uslubiy majmuasi tarkibiga kiruvchi elementni ko'rsating.","answers":{"a":"OTM haqida ma'lumotlar","b":"akademik taqvim","c":"sillabuslar","d":"kredit-modul tizimida o'qish tartibi"},"correct":"c"},{"question":"Kredit-modul tizimida talabaning o'quv-uslubiy majmuasi tarkibiga kiruvchi elementni ko'rsating.","answers":{"a":"akademik taqvim","b":"talabaning shaxsiy o'quv rejasi","c":"OTM haqida ma'lumotlar","d":"kredit-modul tizimida o'qish tartibi"},"correct":"b"},{"question":"Kredit-modul tizimida talabaning o'zlashtira olmagan fanini qayta o'qishga imkon beriladigan davrni ko'rsating.","answers":{"a":"ta'til davri","b":"kuzgi semestr","c":"bahorgi semestr","d":"yozgi semestr"},"correct":"d"},{"question":"Kredit-modul tizimida tyutorning vazifasi nimadan iborat?","answers":{"a":"talabaning fanlarni o'zlashtirishiga, ilmiy ishlarni olib borishiga, ilmiy anjumanlarda ma'ruza qilishiga, maqola chop qilishiga yaqindan yordam ko'rsatish","b":"amaliy va laboratoriya mashg'ulotlarini olib borish, kurs ishi va loyihalari, malakaviy amaliyotlar, ilmiy izlanishlariga rahbarlik qilish","c":"talabaga o'quv trayektoriyasini tanlashiga akademik maslahatchilik qilish, tanlov fanlarini tanlashiga, ishga joylashishiga yordam ko'rsatish","d":"amaliy turdagi darslarni o'tish, talabalarga topshiriqlar berish, ularni nazorat qilish va bajarilishiga erishish"},"correct":"d"},{"question":"Kredit-modul tizimida yakuniy nazorat qanday shakllarda o'tkaziladi?","answers":{"a":"faqat yozma ish shaklida","b":"yozma, og'zaki, test, portfolio, taqdimot va h.k.","c":"faqat test shaklida","d":"kurs ishi, kurs loyihasi, startap loyihasi, himoya va h.k."},"correct":"b"},{"question":"Kreditlarning to'plash va o'tkazishning Britaniya tizimini ko'rsating.","answers":{"a":"USCS","b":"SATS","c":"ECTS","d":"UCTS"},"correct":"b"},{"question":"Magistraturada kechki va sirtqi ta'lim shakllari bo'yicha me'yoriy o'qish muddatlari kunduzgi shakldagidan ko'pi bilan qancha muddat farq qilishi mumkin?","answers":{"a":"2 yil","b":"6 oy","c":"1 yil","d":"1,5 yil"},"correct":"b"},{"question":"Material tayyorlash, yangi shaklda ifodalash, imitatsiyalash, yasash, tuzish, qurish, dasturlash, yaratish, umumlashtirish, modifikatsiyalash, moslashtirish, rejalashtirish kabi amallar Blum taksonomiyasining qaysi kategoriyasiga tegishli?","answers":{"a":"bilish","b":"sintez","c":"tushunish","d":"amalda qo'llash"},"correct":"b"},{"question":"Modul so\u02bbzining lug\u02bbaviy ma\u02bcnosini toping.","answers":{"a":"Inglizcha - qism, blok","b":"Ruscha &ndash; yaxlit narsaning qismi","c":"Lotincha - qism, blok","d":"Fransuzcha - qism, blok"},"correct":"c"},{"question":"Muayyan soha uchun bakalavr tayyorlashda ta'lim sifatini saqlab qolgan holda muddatini 2 yilga qisqartirishga imkon beruvchi tadbirni ko'rsating.","answers":{"a":"birinchi yil tayanch fanlarni, ikkinchi yil ixtisoslik fanlarini o'qitishni tashkil qilish","b":"2 yillik bakalavriat tayanch ta'limi asosida keyingi 2 yilda ixtisoslik fanlarini o'qitishni tashkil qilish","c":"o'rta maxsus ta'lim muassasalarida bakalavr tayyorlashni yo'lga qo'yish","d":"2 yillik an'anaviy va 2 yillik masofaviy ta'limni joriy qilish"},"correct":"b"},{"question":"Mustaqil ta\u02bclim topshiriqlarining qancha qismi kichik guruhlarda hamkorlikda ishlashga mo\u02bbljallangan bo\u02bblishi kerak?","answers":{"a":"1\/5","b":"1\/4","c":"1\/2","d":"1\/3"},"correct":"d"},{"question":"Namunaviy o'quv reja asosida ishlab chiqiladigan va ishchi o'quv rejani ishlab chiqish uchun asos bo'ladigan bandni ko'rsating.","answers":{"a":"fan modullari","b":"talabaning ishchi o'quv rejasi","c":"tanlov fanlari katalogi","d":"talabaning dars jadvali"},"correct":"b"},{"question":"Namunaviy o'quv rejada ochilmagan fanlarning kodlari, prerekvizitlari, postrekvizitlari, kreditlari va qisqa mazmuni keltiriladigan materialni ko'rsating.","answers":{"a":"sillabus","b":"ishchi o'quv reja","c":"tanlov fanlari katalogi","d":"talabaning shaxsiy o'quv rejasi"},"correct":"c"},{"question":"O'qituvchi rahbarligidagi talabaning mustaqil ishi (O'RTMI) elementini ko'rsating.","answers":{"a":"FAQ (ko'p so'raladigan savollar) bazasi bilan ishlash","b":"ilmiy tezis, maqola tayyorlash","c":"o'rgatuvchi testlarni mashq qilish","d":"forumda ishtirok etish"},"correct":"b"},{"question":"O'qituvchi rahbarligidagi talabaning mustaqil ishi (O'RTMI) elementini ko'rsating.","answers":{"a":"o'rgatuvchi testlarni mashq qilish","b":"FAQ (ko'p so'raladigan savollar) bazasi bilan ishlash","c":"malakaviy amaliyot hisobotini tayyorlash","d":"forumda ishtirok etish"},"correct":"c"},{"question":"O'qituvchi rahbarligidagi talabaning mustaqil ishi (O'RTMI) elementini ko'rsating.","answers":{"a":"o'rgatuvchi testlarni mashq qilish","b":"FAQ (ko'p so'raladigan savollar) bazasi bilan ishlash","c":"kurs ishi (loyihasi)ni tayyorlash","d":"forumda ishtirok etish"},"correct":"c"},{"question":"O'qituvchi rahbarligidagi talabaning mustaqil ishi (O'RTMI) elementini ko'rsating.","answers":{"a":"o'rgatuvchi testlarni mashq qilish","b":"FAQ (ko'p so'raladigan savollar) bazasi bilan ishlash","c":"hisob-chizma ishini tayyorlash","d":"forumda ishtirok etish"},"correct":"c"},{"question":"O'qituvchi rahbarligidagi talabaning mustaqil ishi (O'RTMI) elementini ko'rsating.","answers":{"a":"FAQ (ko'p so'raladigan savollar) bazasi bilan ishlash","b":"taqdimot tayyorlash","c":"o'rgatuvchi testlarni mashq qilish","d":"forumda ishtirok etish"},"correct":"b"},{"question":"O'qituvchi va talabaning shaxsiy dars jadvalida keltiriladigan bandni ko'rsating.","answers":{"a":"ma'naviy-ma'rifiy tadbirlar","b":"murabbiylik soatlari","c":"O'RTMI","d":"TMT"},"correct":"c"},{"question":"O'quv davridagi asosiy o'quv faoliyatlari va ularning muddatlari ko'rsatilgan hujjatni ko'rsating.","answers":{"a":"sillabus","b":"akademik taqvim","c":"talabaning shaxsiy o'quv rejasi","d":"fanning taqvimiy rejasi"},"correct":"b"},{"question":"O'quv jarayonini tashkil qilish hujjatlarini ko'rsating.","answers":{"a":"sillabuslar, o'quv adabiyotlari nusxalari","b":"yo'nalishning DTS, MT, o'quv rejalari","c":"akademik guruh jurnali, o'qituvchining shaxsiy ish rejasi","d":"o'tkaziladigan ma'naviy-ma'rifiy tadbirlar rejasi"},"correct":"c"},{"question":"O'quv jarayonini tashkil qilish hujjatlarini ko'rsating.","answers":{"a":"o'tkaziladigan ma'naviy-ma'rifiy tadbirlar rejasi","b":"yo'nalishning DTS, MT, o'quv rejalari","c":"sillabuslar, o'quv adabiyotlari nusxalari","d":"kafedra o'quv yuklamasi, dars jadvallari"},"correct":"d"},{"question":"O'zR OO'MTV ning 09.08.2018 y. dagi 19-2018-sonli buyrug'iga ilova qilingan &quot;Oliy ta'lim muassasalarida talabalar bilimini nazorat qilish baholash tizimi to'g'risidagi nizom&quot; ilovasiga ko'ra fanni necha foizga o'zlashtirgan talabaga &quot;a'lo&quot; baho qo'yiladi?","answers":{"a":"86...100 %","b":"91...100 %","c":"90...100 %","d":"85...100 %"},"correct":"c"},{"question":"O'zR OO'MTV ning 09.08.2018 y. dagi 19-2018-sonli buyrug'iga ilova qilingan &quot;Oliy ta'lim muassasalarida talabalar bilimini nazorat qilish baholash tizimi to'g'risidagi nizom&quot; ilovasiga ko'ra fanni necha foizga o'zlashtirgan talabaga &quot;qoniqarli&quot; baho qo'yiladi?","answers":{"a":"55...70,9 %","b":"60...70,9 %","c":"55...69,9 %","d":"60...69,9 %"},"correct":"d"},{"question":"O'zR OO'MTV ning 09.08.2018 y. dagi 19-2018-sonli buyrug'iga ilova qilingan &quot;Oliy ta'lim muassasalarida talabalar bilimini nazorat qilish baholash tizimi to'g'risidagi nizom&quot; ilovasiga ko'ra fanni necha foizga o'zlashtirgan talabaga &quot;yaxshi&quot; baho qo'yiladi?","answers":{"a":"70...86,9 %","b":"71...85,9 %","c":"71...89,9 %","d":"70...89,9 %"},"correct":"d"},{"question":"Oliy ta'lim muassasasida o'rtacha o'quv yuklamasi qanday aniqlanadi?","answers":{"a":"kafedra mudiriga - 600, professorga - 700, dotsentga - 800, katta o'qituvchiga - 900, assistentga - 950 soat hisobidan","b":"OTM bo'yicha jami o'quv yuklamasini pedagoglar shtati soniga bo'lish orqali aniqlanadi","c":"o'rtacha o'quv yuklama 900-950 soat chegarasida belgilanadi","d":"kafedra o'quv yuklamasini kafedra shtatlariga bo'lish orqali aniqlanadi"},"correct":"b"},{"question":"Oliy ta\u02bclim muassasalarida ta\u02bclim mazmuni nechta tarkibiy qismdan iborat bo\u02bblishi aniqlang.","answers":{"a":"3","b":"4","c":"1","d":"2"},"correct":"b"},{"question":"O\u02bbzbekiston Respublikasi Vazirlar Mahkamasining qaysi Qarorida Xalqaro baholash dasturi asosida tadqiqotlar o\u02bbtkazish belgilangan?","answers":{"a":"O\u02bbzbekiston Respublikasi Vazirlar Mahkamasining 2017 yil 6 apreldagi 187-sonli qarori","b":"8-dekabr 2018-yilda qabul qilingan 998-sonli &laquo;Xalq ta\u02bclimi tizimida ta\u02bclim sifatini baholash sohasidagi xalqaro tadqiqotlarni tashkil etish chora-tadbirlari to\u02bbg\u02bbrisida&rdquo;gi Qaror","c":"8-dekabr 2018-yilda qabul qilingan 997-sonli &laquo;Xalq ta\u02bclimi tizimida ta\u02bclim sifatini baholash sohasidagi xalqaro tadqiqotlarni tashkil etish chora-tadbirlari to\u02bbg\u02bbrisida&rdquo;gi Qaror","d":"O\u02bbzbekiston Respublikasi oliy ta\u02bclim tizimini 2030-yilgacha rivojlantirish konsepsiyasi"},"correct":"c"},{"question":"Pedagogning auditoriya o'quv yuklamalarini kamaytirishga imkon beradigan tadbirni ko'rsating.","answers":{"a":"ixtisoslik fanlarini quyi kurslardan boshlab rejalashtirish","b":"har bir tanlov fani uchun alohida yuklama rejalashtirish","c":"talabaning mustaqil ish hajmini oshirish","d":"nazariy darslarni qisqartirib amaliy dars soatlarini oshirish"},"correct":"c"},{"question":"Ta'lim sohalari bo'yicha ishlab chiqiladigan me'yoriy hujjatni ko'rsating.","answers":{"a":"Fan dasturlari","b":"Malaka talablari","c":"O'quv rejalari","d":"Davlat ta'lim standarti"},"correct":"d"},{"question":"Ta'lim yo'nalishi va mutaxassisligi bo'yicha ishlab chiqiladigan me'yoriy hujjatni ko'rsating.","answers":{"a":"Davlat ta'lim talabi","b":"Davlat ta'lim standarti","c":"O'quv rejasi","d":"Oliy ta'lim yo'nalishlari va mutaxassisliklari klassifikatori"},"correct":"c"},{"question":"Ta'lim yo'nalishi va mutaxassisligi bo'yicha ishlab chiqiladigan me'yoriy hujjatni ko'rsating.","answers":{"a":"Davlat ta'lim standarti","b":"Malaka talablari","c":"Davlat ta'lim talabi","d":"Oliy ta'lim yo'nalishlari va mutaxassisliklari klassifikatori"},"correct":"b"},{"question":"Talabalar bilimi va malakasini nazorat va baholash qilish tamoyillaridan birini toping(1)","answers":{"a":"Fundamentallik","b":"Ilmiylik","c":"Muntazamlilik","d":"Ko\u02bbrgazmalilik"},"correct":"c"},{"question":"Talabalar bilimi va malakasini nazorat va baholash qilish tamoyillaridan birini toping(2)","answers":{"a":"Beg\u02bbarazlilik","b":"Ko\u02bbrgazmalilik","c":"Ilmiylik","d":"Fundamentallik"},"correct":"a"},{"question":"Talabalar bilimi va malakasini nazorat va baholash qilish tamoyillaridan birini toping(3)","answers":{"a":"Keng qamrovlilik","b":"Ilmiylik","c":"Ko\u02bbrgazmalilik","d":"Fundamentallik"},"correct":"a"},{"question":"Talabalar bilimi va malakasini nazorat va baholash qilish tamoyillaridan birini toping(4)","answers":{"a":"Individuallilik","b":"Ko\u02bbrgazmalilik","c":"Ilmiylik","d":"Fundamentallik"},"correct":"a"},{"question":"Talabalar bilimi va malakasini nazorat va baholash qilish tamoyillaridan birini toping(5)","answers":{"a":"Fundamentallik","b":"Tabaqalashgan yondashuv","c":"Ilmiylik","d":"Ko\u02bbrgazmalilik"},"correct":"b"},{"question":"Talabalar bilimi va malakasini nazorat va baholash qilish tamoyillaridan birini toping(6)","answers":{"a":"Ilmiylik","b":"Fundamentallik","c":"Ko\u02bbrgazmalilik","d":"Talabning yagonaligi"},"correct":"d"},{"question":"Talabalar bilimi va malakasini nazorat va baholash qilish tamoyillaridan birini toping(7)","answers":{"a":"Ko\u02bbrgazmalilik","b":"Fundamentallik","c":"1.Muntazamlilik. 2.Beg\u02bbarazlilik. 3.Keng qamrovlilik 4. Individuallilik 5. Tabaqalashgan yondashuv. 6. Talabning yagonaligi 7. Maqsadga yo\u02bbnaltirilgan 8. Ishonchlilik(validlik)","d":"Ilmiylik"},"correct":"c"},{"question":"Talabalar bilimi va malakasini nazorat va baholash qilish tamoyillaridan birini toping(8)","answers":{"a":"Ko\u02bbrgazmalilik","b":"1.Muntazamlilik. 2.Beg\u02bbarazlilik. 3.Keng qamrovlilik 4. Individuallilik 5. Tabaqalashgan yondashuv. 6. Talabning yagonaligi 7. Maqsadga yo\u02bbnaltirilgan 8. Ishonchlilik(validlik)","c":"Ilmiylik","d":"Fundamentallik"},"correct":"b"},{"question":"Talabalar tomonidan o\u02bbquv maqsadlariga erishish natijalariga asosan?","answers":{"a":"Amaliy, laboratoriya mashg&lsquo;ulotlarining va mustaqil talimning samaradorlik koeffitsenti aniqlanadi","b":"Amaliy, seminar mashg&lsquo;ulotlarining va mustaqil talimning samaradorlik koeffitsenti aniqlanadi","c":"Amaliy, laboratoriya va seminar mashg&lsquo;ulotlarining samaradorlik koeffitsenti aniqlanadi","d":"Auditoriya mashg&lsquo;ulotlarining samaradorlik koeffitsenti aniqlanadi"},"correct":"c"},{"question":"Talabalarning barcha akademik masalalarini hal qilishga qaratilgan bo'limni ko'rsating.","answers":{"a":"o'quv-uslubiy bo'lim","b":"dekanat","c":"registrator ofisi","d":"kadrlar bo'limi"},"correct":"c"},{"question":"Talabalarning bilimini nazorat qilish va baholash qaysi nazorat turlarida amalga oshiriladi?","answers":{"a":"Adaptiv nazorat, oraliq, yakuniy","b":"Joriy, oraliq, yakuniy nazorat","c":"Summativ baholash va Reyting tizimi","d":"Dastlabki, formativ, adaptiv nazorat"},"correct":"b"},{"question":"Talabalarning fanlarni tanlashi qanday amalga oshiriladi?","answers":{"a":"talabalarning o'zaro maslahatlashishi, guruhlarga birlashishi va dekan muovini targ'iboti asosida","b":"Yoshlar ittifoqi boshlang'ich tashkiloti targ'iboti asosida","c":"talabaning kasbiy shakllanishidan kelib chiqib dekan va edvayzerlar maslahatchiligida","d":"talabaning qiziqishidan kelib chiqib xohlagan fanni tanlashi asosida"},"correct":"c"},{"question":"Talabaning mustaqil ta'limi (TMT) elementini ko'rsating.","answers":{"a":"ilmiy tezis, maqola tayyorlash","b":"taqdimot tayyorlash","c":"kurs ishi (loyihasi)ni tayyorlash","d":"fan bo'yicha forumda ishtirok etish"},"correct":"d"},{"question":"Talabaning mustaqil ta'limi (TMT) elementini ko'rsating.","answers":{"a":"taqdimot tayyorlash","b":"o'rgatuvchi testlarni mashq qilish","c":"kurs ishi (loyihasi)ni tayyorlash","d":"ilmiy tezis, maqola tayyorlash"},"correct":"b"},{"question":"Talabaning mustaqil ta'limi (TMT) elementini ko'rsating.","answers":{"a":"taqdimot tayyorlash","b":"FAQ (ko'p so'raladigan savollar) bazasi bilan ishlash","c":"kurs ishi (loyihasi)ni tayyorlash","d":"ilmiy tezis, maqola tayyorlash"},"correct":"b"},{"question":"Talabaning shaxsiy o'quv rejasini ishlab chiqish uchun majburiy bo'lmagan, lekin o'zlashtirish tavsiya qilinadigan bandni ko'rsating.","answers":{"a":"qo'shimcha fanlar","b":"fan modullari","c":"tanlov fanlari","d":"majburiy fanlar"},"correct":"c"},{"question":"TALIS &ndash;tadqiqotining asosiy vazifalaridan birini toping(1)","answers":{"a":"O\u02bbqish va matnni tushunish savodxonlikni orttirish.","b":"Tabiiy savodxonlikni orttirish","c":"Matematik savodxonlikni orttirish.","d":"Pedagogning ijtimoiy mavqeyini oshirish"},"correct":"d"},{"question":"TALIS &ndash;tadqiqotining asosiy vazifalaridan birini toping(2)","answers":{"a":"Pedagogika mutaxassisligi uchun iqtidorli yoshlarni tanlash","b":"Matematik savodxonlikni orttirish.","c":"O\u02bbqish va matnni tushunish savodxonlikni orttirish.","d":"Tabiiy savodxonlikni orttirish"},"correct":"a"},{"question":"TALIS &ndash;tadqiqotining asosiy vazifalaridan birini toping(3)","answers":{"a":"Tabiiy savodxonlikni orttirish","b":"Matematik savodxonlikni orttirish.","c":"O\u02bbqish va matnni tushunish savodxonlikni orttirish.","d":"Moderator o\u02bbqituvchilarni tanlash"},"correct":"d"},{"question":"TALIS &ndash;tadqiqotining asosiy vazifalaridan birini toping(4)","answers":{"a":"Matematik savodxonlikni orttirish.","b":"Tabiiy savodxonlikni orttirish","c":"O\u02bbqish va matnni tushunish savodxonlikni orttirish","d":"O\u02bbqituvchining kasbiy tayyorgarligini takomillashtirish"},"correct":"d"},{"question":"Tarbiyalash qaysi nazorat tuzilmasi tarkibiga kiradi?","answers":{"a":"Nazorat turlari","b":"Nazorat shakllari","c":"Baholashning didaktik maqsadi","d":"Nazorat tamoyillari"},"correct":"c"},{"question":"Tasdiqlash, nazorat qilish, bashoratlash, tanqid qilish, himoya qilish, yoqlash, taqriz berish, tavsiya qilish, isbotlash kabi amallar Blum taksonomiyasining qaysi kategoriyasiga tegishli?","answers":{"a":"sintez","b":"bilish","c":"tushunish","d":"baholash"},"correct":"d"},{"question":"Tashxis &ndash; bu?","answers":{"a":"bu didaktik jarayon, ya\u02bcni talabalarning kasbiy tayyorgarlik sifatini aniqlash jarayoniga ta\u02bcsir etadigan omillarni aniqlash va tizimlash, ularning natijalarini tahlil qilish sanaladi","b":"Sifatli ta\u02bclim ko\u02bbrsatkichi dinamikasi","c":"Strategiya va tendensiyalarni aniqlash","d":"Talabalarning kasbiy tayyorgarlik sifatini aniqlash monitoringi"},"correct":"a"},{"question":"Ta\u02bclim tizimi oldidagi muhim funksiyalaridan biri bu-?","answers":{"a":"o&lsquo;sib kelayotgan yosh avlodga ta&rsquo;lim, tarbiya berishning yangi va samarali usullarini yaratish, talabalarning bilim darajalariga bo&lsquo;lgan talabni ko&lsquo;tarish, o&lsquo;qitishning rejalashtirilgan natijalariga erishish hisoblanadi","b":"ta&rsquo;lim-tarbiya jarayoniga individuallashtirish tamoyillarini tatbiq etish, davlat ta&rsquo;lim standartlarida ko&lsquo;zda tutilgan kompetensiyalarni rivojlantirish","c":"talabalarning bilim olishga qiziqishlarini orttirish, mustaqil va mantiqiy fikrlashga o&lsquo;rgatish","d":"ta&rsquo;lim-tarbiya jarayoniga individuallashtirish tamoyillarini tatbiq etish, davlat ta&rsquo;lim standartlarida ko&lsquo;zda tutilgan kompetensiyalarni rivojlantirish"},"correct":"a"},{"question":"Test topshiriqlarining ta'limiy funksiyasi berilgan javobni toping.","answers":{"a":"egallangan bilim, ko'nikma va malakalarni mustahkamlash, rivojlantirish, erishilgan natijalarda o'zining ulushi muhim o'rin tutishini e'tiborga olgan shaxs va kelgusi faoliyatidagi ma'suliyatini anglagan holda o'z-o'zini rivojlantirishga undaydi","b":"Barkamollikka zamin tayyorlaydigan sifatlar: iroda, ongli intizom, muayyan o&lsquo;quv muammo- larini hal etishga safarbarlik, chidamlilik, sabr-toqat, yutuqlarga erishish uchun bilimi va kuchini sarf etishi orqali shaxs sifatida rivojlanishiga imkoniyat yaratadi","c":"O&lsquo;zlashtirilgan bilim, ko&lsquo;nikma va malakalardagi tipik kamchiliklarni aniqlash barobarida, talabalarni o&lsquo;z bilimlarini orttirish maqsadida muntazam, tizimli fan asoslarini o&lsquo;rganishga undaydi.","d":"o&lsquo;zlashtirgan bilim, ko&lsquo;nikma va malakalardagi tipik kamchiliklarni aniqlash, iroda, ongli intizomni vujudga keltirish, shaxs va kelgusi faoliyatidagi ma&rsquo;suliyatini anglagan bilimlarni orttirishga undaydi"},"correct":"a"},{"question":"Umumta\u02bclim maktablari pedagogik kadrlari bilan o\u02bbtkaziladigan Xalqaro baholash dasturini toping.","answers":{"a":"PISA","b":"TALIS","c":"TIMMS","d":"PROBLEM SOLVING AND FINANCIAL LITERACY"},"correct":"b"},{"question":"Universitet kreditlarini o'tkazishning Osiyo - Tinch okeani tizimini ko'rsating.","answers":{"a":"ECTS","b":"SATS","c":"UCTS","d":"USCS"},"correct":"c"},{"question":"Xalqaro baholash dasturi TALIS (Teaching and Learning International Survey) qaysi tashkilot tomonidan ta\u02bcsis etilganligini toping","answers":{"a":"Xalq ta\u02bclimi vazirligi","b":"Xalqaro milliy baholash markazi","c":"O\u02bbzR Vazirlar Mahkamasi","d":"Xalqaro hamkorlik va rivojlanish tashkiloti"},"correct":"d"},{"question":"Xalqaro baholash dasturidan birini toping","answers":{"a":"TALIS","b":"YuNISEF","c":"YuNESKO","d":"PROBLEM SOLVING AND FINANCIAL LITERACY"},"correct":"a"},{"question":"Xalqaro baholash dasturidan birini toping(2)","answers":{"a":"PISA, PIRLS, TALIS","b":"UTC","c":"USTC","d":"UKTC"},"correct":"a"},{"question":"Xos belgilarini aniqlash, darajalash, qiyoslash, sababini aniqlash, bog'liqligini aniqlash, ajratish, tartiblash, rejalashtirish, bo'laklash, chegarasini aniqlash, tarkibini aniqlash kabi amallar Blum taksonomiyasining qaysi kategoriyasiga tegishli?","answers":{"a":"bilish","b":"tahlil","c":"tushunish","d":"amalda qo'llash"},"correct":"b"},{"question":"Yevropa kredit tizimini ko'rsating.","answers":{"a":"UCTS","b":"SATS","c":"USCS","d":"ECTS"},"correct":"d"},{"question":"Yozgi (qishki) semestr kimning tashabbusi bilan tashkil qilinadi?","answers":{"a":"dekanning","b":"rektorning","c":"talabaning","d":"edvayzerning"},"correct":"c"},{"question":"Yozgi semestr nima maqsadda tashkil etiladi?","answers":{"a":"qo'shimcha fanlar blokidagi fanlarni o'qish","b":"qo'shimcha to'lov asosida talabalarni kursdan-kursga imtihonsiz o'tkazish","c":"talabaning o'qishini boshqa oliy ta'lim muassasasiga ko'chirish","d":"qo'shimcha bilim olish, akademik qarzni topshirish, ta'lim dasturidagi farqlarni yo'qotish"},"correct":"d"}];
+
+    // Savollarni aralashtirish funksiyasi
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Javob variantlarini aralashtirish
+    function shuffleAnswers(quiz) {
+        quiz.forEach(item => {
+            const answersArray = Object.entries(item.answers);
+            shuffle(answersArray);
+            item.answers = Object.fromEntries(answersArray);
+            item.correct = answersArray.find(([key, value]) => value === item.answers[item.correct])[0]; // To'g'ri javobni yangilash
+        });
+    }
+    // Savollarni aralashtiramiz
+    // shuffle(quizData);
+
+    shuffleAnswers(quizData);
+
+    const quizContainer = document.getElementById('quiz');
+    const submitButton = document.getElementById('submit');
+    const resultsContainer = document.getElementById('results');
+    const finalResultsContainer = document.getElementById('finalResults');
+    const numberPagination = document.getElementById('numberPagination');
+    const timerDisplay = document.getElementById('timer');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+
+    let totalQuestions = quizData.length;
+    const timePerQuestion = 48; // 6 soniya
+    let timeLeft = totalQuestions * timePerQuestion;
+    let currentQuestionIndex = 0;
+
+    const selectedAnswers = Array(totalQuestions).fill(null);
+
+    function startTimer() {
+        const timerInterval = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `Vaqt: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Vaqt tugadi!");
+                submitButton.click();
+            }
+            timeLeft--;
+        }, 1000);
+    }
+
+    function loadQuestion() {
+        const item = quizData[currentQuestionIndex];
+        quizContainer.innerHTML = `
+            <div class="question">
+                <p>${currentQuestionIndex + 1}. ${item.question}</p>
+                ${Object.keys(item.answers).map(letter => {
+            const isChecked = selectedAnswers[currentQuestionIndex] === letter ? 'checked' : '';
+            const bgColor = selectedAnswers[currentQuestionIndex] === letter ? 'lightblue' : '#ccf3ff';
+            return `
+                        <label class="answer" id="answer${letter}" style="background-color: ${bgColor};">
+                            <input type="checkbox" name="question${currentQuestionIndex}" value="${letter}" ${isChecked} onchange="updateAnswer('${letter}')">
+                           ${item.answers[letter]}
+                        </label>
+                    `;
+        }).join('')}
+            </div>
+        `;
+        updateNumberPagination();
+        updateNavigationButtons();
+    }
+
+    function updateNavigationButtons() {
+        prevButton.style.display = currentQuestionIndex === 0 ? 'none' : 'inline-block';
+        nextButton.style.display = currentQuestionIndex === totalQuestions - 1 ? 'none' : 'inline-block';
+    }
+
+    function updateAnswer(selected) {
+        selectedAnswers[currentQuestionIndex] = selected;
+        loadQuestion(); // Savolni yangilash
+        updateNumberPagination();
+    }
+
+    function updateNumberPagination() {
+        numberPagination.innerHTML = '';
+        quizData.forEach((_, index) => {
+            const button = document.createElement('button');
+            button.textContent = index + 1;
+            button.className = selectedAnswers[index] === null ? '' : selectedAnswers[index] === quizData[index].correct ? 'answered-correct' : 'answered-incorrect';
+            button.style.backgroundColor = selectedAnswers[index] === null ? 'white' : 'lightblue';
+            button.onclick = () => goToQuestion(index);
+            numberPagination.appendChild(button);
+        });
+    }
+
+    function goToQuestion(index) {
+        currentQuestionIndex = index;
+        loadQuestion();
+    }
+
+    function getResults() {
+        resultsContainer.innerHTML = '';
+        let correctCount = 0;
+        quizData.forEach((item, index) => {
+            if (selectedAnswers[index] === item.correct) {
+                correctCount++;
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="correct">To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else if (selectedAnswers[index] === null) {
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="incorrect">Javob berilmagan! To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else {
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="incorrect">Noto'g'ri! To'g'ri javob: ${item.answers[item.correct]} (Siz: ${item.answers[selectedAnswers[index]]})</span></div>`;
+            }
+        });
+        finalResultsContainer.innerHTML = `<h2>Umumiy natija: ${correctCount} / ${totalQuestions}</h2>`;
+        resultsContainer.style.display = 'block';
+        finalResultsContainer.style.display = 'block';
+        updatePaginationResults();
+    }
+
+    function updatePaginationResults() {
+        numberPagination.querySelectorAll('button').forEach((button, index) => {
+            button.style.backgroundColor = selectedAnswers[index] === quizData[index].correct ? 'lightgreen' : 'lightcoral';
+        });
+    }
+
+    submitButton.addEventListener('click', getResults);
+    prevButton.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentQuestionIndex < totalQuestions - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+    });
+
+    loadQuestion();
+    startTimer();
+</script>
+</body>
+</html>
+    </div>
+</main>
+
+<footer id="footer" class="mt-auto py-3 bg-light">
+    <div class="container">
+        <div class="row text-muted">
+            <div class="col-md-6 text-center text-md-start">&copy; My Company 2024</div>
+            <div class="col-md-6 text-center text-md-end">Powered by <a href="https://www.yiiframework.com/" rel="external">Yii Framework</a></div>
+        </div>
+    </div>
+</footer>
+
+<div id="yii-debug-toolbar" data-url="/web/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag=6707305463f35" data-skip-urls="[]" style="display:none" class="yii-debug-toolbar-bottom"></div><style>#yii-debug-toolbar-logo{position:fixed;right:31px;bottom:4px}@media print{.yii-debug-toolbar{display:none !important}}.yii-debug-toolbar{font:11px Verdana, Arial, sans-serif;text-align:left;width:96px;transition:width .3s ease;z-index:1000000}.yii-debug-toolbar.yii-debug-toolbar_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__bar{overflow:visible;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.yii-debug-toolbar.yii-debug-toolbar_iframe_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__resize-handle{display:block;height:4px;cursor:ns-resize;margin-bottom:0;z-index:1000001;position:absolute;left:0;right:0}.yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar,.yii-debug-toolbar.yii-debug-toolbar_animating .yii-debug-toolbar__bar{height:40px}.yii-debug-toolbar_active{width:100%}.yii-debug-toolbar_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(0);transform:rotate(0)}.yii-debug-toolbar_position_top{margin:0 0 20px 0;width:100%}.yii-debug-toolbar_position_bottom{position:fixed;right:0;bottom:0;margin:0}.yii-debug-toolbar__bar{position:relative;padding:0;font:11px Verdana, Arial, sans-serif;text-align:left;overflow:hidden;box-sizing:content-box;display:flex;flex-wrap:wrap;background:#fff;background:-moz-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:-webkit-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f7f7f7', GradientType=0);border:1px solid rgba(0,0,0,0.11);direction:ltr}.yii-debug-toolbar__bar::after{content:'';display:table;clear:both}.yii-debug-toolbar__view{height:0;overflow:hidden;background:white}.yii-debug-toolbar__view iframe{margin:0;padding:10px 0 0;height:100%;width:100%;border:0}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__view{height:100%}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__external{display:block}.yii-debug-toolbar_iframe_animating .yii-debug-toolbar__view{transition:height .3s ease}.yii-debug-toolbar__block{margin:0;border-right:1px solid rgba(0,0,0,0.11);border-bottom:1px solid rgba(0,0,0,0.11);padding:4px 8px;line-height:32px;white-space:nowrap}@media (max-width: 767.98px){.yii-debug-toolbar__block{flex-grow:1;text-align:center}}.yii-debug-toolbar__block a{display:inline-block;text-decoration:none;color:black}.yii-debug-toolbar__block img{vertical-align:middle;width:30px;height:30px}.yii-debug-toolbar__block_active,.yii-debug-toolbar__ajax:hover{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__label{display:inline-block;padding:2px 4px;font-size:12px;font-weight:normal;line-height:14px;white-space:nowrap;vertical-align:middle;max-width:100px;overflow-x:hidden;text-overflow:ellipsis;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.25);background-color:#737373;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}.yii-debug-toolbar__label:empty{display:none}a.yii-debug-toolbar__label:hover,a.yii-debug-toolbar__label:focus{color:#ffffff;text-decoration:none;cursor:pointer}.yii-debug-toolbar__label_important,.yii-debug-toolbar__label_error{background-color:#b94a48}.yii-debug-toolbar__label_important[href]{background-color:#953b39}.yii-debug-toolbar__label_warning,.yii-debug-toolbar__badge_warning{background-color:#f89406}.yii-debug-toolbar__label_warning[href]{background-color:#c67605}.yii-debug-toolbar__label_success{background-color:#217822}.yii-debug-toolbar__label_success[href]{background-color:#356635}.yii-debug-toolbar__label_info{background-color:#0b72b8}.yii-debug-toolbar__label_info[href]{background-color:#2d6987}.yii-debug-toolbar__label_inverse,.yii-debug-toolbar__badge_inverse{background-color:#333333}.yii-debug-toolbar__label_inverse[href],.yii-debug-toolbar__badge_inverse[href]{background-color:#1a1a1a}.yii-debug-toolbar__title{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__block_last{width:80px;height:40px;float:left}.yii-debug-toolbar__toggle,.yii-debug-toolbar__external{cursor:pointer;position:absolute;width:30px;height:30px;font-size:25px;font-weight:100;line-height:28px;color:#ffffff;text-align:center;opacity:0.5;filter:alpha(opacity=50);transition:opacity .3s ease}.yii-debug-toolbar__toggle:hover,.yii-debug-toolbar__toggle:focus,.yii-debug-toolbar__external:hover,.yii-debug-toolbar__external:focus{color:#ffffff;text-decoration:none;opacity:0.9;filter:alpha(opacity=90)}.yii-debug-toolbar__toggle-icon,.yii-debug-toolbar__external-icon{display:inline-block;background-position:50% 50%;background-repeat:no-repeat}.yii-debug-toolbar__toggle{right:10px;bottom:4px}.yii-debug-toolbar__toggle-icon{padding:7px 0;width:10px;height:16px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMTUuNTYzIDQwLjgzNmEuOTk3Ljk5NyAwIDAgMCAxLjQxNCAwbDE1LTE1YTEgMSAwIDAgMCAwLTEuNDE0bC0xNS0xNWExIDEgMCAwIDAtMS40MTQgMS40MTRMMjkuODU2IDI1LjEzIDE1LjU2MyAzOS40MmExIDEgMCAwIDAgMCAxLjQxNHoiLz48L3N2Zz4=");transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;-webkit-transform:rotate(180deg);transform:rotate(180deg)}.yii-debug-toolbar__external{display:none;right:50px;bottom:4px}.yii-debug-toolbar__external-icon{padding:8px 0;width:14px;height:14px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMzkuNjQyIDkuNzIyYTEuMDEgMS4wMSAwIDAgMC0uMzgyLS4wNzdIMjguMTAzYTEgMSAwIDAgMCAwIDJoOC43NDNMMjEuNyAyNi43OWExIDEgMCAwIDAgMS40MTQgMS40MTVMMzguMjYgMTMuMDZ2OC43NDNhMSAxIDAgMCAwIDIgMFYxMC42NDZhMS4wMDUgMS4wMDUgMCAwIDAtLjYxOC0uOTI0eiIvPjxwYXRoIGQ9Ik0zOS4yNiAyNy45ODVhMSAxIDAgMCAwLTEgMXYxMC42NmgtMjh2LTI4aDEwLjY4M2ExIDEgMCAwIDAgMC0ySDkuMjZhMSAxIDAgMCAwLTEgMXYzMGExIDEgMCAwIDAgMSAxaDMwYTEgMSAwIDAgMCAxLTF2LTExLjY2YTEgMSAwIDAgMC0xLTF6Ii8+PC9zdmc+")}.yii-debug-toolbar__switch-icon{margin-left:10px;padding:5px 10px;width:18px;height:18px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDUwIDUwIiB2ZXJzaW9uPSIxLjEiPjxwYXRoIGQ9Im00MS4xIDIzYy0wLjYgMC0xIDAuNC0xIDF2MTAuN2wtMjUuNi0wLjFjMCAwIDAtMiAwLTIuOCAwLTAuOC0wLjctMS0xLTAuNmwtMy41IDMuNWMtMC42IDAuNi0wLjYgMS4zIDAgMmwzLjQgMy40YzAuNCAwLjQgMS4xIDAuMiAxLTAuNmwwLTIuOWMwIDAgMjAuOCAwLjEgMjYuNiAwIDAuNiAwIDEtMC40IDEtMXYtMTEuN2MwLTAuNi0wLjQtMS0xLTF6TTkgMjYuOSA5IDI2LjkgOSAyNi45IDkgMjYuOSIvPjxwYXRoIGQ9Im05IDI2LjljMC42IDAgMS0wLjQgMS0xdi0xMC43bDI1LjYgMC4xYzAgMCAwIDIgMCAyLjggMCAwLjggMC43IDEgMSAwLjZsMy41LTMuNWMwLjYtMC42IDAuNi0xLjMgMC0ybC0zLjQtMy40Yy0wLjQtMC40LTEuMS0wLjItMSAwLjZsMCAyLjljMCAwLTIwLjgtMC4xLTI2LjYgMC0wLjYgMC0xIDAuNC0xIDF2MTEuN2MwIDAuNiAwLjQgMSAxIDF6Ii8+PC9zdmc+")}.yii-debug-toolbar__ajax{position:relative}.yii-debug-toolbar__ajax:hover .yii-debug-toolbar__ajax_info,.yii-debug-toolbar__ajax:focus .yii-debug-toolbar__ajax_info{visibility:visible}.yii-debug-toolbar__ajax a{color:#337ab7}.yii-debug-toolbar__ajax table{width:100%;table-layout:auto;border-spacing:0;border-collapse:collapse}.yii-debug-toolbar__ajax table td{padding:4px;font-size:12px;line-height:normal;vertical-align:top;border-top:1px solid #ddd}.yii-debug-toolbar__ajax table th{padding:4px;font-size:11px;line-height:normal;vertical-align:bottom;border-bottom:2px solid #ddd}.yii-debug-toolbar__ajax_info{visibility:hidden;transition:visibility .2s linear;background-color:white;box-shadow:inset 0 -10px 10px -10px #e1e1e1;position:absolute;bottom:40px;left:-1px;padding:10px;max-width:480px;max-height:480px;word-wrap:break-word;overflow:hidden;overflow-y:auto;box-sizing:border-box;border:1px solid rgba(0,0,0,0.11);z-index:1000001}.yii-debug-toolbar__ajax_request_status{color:white;padding:2px 5px}.yii-debug-toolbar__ajax_request_url{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+</style><script>(function () {
+    'use strict';
+
+    var findToolbar = function () {
+            return document.querySelector('#yii-debug-toolbar');
+        },
+        ajax = function (url, settings) {
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            settings = settings || {};
+            xhr.open(settings.method || 'GET', url, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Accept', 'text/html');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 && settings.success) {
+                        settings.success(xhr);
+                    } else if (xhr.status !== 200 && settings.error) {
+                        settings.error(xhr);
+                    }
+                }
+            };
+            xhr.send(settings.data || '');
+        },
+        url,
+        div,
+        toolbarEl = findToolbar(),
+        toolbarAnimatingClass = 'yii-debug-toolbar_animating',
+        barSelector = '.yii-debug-toolbar__bar',
+        viewSelector = '.yii-debug-toolbar__view',
+        blockSelector = '.yii-debug-toolbar__block',
+        toggleSelector = '.yii-debug-toolbar__toggle',
+        externalSelector = '.yii-debug-toolbar__external',
+
+        CACHE_KEY = 'yii-debug-toolbar',
+        ACTIVE_STATE = 'active',
+
+        animationTime = 300,
+
+        activeClass = 'yii-debug-toolbar_active',
+        iframeActiveClass = 'yii-debug-toolbar_iframe_active',
+        iframeAnimatingClass = 'yii-debug-toolbar_iframe_animating',
+        titleClass = 'yii-debug-toolbar__title',
+        blockClass = 'yii-debug-toolbar__block',
+        ignoreClickClass = 'yii-debug-toolbar__ignore_click',
+        blockActiveClass = 'yii-debug-toolbar__block_active',
+        requestStack = [];
+
+    if (toolbarEl) {
+        url = toolbarEl.getAttribute('data-url');
+
+        ajax(url, {
+            success: function (xhr) {
+                div = document.createElement('div');
+                div.innerHTML = xhr.responseText;
+
+                toolbarEl.parentNode && toolbarEl.parentNode.replaceChild(div, toolbarEl);
+
+                showToolbar(findToolbar());
+
+                var event;
+                if (typeof(Event) === 'function') {
+                    event = new Event('yii.debug.toolbar_attached', {'bubbles': true});
+                } else {
+                    event = document.createEvent('Event');
+                    event.initEvent('yii.debug.toolbar_attached', true, true);
+                }
+
+                div.dispatchEvent(event);
+            },
+            error: function (xhr) {
+                toolbarEl.innerText = xhr.responseText;
+            }
+        });
+    }
+
+    function showToolbar(toolbarEl) {
+        var barEl = toolbarEl.querySelector(barSelector),
+            viewEl = toolbarEl.querySelector(viewSelector),
+            toggleEl = toolbarEl.querySelector(toggleSelector),
+            externalEl = toolbarEl.querySelector(externalSelector),
+            blockEls = barEl.querySelectorAll(blockSelector),
+            blockLinksEls = document.querySelectorAll(blockSelector + ':not(.' + titleClass + ') a'),
+            iframeEl = viewEl.querySelector('iframe'),
+            iframeHeight = function () {
+                return (window.innerHeight * (toolbarEl.dataset.height / 100) - barEl.clientHeight) + 'px';
+            },
+            isIframeActive = function () {
+                return toolbarEl.classList.contains(iframeActiveClass);
+            },
+            resizeIframe = function(mouse) {
+                var availableHeight = window.innerHeight - barEl.clientHeight;
+                viewEl.style.height = Math.min(availableHeight, availableHeight - mouse.y) + "px";
+            },
+            showIframe = function (href) {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.add(iframeActiveClass);
+
+                iframeEl.src = externalEl.href = href;
+                iframeEl.removeAttribute('tabindex');
+
+                viewEl.style.height = iframeHeight();
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            hideIframe = function () {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.remove(iframeActiveClass);
+                iframeEl.setAttribute("tabindex", "-1");
+                removeActiveBlocksCls();
+
+                externalEl.href = '#';
+                viewEl.style.height = '';
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            removeActiveBlocksCls = function () {
+                [].forEach.call(blockEls, function (el) {
+                    el.classList.remove(blockActiveClass);
+                });
+            },
+            toggleToolbarClass = function (className) {
+                toolbarEl.classList.add(toolbarAnimatingClass);
+                if (toolbarEl.classList.contains(className)) {
+                    toolbarEl.classList.remove(className);
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.setAttribute('tabindex', "-1");
+                    });
+                } else {
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.removeAttribute('tabindex');
+                    });
+                    toolbarEl.classList.add(className);
+                }
+                setTimeout(function () {
+                    toolbarEl.classList.remove(toolbarAnimatingClass);
+                }, animationTime);
+            },
+            toggleStorageState = function (key, value) {
+                if (window.localStorage) {
+                    var item = localStorage.getItem(key);
+
+                    if (item) {
+                        localStorage.removeItem(key);
+                    } else {
+                        localStorage.setItem(key, value);
+                    }
+                }
+            },
+            restoreStorageState = function (key) {
+                if (window.localStorage) {
+                    return localStorage.getItem(key);
+                }
+            },
+            togglePosition = function () {
+                if (isIframeActive()) {
+                    hideIframe();
+                } else {
+                    toggleToolbarClass(activeClass);
+                    toggleStorageState(CACHE_KEY, ACTIVE_STATE);
+                }
+            };
+
+        if (restoreStorageState(CACHE_KEY) === ACTIVE_STATE) {
+            var transition = toolbarEl.style.transition;
+            toolbarEl.style.transition = 'none';
+            toolbarEl.classList.add(activeClass);
+            setTimeout(function () {
+                toolbarEl.style.transition = transition;
+            }, animationTime);
+        } else {
+            [].forEach.call(blockLinksEls, function (el) {
+                el.setAttribute('tabindex', "-1");
+            });
+        }
+
+        toolbarEl.style.display = 'block';
+
+        window.onresize = function () {
+            if (toolbarEl.classList.contains(iframeActiveClass)) {
+                viewEl.style.height = iframeHeight();
+            }
+        };
+
+        toolbarEl.addEventListener("mousedown", function(e) {
+            if (isIframeActive() && (e.y - toolbarEl.offsetTop < 4 /* 4px click zone */)) {
+                document.addEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        document.addEventListener("mouseup", function(){
+            if (isIframeActive()) {
+                document.removeEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        barEl.onclick = function (e) {
+            var target = e.target,
+                block = findAncestor(target, blockClass);
+
+            if (block
+                && !block.classList.contains(titleClass)
+                && !block.classList.contains(ignoreClickClass)
+                && e.which !== 2 && !e.ctrlKey // not mouse wheel and not ctrl+click
+            ) {
+                while (target !== this) {
+                    if (target.href) {
+                        removeActiveBlocksCls();
+                        block.classList.add(blockActiveClass);
+                        showIframe(target.href);
+                    }
+                    target = target.parentNode;
+                }
+
+                e.preventDefault();
+            }
+        };
+
+        toggleEl.onclick = togglePosition;
+    }
+
+    function findAncestor(el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls)) ;
+        return el;
+    }
+
+    function renderAjaxRequests() {
+        var requestCounter = document.getElementsByClassName('yii-debug-toolbar__ajax_counter');
+        if (!requestCounter.length) {
+            return;
+        }
+        var ajaxToolbarPanel = document.querySelector('.yii-debug-toolbar__ajax');
+        var tbodies = document.getElementsByClassName('yii-debug-toolbar__ajax_requests');
+        var state = 'ok';
+        if (tbodies.length) {
+            var tbody = tbodies[0];
+            var rows = document.createDocumentFragment();
+            if (requestStack.length) {
+                var firstItem = requestStack.length > 20 ? requestStack.length - 20 : 0;
+                for (var i = firstItem; i < requestStack.length; i++) {
+                    var request = requestStack[i];
+                    var row = document.createElement('tr');
+                    rows.appendChild(row);
+
+                    var methodCell = document.createElement('td');
+                    methodCell.innerHTML = request.method;
+                    row.appendChild(methodCell);
+
+                    var statusCodeCell = document.createElement('td');
+                    var statusCode = document.createElement('span');
+                    if (request.statusCode < 300) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success');
+                    } else if (request.statusCode < 400) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_warning');
+                    } else {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_error');
+                    }
+                    statusCode.textContent = request.statusCode || '-';
+                    statusCodeCell.appendChild(statusCode);
+                    row.appendChild(statusCodeCell);
+
+                    var pathCell = document.createElement('td');
+                    pathCell.className = 'yii-debug-toolbar__ajax_request_url';
+                    pathCell.innerHTML = request.url;
+                    pathCell.setAttribute('title', request.url);
+                    row.appendChild(pathCell);
+
+                    var durationCell = document.createElement('td');
+                    durationCell.className = 'yii-debug-toolbar__ajax_request_duration';
+                    if (request.duration) {
+                        durationCell.innerText = request.duration + " ms";
+                    } else {
+                        durationCell.innerText = '-';
+                    }
+                    row.appendChild(durationCell);
+                    row.appendChild(document.createTextNode(' '));
+
+                    var profilerCell = document.createElement('td');
+                    if (request.profilerUrl) {
+                        var profilerLink = document.createElement('a');
+                        profilerLink.setAttribute('href', request.profilerUrl);
+                        profilerLink.innerText = request.profile;
+                        profilerCell.appendChild(profilerLink);
+                    } else {
+                        profilerCell.innerText = 'n/a';
+                    }
+                    row.appendChild(profilerCell);
+
+                    if (request.error) {
+                        if (state !== "loading" && i > requestStack.length - 4) {
+                            state = 'error';
+                        }
+                    } else if (request.loading) {
+                        state = 'loading'
+                    }
+                    row.className = 'yii-debug-toolbar__ajax_request';
+                }
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+                tbody.appendChild(rows);
+            }
+            ajaxToolbarPanel.style.display = 'block';
+        }
+        requestCounter[0].innerText = requestStack.length;
+        var className = 'yii-debug-toolbar__label yii-debug-toolbar__ajax_counter';
+        if (state === 'ok') {
+            className += ' yii-debug-toolbar__label_success';
+        } else if (state === 'error') {
+            className += ' yii-debug-toolbar__label_error';
+        }
+        requestCounter[0].className = className;
+    }
+
+    /**
+     * Should AJAX request to be logged in debug panel
+     *
+     * @param requestUrl
+     * @returns {boolean}
+     */
+    function shouldTrackRequest(requestUrl) {
+        if (!toolbarEl) {
+            return false;
+        }
+        var a = document.createElement('a');
+        a.href = requestUrl;
+        var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'));
+        if (Array.isArray(skipAjaxRequestUrls) && skipAjaxRequestUrls.length && skipAjaxRequestUrls.includes(requestUrl)) {
+            return false;
+        }
+        return a.host === location.host;
+    }
+
+    var proxied = XMLHttpRequest.prototype.open;
+
+    XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
+        var self = this;
+
+        if (shouldTrackRequest(url)) {
+            var stackElement = {
+                loading: true,
+                error: false,
+                url: url,
+                method: method,
+                start: new Date()
+            };
+            requestStack.push(stackElement);
+            this.addEventListener('readystatechange', function () {
+                if (self.readyState === 4) {
+                    stackElement.duration = self.getResponseHeader('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = self.status;
+                    stackElement.error = self.status < 200 || self.status >= 400;
+                    stackElement.profile = self.getResponseHeader('X-Debug-Tag');
+                    stackElement.profilerUrl = self.getResponseHeader('X-Debug-Link');
+                    renderAjaxRequests();
+                }
+            }, false);
+            renderAjaxRequests();
+        }
+        proxied.apply(this, Array.prototype.slice.call(arguments));
+    };
+
+    // catch fetch AJAX requests
+    if (window.fetch) {
+        var originalFetch = window.fetch;
+
+        window.fetch = function (input, init) {
+            var method;
+            var url;
+            if (typeof input === 'string') {
+                method = (init && init.method) || 'GET';
+                url = input;
+            } else if (window.URL && input instanceof URL) { // fix https://github.com/yiisoft/yii2-debug/issues/296
+                method = (init && init.method) || 'GET';
+                url = input.href;
+            } else if (window.Request && input instanceof Request) {
+                method = input.method;
+                url = input.url;
+            }
+            var promise = originalFetch(input, init);
+
+            if (shouldTrackRequest(url)) {
+                var stackElement = {
+                    loading: true,
+                    error: false,
+                    url: url,
+                    method: method,
+                    start: new Date()
+                };
+                requestStack.push(stackElement);
+                promise.then(function (response) {
+                    stackElement.duration = response.headers.get('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = response.status;
+                    stackElement.error = response.status < 200 || response.status >= 400;
+                    stackElement.profile = response.headers.get('X-Debug-Tag');
+                    stackElement.profilerUrl = response.headers.get('X-Debug-Link');
+                    renderAjaxRequests();
+
+                    return response;
+                }).catch(function (error) {
+                    stackElement.loading = false;
+                    stackElement.error = true;
+                    renderAjaxRequests();
+
+                    throw error;
+                });
+                renderAjaxRequests();
+            }
+
+            return promise;
+        };
+    }
+
+})();
+</script><script src="/web/assets/11166fe9/jquery.js"></script>
+<script src="/web/assets/547ad073/yii.js"></script>
+<script src="/web/js/script.js"></script>
+<script src="/web/assets/9912f47d/dist/js/bootstrap.bundle.js"></script></body>
+</html>

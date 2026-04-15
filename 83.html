@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-100">
+<head>
+    <title></title>
+    <meta name="csrf-param" content="_csrf">
+<meta name="csrf-token" content="zpz64hAyoYz42-uzIyVdcBVdX2rTbRvJ4ea27LkmA_Sp8ou1eVSV35KijMFobDU-ZB8-KJI_cIGlhfmG_Wxkmw==">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link type="image/x-icon" href="/web/favicon.ico" rel="icon">
+<link href="/web/assets/9912f47d/dist/css/bootstrap.css" rel="stylesheet">
+<link href="/web/css/site.css" rel="stylesheet"></head>
+<body class="d-flex flex-column h-100">
+
+<header id="header">
+    <nav id="w0" class="navbar-expand-md navbar-dark bg-dark navbar">
+<div class="container">
+<a class="navbar-brand" href="/web/index.php">Test rejimida ishlamoqda</a>
+<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#w0-collapse" aria-controls="w0-collapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div id="w0-collapse" class="collapse navbar-collapse">
+<ul id="w1" class="navbar-nav nav"><li class="nav-item"><a class="nav-link" href="/web/index.php?r=fan%2Findex">Fanlar</a></li>
+<li class="nav-item"><a class="nav-link" href="/web/index.php?r=quiz%2Findex">Testlar</a></li>
+<li class="nav-item"><form action="/web/index.php?r=site%2Flogout" method="post">
+<input type="hidden" name="_csrf" value="zpz64hAyoYz42-uzIyVdcBVdX2rTbRvJ4ea27LkmA_Sp8ou1eVSV35KijMFobDU-ZB8-KJI_cIGlhfmG_Wxkmw=="><button type="submit" class="nav-link btn btn-link logout">Logout (azizbek_mahkamov)</button></form></li></ul></div>
+</div>
+</nav></header>
+
+<main id="main" class="flex-shrink-0" role="main">
+    <div class="container">
+                        <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanidan test savollari</title>
+    <style>
+        input[type="checkbox"] { display: none; }
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        #header{
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+        .answer {
+
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            border-bottom-color: #0a0a0a;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .number-pagination button {
+            margin: 0 2px;
+            padding: 5px 10px;
+            border: 1px solid #0a0a0a; /* Chegara qo'shildi */
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #b0e0e6;
+        }
+        .answered-correct {
+            background-color: lightgreen;
+        }
+        .answered-incorrect {
+            background-color: lightcoral;
+        }
+        .unanswered {
+            background-color: #c4c4c4;
+        }
+        #navigationButtons {
+            text-align: center;
+            margin: 10px 0;
+        }
+        #navigationButtons button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: #b0e0e6;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 style="text-align: center">Ilmiy va innovatsion faoliyatni rivojlantirish fanidan test savollari</h3>
+    <div class="timer" id="timer">88:0</div>
+    <div id="quiz"></div>
+    <div id="navigationButtons">
+        <button id="prevButton" style="display: none;">Oldingi</button>
+        <button id="nextButton">Keyingi</button>
+    </div>
+    <div class="pagination">
+        <div class="number-pagination" id="numberPagination"></div>
+    </div>
+    <button id="submit">Natijalarni yuborish</button>
+    <div id="results" style="display: none;"></div>
+    <div id="finalResults" style="display: none;"></div>
+</div>
+
+<script>
+    
+    const quizData=[{"question":"2030 yilga qadar ilm-fanni umumiy moliyalashtirish hajmida ilmiy-tadqiqot va tajriba-konstruktorlik ishlariga xususiy sektor tomonidan ajratiladigan mablag'lar ulushini necha foizga yetkazish ko'zda tutilgan?","answers":{"a":"15","b":"20","c":"25","d":"30"},"correct":"d"},{"question":"2030 yilgacha ilm-fanga yo'naltiriladigan jami mablag'larning yalpi ichki mahsulotga nisbatan ulushini necha baravarga oshirish ko'zda tutilgan?","answers":{"a":"3","b":"5","c":"6","d":"10"},"correct":"d"},{"question":"2030 yilgacha Respublikamizdagi oliy ta\u02bclim muassasalaridan nechtasi dunyoning eng nufuzli &laquo;Top-1000&raquo; oliy ta\u02bclim tashkilotlari reytingiga kiritishga erishish rejalashtirilgan?","answers":{"a":"10","b":"36","c":"25","d":"41 ta"},"correct":"a"},{"question":"Akademik tadbirkorlik atamasi nimani anglatadi?","answers":{"a":"bu o'qituvchilarning o'z ishlanmalarini tijoratlashtirishda ishtirok etishini anglatadi","b":"bu talabalar o'z ishlanmalarini tijoratlashtirishda ishtirok etishini anglatadi","c":"bu tadqiqotchilarning o'z ishlanmalarini tijoratlashtirishda ishtirok etishini anglatadi","d":"bu tadqiqotchilar va olimlarning o'z ishlanmalarini tijoratlashtirishda ishtirok etishini anglatadi"},"correct":"d"},{"question":"Amalga oshirish muddati, infratuzilmasi, ijrochilari, moliyalashtirish manbai va hajmiga ega innovatsiyani yaratish hamda ishlab chiqarishga yo'naltirilgan tadqiqot - ....","answers":{"a":"Startaplar loyihalari","b":"Innovatsion loyihalar","c":"Ijodiy loyihalar","d":"Ilmiy loyihalar"},"correct":"b"},{"question":"Amalga oshish xavfi yuqori bo'lgan sharoitda yangi mahsulot yoki xizmat turini yaratuvchi innovatsion ishlanmalarning qo'llanilishi, ko'lami va tez o'sish sur'ati bilan farqlanadigan yangi biznes loyiha - ....","answers":{"a":"Ijodiy loyihalar","b":"Innovatsion loyihalar","c":"Startaplar loyihalari","d":"Ilmiy loyihalar"},"correct":"c"},{"question":"Amaliy maqsadlarga erishish hamda aniq vazifalarni hal etish uchun, asosan, yangi bilimlar va fundamental tadqiqotlar natijalarini qo'llashga yo'naltirilgan tadqiqotlar -.......","answers":{"a":"Amaliy tadqiqotlar","b":"Fundamental tadqiqotlar","c":"Maqsadli tadqiqot","d":"Tematik ilmiy-tadqiqot"},"correct":"a"},{"question":"Amaliyotchi professorlar (PoP, Professor of Practice) modelning asosiy g\u02bboyasi?","answers":{"a":"dissertatsiya ishi paragraflari, ilmiy maqolalar va biznes hisobotlarni IMRAD formatida rasmiylashtirish.","b":"tinglovchilarda yangi axborotlar tizimini qabul qilish va biliimlarni tizimlashtirish maqsadida","c":"Scopus xalqaro ilmiy bazasida Sifat ko&lsquo;rsatkichlari: Quartile (kvartil); CiteScore (yiliga sitatalash soni); SJR (SCImago Journal Rank); SNIP (Source Normalized Impact per Paper); kvartillar va protsentillar;","d":"universitetga yuqori texnologiyaga asoslangan firmalarni yaratgan xodimlarni jalb etish"},"correct":"d"},{"question":"Asosiy funksiyasi bilimlar yetkazilishi va kadrlar tayyorlash, ya'ni ta'lim berishdan iborat bo'lgan muassasa.....","answers":{"a":"Universitet 2.0","b":"Universitet 1.0","c":"Universitet 3.0","d":"Institut"},"correct":"b"},{"question":"Benchmarking - bu","answers":{"a":"Xorijiy mamlakatadagi tashkilotdan o'z tashkiloti faoliyatini yaxshilash uchun boshqa tashkilotlarning ilg'or tajribasini o'rganish, amaliyotiga moslashish jarayoni.","b":"O'z tashkiloti(o'z mamlakatida yoki xorijda faoliyat ko'rsatayotgan tarmog'iga yoki tarmoqqa taalluqligidan qat'iy nazar jarayonlari o'xshash tashkilotlardan) faoliyatini yaxshilash uchun boshqa tashkilotlarning ilg'or tajribasini o'rganish, amaliyotiga moslashish jarayoni.","c":"Xorijda faoliyat ko'rsatayotgan tarmog'iga yoki tarmoqqa taalluqligidan qat'iy nazar jarayonlari o'xshash tashkilotlardan faoliyatini yaxshilash uchun boshqa tashkilotlarning ilg'or tajribasini o'rganish, amaliyotiga moslashish","d":"Xorijiy mamalakatda faoliyat ko'rsatayotgan tarmog'iga yoki tarmoqqa taalluqligidan qat'iy nazar jarayonlari o'xshash tashkilotlardan) faoliyatini yaxshilash uchun boshqa tashkilotlarning ilg'or tajribasini o'rganish, amaliyotiga moslashish jarayoni."},"correct":"b"},{"question":"Bibliografik va referativ berilganlar bazasi va ilmiy nashrlarda chop qilingan maqolalarga murojaatlarni kuzatib borish uchun vosita.....","answers":{"a":"Mendeley ScienceDirect","b":"Mendeley","c":"ScienceDirect","d":"Scopus"},"correct":"d"},{"question":"Birinchi akademik tadbirkorlikka o'tish qachon ro'y berdi?","answers":{"a":"1810 y.","b":"1862 y.","c":"1861 y.","d":"1710 y."},"correct":"b"},{"question":"Birinchi marta &quot;tadbirkorlik universiteti (institut)&quot; iborasi kim tomonidan qo'llanilgan?","answers":{"a":"amerikalik tadqiqotchi Berton Klark tomonidan","b":"britaniyalik tadqiqotchi Berton Klark tomonidan","c":"amerikalik tadqiqotchi Vilgelm fon Gumbold tomonidan","d":"amerikalik tadqiqotchi Genri Itskovits"},"correct":"d"},{"question":"Birinchi tabirkorlik universitetining asosiy maqsadi qaysi universitet bilan biznes o'rtasidagi hamkorlikni o'rnatish hisoblangan?","answers":{"a":"Kembridj universiteti bilan","b":"Massachuseta texnologik universiteti bilan","c":"Oksford universiteti bilan","d":"Berlin universiteti bilan"},"correct":"b"},{"question":"Birinchi texnopark nechangi yil va qaysi davlatdagi universitet qoshida ochilgan ?","answers":{"a":"1952 yilda Fransiyaning Sarbona universitetida","b":"1952 yilda Angliyaning Kembridj universitetida","c":"1951 yilda AQShning Kaliforniya shtatidagi Stenford universitetida","d":"1964 yilda Germaniyaing Berlin universitetida"},"correct":"c"},{"question":"Boloniya deklaratsiyasi qaysi yili Yevropa davlatlarining 29 vazirlari tomonidan imzolagan?","answers":{"a":"2002 yilda","b":"2000 yilda","c":"1999 yilda","d":"1998 yilda"},"correct":"c"},{"question":"Bolonya deklaratsiyasi 1999 yil, 19 iyunda necha davlat vazirlari ishtirokida imzolangan?","answers":{"a":"39 ta","b":"20 ta","c":"26 ta","d":"29 ta"},"correct":"d"},{"question":"Bolonya deklaratsiyasi qachon imzolangan?","answers":{"a":"2001yil, 19 iyun","b":"2000 yil, 19 iyun","c":"1998 yil, 19 iyun","d":"1999 yil, 19 iyun"},"correct":"d"},{"question":"Bolonya universiteti o'z nizomini qachon qabul qilgan?","answers":{"a":"1209 y.","b":"1088 y.","c":"1096 y.","d":"1158 y."},"correct":"d"},{"question":"Bolonya universiteti qachon tashkil topgan?","answers":{"a":"1158 y.","b":"1088 y.","c":"1096 y.","d":"1209 y."},"correct":"b"},{"question":"Bugungi kunda universitetlarning nechta asosiy shakllarini ajratishadi","answers":{"a":"6 ta","b":"2 ta","c":"4 ta","d":"3 ta"},"correct":"d"},{"question":"Bugungi kunga qadar universitetlarning nechta avlodlarini keltirib o'tish mumkin?","answers":{"a":"O'rta asrlar, birinchi avlod universitetlari, Ikkinchi avlod , tadqiqot universitetlari hamda Uchinchi avlod universitetlari.","b":"Tadqiqot universitetlari hamda Uchinchi avlod universitetlari.","c":"O'rta asrlar, birinchi avlod universitetlari, Tadqiqot universitetlari hamda Uchinchi avlod universitetlari.","d":"O'rta asrlar, birinchi avlod universitetlari, Ikkinchi avlod, tadqiqot universitetlari, Uchinchi avlod universitetlari va To'rtinchi avlod universitetlari."},"correct":"c"},{"question":"Davlat boshqaruvi va mahalliy davlat hokimiyati organlari oldida turgan muammolarni hal etish maqsadida ishlab chiqiladi va amalga oshiriladi -....","answers":{"a":"Ilmiy loyihalar","b":"Tematik ilmiy-tadqiqot loyihalari","c":"Maqsadli loyihalar","d":"Amaliy loyihalar"},"correct":"c"},{"question":"Fundamental va ko'pgina amaliy fanlar bo'yicha mutaxassislar tahsil oladigan oliy ta'lim muassasi.....","answers":{"a":"Universitet 3.0","b":"Universitet 1.0","c":"Universitet 2.0","d":"Universitet"},"correct":"d"},{"question":"Globallashuv tufayli qaysi til universitet muhitida lotin va milliy tillarning o'rnini bosadigan yangi universal tilga aylandi.","answers":{"a":"nemis","b":"ingliz","c":"fransuz","d":"lotin"},"correct":"b"},{"question":"Gumanitar fanlarda innovatsiyalar - bu","answers":{"a":"Birinchi navbatda yangi ijtimoy .... paydo bol","b":"Birinchi navbatda yangi iqtisodiy.... paydo bol","c":"Birinchi navbatda yangi siyosiy.... paydo bol","d":"Birinchi navbatda yangi manaviy.... paydo bol"},"correct":"a"},{"question":"Ikkinchi akademik tadbirkorlik XX asrning boshida va o'rtalarida gumanitar fanlar yo'nalishlarida qo'llaniladigan qaysi universitetga o'kazilgan","answers":{"a":"Pekinga","b":"Tokioga","c":"Stenfordga","d":"Seulga"},"correct":"c"},{"question":"Ilm-fan va ilmiy faoliyat to'g'risidagi Qonunning nechanchi moddasi  ilmiy darajali kadrlarni tayyorlashga qaratilgan?","answers":{"a":"11-moddasida","b":"21-moddasida","c":"22-moddasida","d":"23-moddasida"},"correct":"d"},{"question":"Ilm-fan va ilmiy faoliyat to'g'risidagi Qonunning nechanchi moddasi ilm-fan va ta'limning uzviy bog'liqligiga qaratilgan?","answers":{"a":"4-moddasida","b":"22-moddasida","c":"11-moddasida","d":"21-moddasida"},"correct":"d"},{"question":"Ilm-fan va ilmiy faoliyat to'g'risidagi Qonunning nechanchi moddasi yoshlarni ilm-fan va ilmiy faoliyatga jalb etishga qaratilgan?","answers":{"a":"21-moddasida","b":"3-moddasida","c":"4-moddasida","d":"11-moddasida"},"correct":"d"},{"question":"Ilm-fan va ilmiy faoliyat to'g'risidagi Qonunning nechanchi moddasida ilm-fan va ilmiy faoliyat sohasining asosiy yo'nalishlari keltirilgan?","answers":{"a":"11-moddasida","b":"3-moddasida","c":"4-moddasida","d":"6-moddasida"},"correct":"c"},{"question":"Ilm-fanni 2030 yilgacha rivojlantirish konsepsiyasi necha bob va paragrafdan iborat?","answers":{"a":"5 bob, 4 &sect;","b":"5 bob, 8 &sect;","c":"5 bob, 6 &sect;","d":"5 bob, 5 &sect;"},"correct":"d"},{"question":"Ilm-fanni 2030 yilgacha rivojlantirish konsepsiyasida ilm-fan sohasida boshqaruv tizimini takomillashtirishga qaysi bobda yoritilgan","answers":{"a":"4- bobda","b":"3- bobda","c":"2- bobda","d":"5- bobda"},"correct":"a"},{"question":"Ilm-fanni 2030 yilgacha rivojlantirish konsepsiyasini 2020-2022 yillarda amalga oshirish bo'yicha &quot;Yo'l xaritasi&quot;da ilmiy loyihalarni xususiy sektor va tarmoq tashkilotlari bilan teng sheriklikda moliyalashtirish ko'lamini kengaytirish qaysi yillarga mo'ljallangan","answers":{"a":"2021 yilga","b":"2020-2021 yillarga","c":"2021-2022 yillarga","d":"2020-2022 yillarga"},"correct":"d"},{"question":"Ilm-fanni 2030 yilgacha rivojlantirish konsepsiyasining ikkinchi bobi qanday nomlanadi.","answers":{"a":"Ilm-fanni rivojlantirishning ustuvor yo'nalishlarini amalga oshirish mexanizmlari","b":"Ilm-fanni rivojlantirishning ustuvor yo'nalishlari","c":"Ilm-fanni rivojlantirish zarurati, uning joriy holati va mavjud muammolar","d":"Ilm-fan taraqqiyotiga ko'maklashadigan zamonaviy axborot muhitini shakllantirish"},"correct":"c"},{"question":"Ilm-fanni 2030 yilgacha rivojlantirish konsepsiyasining maqsadli ko'rsatkichlari va indikatorlarida tadqiqotchilarning o'rtacha yoshi 2021 yilda necha yoshni tashkil qilishi belgilangan","answers":{"a":"51 yosh","b":"39 yosh","c":"47 yosh","d":"49 yosh"},"correct":"d"},{"question":"Ilm-fanni 2030 yilgacha rivojlantirish konsepsiyasining nechanchi bobi ilm-fanni rivojlantirishning ustuvor yo'nalishlarini amalga oshirishga qaratilgan ?","answers":{"a":"2-moddasida","b":"4-moddasida","c":"1-moddasida","d":"3-moddasida"},"correct":"b"},{"question":"Ilm-fanni 2030 yilgacha rivojlantirish konsepsiyasining to'rtinchi bobi qanday nomlanadi.","answers":{"a":"Ilm-fanni rivojlantirish zarurati, uning joriy holati va mavjud muammolar","b":"Ilm-fanni rivojlantirishning ustuvor yo'nalishlari","c":"Ilm-fanni rivojlantirishning ustuvor yo'nalishlarini amalga oshirish mexanizmlari","d":"Ilm-fan taraqqiyotiga ko'maklashadigan zamonaviy axborot muhitini shakllantirish"},"correct":"c"},{"question":"Ilm-fanni 2030 yilgacha rivojlantirish konsepsiyasining uchinchi bobi qanday nomlanadi.","answers":{"a":"Ilm-fan taraqqiyotiga ko'maklashadigan zamonaviy axborot muhitini shakllantirish","b":"Ilm-fanni rivojlantirish zarurati, uning joriy holati va mavjud muammolar","c":"Ilm-fanni rivojlantirishning ustuvor yo'nalishlarini amalga oshirish mexanizmlari","d":"Ilm-fanni rivojlantirishning ustuvor yo'nalishlari"},"correct":"d"},{"question":"Indivudial foydalanuvchilar uchun mutloq bepul tizim.....","answers":{"a":"Mendeley ScienceDirect","b":"ScienceDirect","c":"SCOPUS","d":"Mendeley"},"correct":"d"},{"question":"iste'molchi bilimlardan foydalanish huquqini olgan va o'z egasiga u yoki bu shaklda litsenziya bitim shartlarida belgilangan miqdorda haq to'laydigan texnologik jarayon shakli...","answers":{"a":"texnologiyalarni uzatish","b":"texnologiyalarni tijoratlashtirish","c":"bilimlarni uzatish","d":"innovatsion tijoratlashtirish"},"correct":"b"},{"question":"Itskovich va Leydesdorf nazariyasi ko'ra innovatsiyaning uchala spiral modeli uchta elementlarning o'zaro xatti-harkatlariga asoslangan:","answers":{"a":"tadqiqotlar bilan shug'ullanuvchi universitetlar, tijorat tovarlarini ishlab chiqaruvchi ijtimoiy sohalar va bozorni tartibga soluvchi ta'lim tizimi.","b":"ilmiy tadqiqotlar bilan shug'ullanuvchi institutlar, tijorat tovarlarini ishlab chiqaruvchi tarmoqlar va bozorni tartibga soluvchi bank.","c":"fundamental tadqiqotlar bilan shug'ullanuvchi universitetlar, tijorat tovarlarini ishlab chiqaruvchi tarmoqlar va bozorni tartibga soluvchi hukumat.","d":"nazariy tadqiqotlar bilan shug'ullanuvchi universitetlar, ijtimoiy tovarlarini ishlab chiqaruvchi tarmoqlar va bozorni tartibga soluvchi birja."},"correct":"c"},{"question":"Ixtiro va innovatsiya tushunchalarining farqi","answers":{"a":"ixtiro faqat texnika olamida yaratilsa, innovatsiya biznes olamida yaratiladi hamda amalda joriy etiladi.","b":"ixtiro faqat texnika olamida yaratilsa, innovatsiya ham texnika va ham biznes olamida yaratiladi hamda amalda joriy etiladi.","c":"ixtiro faqat biznes olamida yaratilsa, innovatsiya texnika olamida yaratiladi hamda amalda joriy etiladi.","d":"ixtiro faqat texnika olamida yaratilsa, innovatsiya faqat biznes olamida yaratiladi"},"correct":"b"},{"question":"Kredit-modul tizimida akademik guruh jurnalida keltiriladigan bandni ko'rsating.","answers":{"a":"fan kodi, o'quv auditoriyasi, fan o'qituvchisi","b":"fan nomi, kodi, mashg'ulotlar hajmi, talabalar soni","c":"o'qituvchining bajargan o'quv yuklamasi","d":"ilmiy-uslubiy, ilmiy-tadqiqot va &quot;ustoz-shogird&quot; yuklamalari"},"correct":"c"},{"question":"Kredit-modul tizimida o'qituvchining shaxsiy ish rejasida keltiriladigan bandni ko'rsating.","answers":{"a":"O'RTMI, TMT","b":"fan kodi, o'quv auditoriyasi, fan o'qituvchisi, akademik guruh","c":"fan kodi, o'quv auditoriyasi, potoklar, murabbiylik soatlari, ma'naviy-ma'rifiy tadbirlar","d":"o'quv ishlari, ilmiy-uslubiy, ilmiy-tadqiqot va &quot;ustoz-shogird&quot; yuklamalari"},"correct":"d"},{"question":"Nechinchi yilga borib O\u02bbzbekiston Respublikasining Global innovatsion indeks reytingi bo\u02bbyicha jahonning 50 ilg\u02bbor mamlakati qatoriga kirish asosiy maqsad qilingan.","answers":{"a":"2025 yilga","b":"2030 yilga","c":"2045 yilga","d":"2035 yilga"},"correct":"b"},{"question":"O'zbekiston Respublikasi Oliy va o'rta maxsus ta'lim vazirligi Gollandiyaning &quot;Elsevier&quot; kompaniyasi bilan hamkorlikda qanday dasturini ishlab chiqdi?","answers":{"a":"innovatsion faoliyatni 2030 yilgacha rivojlantirish","b":"oliy ta'lim tizimini 2030 yilgacha rivojlantirish","c":"ilmiy-tadqiqotni 2030 yilgacha rivojlantirish","d":"ilm-fanni 2030 yilgacha rivojlantirish"},"correct":"d"},{"question":"O'zbekiston Respublikasi Prezidentining &quot;Ilm-fanni 2030 yilgacha rivojlantirish konsepsiyasini tasdiqlash to'g'risida&quot; gi Farmoni qachon qabul qilingan?","answers":{"a":"2019 yil 29 oktyabrda","b":"2020 yil 29 oktabr","c":"2018 yil 8 oktabr","d":"2019 yil 8 oktabr"},"correct":"b"},{"question":"O'zbekiston Respublikasi Prezidentining &quot;O'zbekiston Respublikasi oliy ta'lim tizimini 2030 yilgacha rivojlantirish konsepsiyasini tasdiqlash to'g'risida&quot;gi Farmoni qachon qabul qilingan?","answers":{"a":"2018 yil 8 oktabr","b":"2019 yil 8 oktabr","c":"2019 yil 29 oktabr","d":"2020 yil 29 oktabr"},"correct":"b"},{"question":"O'zbekiston Respublikasining &quot;Ilm-fan va ilmiy faoliyat to'g'risida&quot;gi qonun qachon qabul qilingan?","answers":{"a":"2020 yil 29 oktabr","b":"2019 yil 29 oktabr","c":"2019 yil 8 oktabr","d":"2019 yil 18 oktabr"},"correct":"b"},{"question":"O'zbekiston Respublikasining &quot;Innovatsion faoliyat to'g'risida&quot; gi qonun qachon qabul qilingan?","answers":{"a":"2020 yil 29 oktabr","b":"2020 yil 24 iyul","c":"2019 yil 24 iyul","d":"2019 yil 29 oktabr"},"correct":"b"},{"question":"O'zbekiston Respublikasining 2030 yilga borib Global innovatsion indeks reytingi bo'yicha jahonning 50 ilg'or mamlakati qatoriga kirishiga erishish vazifasi qaysi normativ-huquqiy hujjatda keltirilgan?","answers":{"a":"Ilm-fan va ilmiy faoliyat to'g'risidagi qonunida","b":"Ilm-fan sohasini 2030 yilgacha rivojlantirish konsepsiyasida","c":"Innovatsion faoliyat to'g'risida&quot; gi qonunda","d":"Oliy ta'lim tizimini 2030 yilgacha rivojlantirish konsepsiyasida"},"correct":"d"},{"question":"Oliy ta'lim muassasalarida o'quv jarayonini bosqichma-bosqich kredit-modul tizimiga o'tkazish vazifasi qaysi normativ-huquqiy hujjatda keltirilgan?","answers":{"a":"Ilm-fan sohasini 2030 yilgacha rivojlantirish konsepsiyasida","b":"Oliy ta'lim tizimini 2030 yilgacha rivojlantirish konsepsiyasida","c":"Innovatsion faoliyat to'g'risida&quot; gi qonunda","d":"Ilm-fan va ilmiy faoliyat to'g'risidagi qonunida"},"correct":"b"},{"question":"Oliy ta'lim muassasalarida ta'lim, fan, innovatsiya va ilmiy-tadqiqotlar natijalarini tijoratlashtirish faoliyatining uzviy bog'liqligini nazarda tutuvchi &quot;Universitet 3.0&quot; konsepsiyasini bosqichma-bosqich joriy etish vazifasi normativ-huquqiy hujjatda keltirilgan?","answers":{"a":"Innovatsion faoliyat to'g'risida&quot;gi qonunda","b":"Ilm-fan sohasini 2030 yilgacha rivojlantirish konsepsiyasida","c":"Oliy ta'lim tizimini 2030 yilgacha rivojlantirish konsepsiyasida","d":"Ilm-fan va ilmiy faoliyat to'g'risidagi qonunida"},"correct":"c"},{"question":"O\u02bbzbekiston Respublikasi Prezidentining 2020 yi 29 oktabrdagi Farmoni bilan tasdiqlangan &laquo;Ilm fanni 2030 yilgacha rivojlantirish konsepsiyasida...","answers":{"a":"mazkur yo\u02bbnalishni rivojlantirish yo\u02bblidagi 12 ta muammo alohida belgilandi","b":"mazkur yo\u02bbnalishni rivojlantirish yo\u02bblidagi 20 ta muammo alohida belgilandi","c":"mazkur yo\u02bbnalishni rivojlantirish yo\u02bblidagi 19 ta muammo alohida belgilandi","d":"mazkur yo\u02bbnalishni rivojlantirish yo\u02bblidagi 18 ta muammo alohida belgilandi"},"correct":"c"},{"question":"Pedagogika sohasida yangi ilmiy yo'nalish nima deb nomlanadi?","answers":{"a":"O'qituvchining innovatsion faoliyati","b":"O'qituvchining evristik faoliyati","c":"O'qituvchining texnologik faoliyati","d":"O'qituvchi-tyuter faoliyati"},"correct":"a"},{"question":"Qachondan boshlab insoniyat universitet evolyutsiyasining navbatdagi modeli-tadbirkorlik modelini muhokama qilishmoqda.","answers":{"a":"XXI asrning boshidan boshlab","b":"XX asrning oxirlaridan boshlab","c":"XX asrning boshidan boshlab","d":"XIX asrning boshidan boshlab"},"correct":"b"},{"question":"Qaysi universitet modulining funksiyalari ta'lim xizmatlari va ilmiy izlanishlarni taqdim etish bilan cheklangan, ixtirolarni tijoratlashtirish talab qilinmagan?","answers":{"a":"Universitet-3.0","b":"Universitet-1.0","c":"Universitet-2.0","d":"Universitet-5.0"},"correct":"c"},{"question":"Qaysi universitet o'z missiyasi doirasida tadbirkor, innovator, integrator.","answers":{"a":"Universitet","b":"Universitet 2.0","c":"Universitet 3.0","d":"Universitet 1.0"},"correct":"c"},{"question":"Qo'yilgan ilmiy muammoni hal etish uchun maqsad va vazifalar, ijrochilar va bajarish muddatlari, manbalar va vositalarni ko'rsatgan holda shakllantirilgan chora-tadbirlar majmui - ....","answers":{"a":"Startaplar loyihalari","b":"Ilmiy loyihalar","c":"Innovatsion loyihalar","d":"Ijodiy loyihalar"},"correct":"b"},{"question":"Rivojlangan mamlakatlar universitetlarida &quot;tadbirkor-olim&quot; iborasi keng tarqalgan bo'lib, uning yangi roli o'zida nimani namoyon etadi?","answers":{"a":"akademik va biznes-elementlarni namoyon etadi.","b":"akademik va ishlab chiqarish elementlarni namoyon etadi.","c":"akademik va tadqiqot olib borish elementlarni namoyon etadi.","d":"biznes-elementlarni namoyon etadi"},"correct":"a"},{"question":"ScienceDirect tizimida necha turdagi qidiruv mavjud?","answers":{"a":"2 ta","b":"3 ta","c":"4 ta","d":"1 ta"},"correct":"a"},{"question":"ScienceDirect tizimida qidiruv turlarini belgilang.","answers":{"a":"kengaytirilgan qidiruv","b":"tashkilot bo'yicha qidiruv","c":"oddiy va murakkab turlari","d":"muallif bo'yicha qidiruv"},"correct":"c"},{"question":"Scopus klassifikatsion tizimi nechta tematik bo'limdan iborat?","answers":{"a":"15","b":"25","c":"30","d":"24"},"correct":"d"},{"question":"SCOPUS ma'lumotlar bazasida Advanced Search qidiruv...","answers":{"a":"muallif bo'yicha qidiruv","b":"kengaytirilgan qidiruv","c":"tashkilot bo'yicha qidiruv","d":"oddiy qidiruv"},"correct":"b"},{"question":"SCOPUS ma'lumotlar bazasida Affiliation Search qidiruv...","answers":{"a":"muallif bo'yicha qidiruv","b":"kengaytirilgan qidiruv","c":"tashkilot bo'yicha qidiruv","d":"oddiy qidiruv"},"correct":"c"},{"question":"SCOPUS ma'lumotlar bazasida And (I) yordamida qidirish nimani anglatadi?","answers":{"a":"3 ta so'zdan tarkib topgan maqolani qidirish uchun","b":"hech bo'lmaganda 2 ta so'zdan bittasi bo'yicha maqolani qidirish uchun","c":"Ma'lum so'zdan tarkib topmagan maqolani qidirish uchun","d":"2 ta so'zdan tarkib topgan maqolani qidirish uchun"},"correct":"d"},{"question":"SCOPUS ma'lumotlar bazasida Author Search qidiruv ...","answers":{"a":"tashkilot bo'yicha qidiruv","b":"muallif bo'yicha qidiruv","c":"kengaytirilgan qidiruv","d":"oddiy qidiruv"},"correct":"b"},{"question":"SCOPUS ma'lumotlar bazasida Basic search qidiruv...","answers":{"a":"kengaytirilgan qidiruv","b":"tashkilot bo'yicha qidiruv","c":"oddiy qidiruv","d":"muallif bo'yicha qidiruv"},"correct":"c"},{"question":"SCOPUS ma'lumotlar bazasida figurali qavs yordamida qidirish nimani anglatadi?","answers":{"a":"Aniq farazlarni qidirish","b":"barcha farazlarni qidirish","c":"..dan tashqari farazlarni qidirish","d":"Sinonim farazlarni qidirish"},"correct":"a"},{"question":"SCOPUS ma'lumotlar bazasida iqtiboslik tahlilini o'tkazish quyidagilarning qaysi biri orqali amalga oshiriladi?","answers":{"a":"View at publisner","b":"Cited by sence","c":"View citation","d":"References"},"correct":"c"},{"question":"SCOPUS ma'lumotlar bazasida Or (ILI) yordamida qidirish nimani anglatadi?","answers":{"a":"2 ta so'zdan tarkib topgan maqolani qidirish uchun","b":"hech bo'lmaganda 2 ta so'zdan bittasi bo'yicha maqolani qidirish uchun","c":"Ma'lum so'zdan tarkib topmagan maqolani qidirish uchun","d":"3 ta so'zdan tarkib topgan maqolani qidirish uchun"},"correct":"b"},{"question":"SCOPUS ma'lumotlar bazasida qachon individual hisob yozuvi ochiladi?","answers":{"a":"3 tadan ko'p maqola chop etganlar uchun","b":"2 tadan ko'p maqola chop etganlar uchun","c":"1 tadan ko'p maqola chop etganlar uchun","d":"5 tadan ko'p maqola chop etganlar uchun"},"correct":"c"},{"question":"Shaxsiy ilmiy kutubxonani boshqarish va ilmiy maqolalar bo'yicha samarali hamkorlik qilish vositasi- bu","answers":{"a":"SCOPUS","b":"ScienceDirect","c":"Mendeley","d":"Mendeley ScienceDirect"},"correct":"c"},{"question":"So'nggi 5 yil ichida QS universitetlarining dunyo reytingida birinchi o'rinni egallab turgan universitet bu","answers":{"a":"Stenford universiteti","b":"Kaliforniya texnologiya instituti","c":"Kembridj universiteti","d":"Massachusets texnologiya instituti"},"correct":"d"},{"question":"Start-ap loyiha tushunchasi dastlab nechanchi yilda kim tomonidan olib kirilgan?","answers":{"a":"1976 yili Forbes","b":"1978 yili Blonskiy","c":"1977yili Rubenshtiyin","d":"1978 yili Vigotskiy"},"correct":"a"},{"question":"Ta'lim xizmatlari va ilmiy izlanishlarni taqdim etish bilan cheklangan, ixtirolarni tijoratlashtirish talab qilinmagan - amaliy tadqiqotlar va ilmiy-texnik ishlanmalar bilan bog'liq vazifalarni amalga oshiruvchi muassasa......","answers":{"a":"Universitet 1.0","b":"Universitet 3.0","c":"Universitet","d":"Universitet 2.0"},"correct":"d"},{"question":"Tabiat, jamiyat va insonning tuzilishi, shakllanishi va rivojlanishiga oid asosiy qonuniyatlar haqidagi yangi bilimlar olish, ular o'rtasidagi o'zaro bog'liqlik bo'yicha tajriba o'tkazishga qaratilgan tadqiqotlar -....","answers":{"a":"Tematik ilmiy-tadqiqot","b":"Amaliy tadqiqotlar","c":"Maqsadli tadqiqot","d":"Fundamental tadqiqotlar"},"correct":"d"},{"question":"Tadbirkorlik universiteti konsepsiyasi rivojlanishida &quot;To'rtinchi spiral&quot; tamoyili g'oyasi, ya'ni universitetning -","answers":{"a":"hukumat, ishlab chiqarish va iste'molchi buyurtmachilarning manfaatlarini ifodlovchi sifatidagi hamkorligi rivojlanmoqda.","b":"hukumat, davlat, biznes va tadbirkorlar bilan hamkorligi rivojlanmoqda.","c":"biznes va davlat iste'molchi buyurtmachilarining manfaatlarini ifodlovchi sifatidagi hamkorligi rivojlanmoqda.","d":"davlat, biznes va texnoparklar (iste'molchi buyurtmachilarning manfaatlarini ifodlovchi sifatidagi) bilan hamkorligi rivojlanmoqda."},"correct":"d"},{"question":"Tadbirkorlik universiteti konsepsiyasining muallifi bo'lib kim hisoblanadi ?","answers":{"a":"Berlin universiteti professori Vilgelm fon Gumbold hisoblanadi","b":"Kembridj universiteti professori Berton Klark hisoblanadi","c":"Oksford universiteti professori Y.Shumpeter hisoblanadi","d":"Stenford universiteti professori Genri Itskovits hisoblanadi"},"correct":"d"},{"question":"Tadbirkorlik universiteti konsepsiyasining muallifi kim?","answers":{"a":"P. Druker","b":"Y.Shumpeter","c":"Genri Itskovits","d":"A.O.Grudzinskiy"},"correct":"c"},{"question":"Tadbirkorlik universiteti rolining ortishi nima sifatida ularni amaliyotda qo'llashgacha olib borishga qodirligi bilan izohlanadi ?","answers":{"a":"ta'limni &quot;generatsiyalash&quot; mexanizmni shakllantirish","b":"bilimlarni &quot;generatsiyalash&quot; mexanizmni shakllantirish","c":"tarbiyani &quot;generatsiyalash&quot; mexanizmni shakllantirish","d":"o'qishni &quot;generatsiyalash&quot; mexanizmni shakllantirish"},"correct":"b"},{"question":"Tadbirkorlik universiteti tarixi qachon va qayerda boshlangan?","answers":{"a":"Londonda (XX asrning 40 yillarining oxiri 50 yillarning boshlarida) Silikova (Kremli) vodiysida","b":"Kaliforniyada (XX asrning 40 yillarining oxiri 50 yillarning boshlarida) Silikova (Kremli) vodiysida","c":"Berlinda (XX asrning 40 yillarining oxiri 50 yillarning boshlarida) Silikova (Kremli) vodiysida","d":"Parijda (XX asrning 40 yillarining oxiri 50 yillarning boshlarida) Silikova (Kremli) vodiysida"},"correct":"b"},{"question":"Tadbirkorlik universiteti(TU) missiyasi:","answers":{"a":"o'qish; ta'lim; ilmiy-tadqiqot; innovatsion; tadbirkorlik; ishlab chiqarish.","b":"madaniy-ta'lim; ilmiy-tadqiqot; texnologik tadbirkorlik.","c":"ilmiy-tadqiqot; innovatsion;","d":"madaniy-ta'lim; ilmiy-tadqiqot; innovatsion-tadbirkorlik."},"correct":"d"},{"question":"Tadbirkorlik universitetining hamkorlar bilan ko'p tomonlama o'zaro xatti-harakatlarini kimning &quot;Uchala spiral&quot; tamoyili orqali ko'rib chiqish mumkin: biznes, hukumat, universitet.","answers":{"a":"G.Itskovitsning","b":"Vilgelm fon Gumbold","c":"Berton Klarkning","d":"Yozef.Shumpeterning"},"correct":"a"},{"question":"Tadbirkorlik universitetining missiyasi?","answers":{"a":"Tadbirkor, Innovator, integrator","b":"Ta'lim xizmatlarini ko'rsatish, innovator","c":"Innovator, integrator","d":"Tadbirkor, Innovator,"},"correct":"a"},{"question":"Talabalar bilan start-ap loyihalashda uning ________ni shakllantirish muhim rol o\u02bbynaydi?","answers":{"a":"Gipotezasi","b":"Loyihasi","c":"Ilmiy ishlanmalari","d":"Ob\u02bcekti"},"correct":"a"},{"question":"Tarix va ijtimoiy-gumanitar fanlar; filologiya, psixologiya va pedagogika fanlari; iqtisodiyot va huquq fanlari; informatika, axborot-kommunikatsiya texnologiyalari fan yo'nalishlari bo'yicha amalga oshiriladigan loyihalar qancha muddatgacha shakllantirish va amalga oshirish tavsiya etiladi?","answers":{"a":"5 yil muddatgacha","b":"4 yil muddatga","c":"3 yil muddatgacha","d":"2 yil muddatgacha"},"correct":"c"},{"question":"Texnologiyalarni tijoratlashtirish - bu","answers":{"a":"iste'molchi (xaridor) bilimlardan foydalanish huquqini olgan va o'z egasiga bitim shartlarida belgilangan miqdorda haq to'laydigan texnologik uzatish shakli","b":"iste'molchi (xaridor) bilimlardan foydalanish huquqini olgan va o'z egasiga (texnologiyalarni ishlab chiquvchisiga) u yoki bu shaklda litsenziya (yoki boshqa) bitim shartlarida belgilangan miqdorda haq to'laydigan texnologik uzatish shakli","c":"o'z egasiga (texnologiyalarni ishlab chiquvchisiga) u yoki bu shaklda litsenziya (yoki boshqa) bitim shartlarida belgilangan miqdorda haq to'laydigan texnologik uzatish shakli","d":"u yoki bu shaklda litsenziya (yoki boshqa) bitim shartlarida belgilangan miqdorda haq to'laydigan texnologik uzatish shakli"},"correct":"b"},{"question":"Texnologiyalarni tijoratlashtirish tushunchasi - bu","answers":{"a":"dissertatsiya natijalari o'z vaqtida bozorda mahsulot va xizmatlarga aylantiriladigan jarayondir","b":"ilmiy-tadqiqot natijalari o'z vaqtida bozorda mahsulot va xizmatlarga aylantiriladigan jarayondir","c":"texnik yechimlar natijalari o'z vaqtida bozorda mahsulot va xizmatlarga aylantiriladigan jarayondir","d":"loyihalar natijalari o'z vaqtida bozorda mahsulot va xizmatlarga aylantiriladigan jarayondir"},"correct":"b"},{"question":"Texnologiyalarni uzatish qanday xususiyatlarga ko'ra turlarga bo'linadi?","answers":{"a":"shartnoma, almashuv darjasi va texnologiyalar transferi turi bo'yicha","b":"shartnoma, hajm, texnologiyalar transferi turi bo'yicha","c":"shartnoma texnologiyalar transferi turi bo'yicha","d":"shartnoma, hajmi, almashuv darjasi va texnologiyalar transferi turi bo'yicha"},"correct":"d"},{"question":"THE reytingi aniqlashda quyidagi universitetlar qatnasha olmaydi?","answers":{"a":"besh yil ichida 500 ta ilmiy ishlar, shu jumladan bir yilda 100 tadan kam nashr ettirganlar","b":"yuqori kurs talabalarini o\u02bbqitmaydiganlar, tor mutaxassisliklar tayyorlaydigan, besh yil ichida 500 ta ilmiy ishlar, shu jumladan bir yilda 100 tadan kam nashr ettirganlar","c":"yuqori kurs talabalarini o\u02bbqitmaydiganlar, tor mutaxassisliklar tayyorlaydigan, besh yil ichida 1000 ta ilmiy ishlar, shu jumladan bir yilda 200 tadan kam nashr ettirganlar","d":"yuqori kurs talabalarini o\u02bbqitadiganlar, tor mutaxassisliklar tayyorlaydigan, uch yil ichida 1000 ta ilmiy ishlar, shu jumladan bir yilda 200 tadan kam nashr ettirganlar"},"correct":"c"},{"question":"THE reytingning kamchiliklari?","answers":{"a":"Reyting ta\u02bclim berish sifati va talabalar uchun sharoitlarni baholamaydi","b":"Ob\u02bcektivlikning yetarli emasligi","c":"Har bir OTMda ham o\u02bbzida zamonaviy ilg\u02bbor laboratoriyalar va o\u02bbqituvchilari orasida Nobel mukofotiga ega xodimlarga ega bo\u02bblish imkoniyati mavjud emas","d":"Ingliz tilidagi mamlakatlar uchun ustuvorlik yuqori. Reyting faqat ingliz tilidagi ilmiy nashrlarni tahlil qiladi. Bundan aksariyat uchinchi mamalatlarning OTMlari o\u02bbz ulushini yo\u02bbqotishadi"},"correct":"d"},{"question":"Universitet - bu","answers":{"a":"faqat amaliy fanlar bo&lsquo;yicha mutaxassislar tahsil olishadigan oliy ta&rsquo;lim muassasi","b":"Faqat akademik ta&rsquo;lim bo&lsquo;yicha mutaxassislar tahsil olishadigan oliy ta&rsquo;lim muassasi","c":"faqat nazariy fanlar bo&lsquo;yicha mutaxassislar tahsil olishadigan oliy ta&rsquo;lim muassasi","d":"fundamental va ko&lsquo;pgina amaliy fanlar bo&lsquo;yicha mutaxassislar tahsil olishadigan oliy ta&rsquo;lim muassasi"},"correct":"d"},{"question":"Universitet - bu nem. Universit&auml;t, o&lsquo;z navbatida lat. universitas so&lsquo;zidan kelib chiqib","answers":{"a":"Faqat akademik ta'lim bo'yicha mutaxassislar tahsil olishadigan oliy ta'lim muassasi","b":"fundamental va ko'pgina amaliy fanlar bo'yicha mutaxassislar tahsil olishadigan oliy ta'lim muassasi","c":"faqat amaliy fanlar bo'yicha mutaxassislar tahsil olishadigan oliy ta'lim muassasi","d":"faqat nazariy fanlar bo'yicha mutaxassislar tahsil olishadigan oliy ta'lim muassasi"},"correct":"b"},{"question":"Universitet 3.0 modelining yangi bosqichi qachon va qayerda paydo bo'lgan?","answers":{"a":"XX asrning 50-60 yillarida Yevropada","b":"XX asrning 50-60 yillarida AQSh","c":"XX asrning 50-60 yillarida AQSh va Kanadada","d":"XX asrning 50-60 yillarida Kanada"},"correct":"c"},{"question":"Universitet uchun haqiqiy bilimni olishning o\u02bbziga xos usuli-?","answers":{"a":"Ta\u02bclim oluvchilarda tadbirkorlik faolligini rag\u02bbbatlantiruvchi innovatsion ta\u02bclim mahsulotlarini joriy etish","b":"Oldindan yangi bilimlarni berish va o\u02bbzlashtirish bo\u02bblgan","c":"Klassik ta\u02bclimni tadbirkorlikka transformatsiyalash","d":"Universitet professorlari tomonidan talabalarni ilmga jalb etish orqali erishiladigan tadqiqot faoliyati hisoblangan"},"correct":"d"},{"question":"Universitetlarni yaratish uchun namuna bo'lgan ta'lim muassasasi nomini aniqlang?","answers":{"a":"Massachesuta texnologiya instituti","b":"Stenford","c":"Gumboldt","d":"Oksford"},"correct":"c"},{"question":"Universitetni bitkoinlarda moliyalashtirishning maqsadi?","answers":{"a":"intellektual tadbirkor konsepsiyasi yaratish","b":"bank tarmog\u02bbi rivojlanmagan mintaqalarida moliyaviy xizmatlarni kengaytirishni yengillashtirish","c":"jahonning yetakchi universitetlari strategik xujjatlarida, rivojlantirish dasturlarini yaratish","d":"jahonning yetakchi universitetlari strategik xujjatlarida, rivojlanish dasturlarida, modelli qarorlarida o\u02bbz aksini topgan strategiiyani rivojlantirish"},"correct":"b"},{"question":"videofilm, nashr ishlari - kitob, almanax, buklet, albom, bosma va elektron jurnal, kompyuter dasturlarni yaratishga yo'naltirilgan loyihalar -......","answers":{"a":"Ilmiy loyihalar","b":"Startaplar loyihalari","c":"Ijodiy loyihalar","d":"Amaliy loyihalar"},"correct":"c"},{"question":"Web of Science xalqaro ilmiy ma'lumotlar bazasida indeksatsiya qilinadigan xalqaro ilmiy jurnallarda chop etilgan umumiy maqolalar sonida O'zbekistonning ulushi 2030 yilgacha necha foizga yetkazish ko'zda tutilgan?","answers":{"a":"0.008","b":"0, 2","c":"0.1","d":"0, 4"},"correct":"b"},{"question":"Web of Science xalqaro ilmiy ma'lumotlar bazasida indeksatsiya qilinadigan xalqaro ilmiy jurnallarda har 100 nafar O'zbekistonlik olimlar tomonidan chop etilgan maqolalar soni 2030 yilgacha qanchaga oshirish ko'zda tutilgan?","answers":{"a":"15","b":"10","c":"8","d":"6"},"correct":"b"},{"question":"Web of Science xalqaro ilmiy ma'lumotlar bazasida indeksatsiya qilinadigan xalqaro ilmiy jurnallarda O'zbekistonlik olimlar tomonidan chop etilgan bitta maqolaga nisbatan xorijiy havolalar soni 2030 yilgacha qanchaga oshirish ko'zda tutilgan?","answers":{"a":"1.5","b":"2","c":"1","d":"3"},"correct":"b"},{"question":"xorijiy yetakchi investitsiya kompaniyalari bilan hamkorlikda 2021 yilda nechta venchur jamg'armalarini tashkil qilish ko'zda tutilgan?","answers":{"a":"5","b":"4","c":"10","d":"2"},"correct":"d"},{"question":"Yangi o'quv kurslari, mutaxassisliklar, kadrlar tayyorlash va qayta tayyorlash sohalari (profillari), yangi ta'lim texnologiyalari ko'rinishidagi innovatsion faoliyat natijalari -....","answers":{"a":"Ilmiy innovatsiyalar","b":"Ta'limdagi innovatsiyalar","c":"Texnologik innovatsiyalar","d":"boshqaruvdagi innovatsiyalar"},"correct":"b"},{"question":"Yangi texnologiyalar, yangi jihozlar, materiallar, mahsulotlar, ilmiy-texnik xizmatlarning namunalari va boshqa yuqori texnologiyali mahsulotlar ko'rinishidagi innovatsion faoliyat natijalari -...","answers":{"a":"Texnologik innovatsiyalar","b":"Ilmiy va texnologik innovatsiyalar","c":"boshqaruvdagi innovatsiyalar","d":"Ta'limdagi innovatsiyalar"},"correct":"b"},{"question":"Yevropada birinchi tadbirkorlik shaklidagi universitetni aniqlang?","answers":{"a":"Stenford universiteti","b":"Kaliforniya texnologiya instituti","c":"Kembridj universiteti","d":"Xalmers universiteti (Geteborg)"},"correct":"d"},{"question":"Yevropadagi birinchi universitetlardan biri ...........","answers":{"a":"Oksford universiteti","b":"Parij universiteti","c":"Bolonya universiteti","d":"Kembrijd universiteti"},"correct":"c"},{"question":"Zamonaviy global iqtisodiyot nechta kitlar ustida turadi?","answers":{"a":"ikkita: bilim; texnologiya;","b":"Uchta: bilim; texnologiya; tadbirkorlik tashabbuskorligi.","c":"To'rtta: bilim; texnologiya; tadbirkorlik va innovatsiya.","d":"Ikkita: bilim; tadbirkorlik tashabbuskorligi."},"correct":"b"},{"question":"Zamonaviy universitetning bosh funksiyasi -","answers":{"a":"Yuqori malakali talabalarni tayyorlash","b":"Yuqori sifatli mutaxassislarni tayyorlash","c":"Yuqori malakali kadrlar tayyorlash","d":"innovatorlarni tayyorlash"},"correct":"d"}];
+
+    // Savollarni aralashtirish funksiyasi
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Javob variantlarini aralashtirish
+    function shuffleAnswers(quiz) {
+        quiz.forEach(item => {
+            const answersArray = Object.entries(item.answers);
+            shuffle(answersArray);
+            item.answers = Object.fromEntries(answersArray);
+            item.correct = answersArray.find(([key, value]) => value === item.answers[item.correct])[0]; // To'g'ri javobni yangilash
+        });
+    }
+    // Savollarni aralashtiramiz
+    // shuffle(quizData);
+
+    shuffleAnswers(quizData);
+
+    const quizContainer = document.getElementById('quiz');
+    const submitButton = document.getElementById('submit');
+    const resultsContainer = document.getElementById('results');
+    const finalResultsContainer = document.getElementById('finalResults');
+    const numberPagination = document.getElementById('numberPagination');
+    const timerDisplay = document.getElementById('timer');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+
+    let totalQuestions = quizData.length;
+    const timePerQuestion = 48; // 6 soniya
+    let timeLeft = totalQuestions * timePerQuestion;
+    let currentQuestionIndex = 0;
+
+    const selectedAnswers = Array(totalQuestions).fill(null);
+
+    function startTimer() {
+        const timerInterval = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `Vaqt: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Vaqt tugadi!");
+                submitButton.click();
+            }
+            timeLeft--;
+        }, 1000);
+    }
+
+    function loadQuestion() {
+        const item = quizData[currentQuestionIndex];
+        quizContainer.innerHTML = `
+            <div class="question">
+                <p>${currentQuestionIndex + 1}. ${item.question}</p>
+                ${Object.keys(item.answers).map(letter => {
+            const isChecked = selectedAnswers[currentQuestionIndex] === letter ? 'checked' : '';
+            const bgColor = selectedAnswers[currentQuestionIndex] === letter ? 'lightblue' : '#ccf3ff';
+            return `
+                        <label class="answer" id="answer${letter}" style="background-color: ${bgColor};">
+                            <input type="checkbox" name="question${currentQuestionIndex}" value="${letter}" ${isChecked} onchange="updateAnswer('${letter}')">
+                           ${item.answers[letter]}
+                        </label>
+                    `;
+        }).join('')}
+            </div>
+        `;
+        updateNumberPagination();
+        updateNavigationButtons();
+    }
+
+    function updateNavigationButtons() {
+        prevButton.style.display = currentQuestionIndex === 0 ? 'none' : 'inline-block';
+        nextButton.style.display = currentQuestionIndex === totalQuestions - 1 ? 'none' : 'inline-block';
+    }
+
+    function updateAnswer(selected) {
+        selectedAnswers[currentQuestionIndex] = selected;
+        loadQuestion(); // Savolni yangilash
+        updateNumberPagination();
+    }
+
+    function updateNumberPagination() {
+        numberPagination.innerHTML = '';
+        quizData.forEach((_, index) => {
+            const button = document.createElement('button');
+            button.textContent = index + 1;
+            button.className = selectedAnswers[index] === null ? '' : selectedAnswers[index] === quizData[index].correct ? 'answered-correct' : 'answered-incorrect';
+            button.style.backgroundColor = selectedAnswers[index] === null ? 'white' : 'lightblue';
+            button.onclick = () => goToQuestion(index);
+            numberPagination.appendChild(button);
+        });
+    }
+
+    function goToQuestion(index) {
+        currentQuestionIndex = index;
+        loadQuestion();
+    }
+
+    function getResults() {
+        resultsContainer.innerHTML = '';
+        let correctCount = 0;
+        quizData.forEach((item, index) => {
+            if (selectedAnswers[index] === item.correct) {
+                correctCount++;
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="correct">To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else if (selectedAnswers[index] === null) {
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="incorrect">Javob berilmagan! To'g'ri javob: ${item.answers[item.correct]}</span></div>`;
+            } else {
+                resultsContainer.innerHTML += `<div class="result">Savol ${index + 1}: <span class="incorrect">Noto'g'ri! To'g'ri javob: ${item.answers[item.correct]} (Siz: ${item.answers[selectedAnswers[index]]})</span></div>`;
+            }
+        });
+        finalResultsContainer.innerHTML = `<h2>Umumiy natija: ${correctCount} / ${totalQuestions}</h2>`;
+        resultsContainer.style.display = 'block';
+        finalResultsContainer.style.display = 'block';
+        updatePaginationResults();
+    }
+
+    function updatePaginationResults() {
+        numberPagination.querySelectorAll('button').forEach((button, index) => {
+            button.style.backgroundColor = selectedAnswers[index] === quizData[index].correct ? 'lightgreen' : 'lightcoral';
+        });
+    }
+
+    submitButton.addEventListener('click', getResults);
+    prevButton.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentQuestionIndex < totalQuestions - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+    });
+
+    loadQuestion();
+    startTimer();
+</script>
+</body>
+</html>
+    </div>
+</main>
+
+<footer id="footer" class="mt-auto py-3 bg-light">
+    <div class="container">
+        <div class="row text-muted">
+            <div class="col-md-6 text-center text-md-start">&copy; My Company 2024</div>
+            <div class="col-md-6 text-center text-md-end">Powered by <a href="https://www.yiiframework.com/" rel="external">Yii Framework</a></div>
+        </div>
+    </div>
+</footer>
+
+<div id="yii-debug-toolbar" data-url="/web/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag=670730f5bc951" data-skip-urls="[]" style="display:none" class="yii-debug-toolbar-bottom"></div><style>#yii-debug-toolbar-logo{position:fixed;right:31px;bottom:4px}@media print{.yii-debug-toolbar{display:none !important}}.yii-debug-toolbar{font:11px Verdana, Arial, sans-serif;text-align:left;width:96px;transition:width .3s ease;z-index:1000000}.yii-debug-toolbar.yii-debug-toolbar_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__bar{overflow:visible;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.yii-debug-toolbar.yii-debug-toolbar_iframe_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__resize-handle{display:block;height:4px;cursor:ns-resize;margin-bottom:0;z-index:1000001;position:absolute;left:0;right:0}.yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar,.yii-debug-toolbar.yii-debug-toolbar_animating .yii-debug-toolbar__bar{height:40px}.yii-debug-toolbar_active{width:100%}.yii-debug-toolbar_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(0);transform:rotate(0)}.yii-debug-toolbar_position_top{margin:0 0 20px 0;width:100%}.yii-debug-toolbar_position_bottom{position:fixed;right:0;bottom:0;margin:0}.yii-debug-toolbar__bar{position:relative;padding:0;font:11px Verdana, Arial, sans-serif;text-align:left;overflow:hidden;box-sizing:content-box;display:flex;flex-wrap:wrap;background:#fff;background:-moz-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:-webkit-linear-gradient(top, #fff 0%, #f7f7f7 100%);background:linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f7f7f7', GradientType=0);border:1px solid rgba(0,0,0,0.11);direction:ltr}.yii-debug-toolbar__bar::after{content:'';display:table;clear:both}.yii-debug-toolbar__view{height:0;overflow:hidden;background:white}.yii-debug-toolbar__view iframe{margin:0;padding:10px 0 0;height:100%;width:100%;border:0}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__view{height:100%}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__toggle-icon{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.yii-debug-toolbar_iframe_active .yii-debug-toolbar__external{display:block}.yii-debug-toolbar_iframe_animating .yii-debug-toolbar__view{transition:height .3s ease}.yii-debug-toolbar__block{margin:0;border-right:1px solid rgba(0,0,0,0.11);border-bottom:1px solid rgba(0,0,0,0.11);padding:4px 8px;line-height:32px;white-space:nowrap}@media (max-width: 767.98px){.yii-debug-toolbar__block{flex-grow:1;text-align:center}}.yii-debug-toolbar__block a{display:inline-block;text-decoration:none;color:black}.yii-debug-toolbar__block img{vertical-align:middle;width:30px;height:30px}.yii-debug-toolbar__block_active,.yii-debug-toolbar__ajax:hover{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__label{display:inline-block;padding:2px 4px;font-size:12px;font-weight:normal;line-height:14px;white-space:nowrap;vertical-align:middle;max-width:100px;overflow-x:hidden;text-overflow:ellipsis;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.25);background-color:#737373;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}.yii-debug-toolbar__label:empty{display:none}a.yii-debug-toolbar__label:hover,a.yii-debug-toolbar__label:focus{color:#ffffff;text-decoration:none;cursor:pointer}.yii-debug-toolbar__label_important,.yii-debug-toolbar__label_error{background-color:#b94a48}.yii-debug-toolbar__label_important[href]{background-color:#953b39}.yii-debug-toolbar__label_warning,.yii-debug-toolbar__badge_warning{background-color:#f89406}.yii-debug-toolbar__label_warning[href]{background-color:#c67605}.yii-debug-toolbar__label_success{background-color:#217822}.yii-debug-toolbar__label_success[href]{background-color:#356635}.yii-debug-toolbar__label_info{background-color:#0b72b8}.yii-debug-toolbar__label_info[href]{background-color:#2d6987}.yii-debug-toolbar__label_inverse,.yii-debug-toolbar__badge_inverse{background-color:#333333}.yii-debug-toolbar__label_inverse[href],.yii-debug-toolbar__badge_inverse[href]{background-color:#1a1a1a}.yii-debug-toolbar__title{background:#f7f7f7;background:-moz-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:-webkit-linear-gradient(top, #f7f7f7 0%, #e0e0e0 100%);background:linear-gradient(to bottom, #f7f7f7 0%, #e0e0e0 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0)}.yii-debug-toolbar__block_last{width:80px;height:40px;float:left}.yii-debug-toolbar__toggle,.yii-debug-toolbar__external{cursor:pointer;position:absolute;width:30px;height:30px;font-size:25px;font-weight:100;line-height:28px;color:#ffffff;text-align:center;opacity:0.5;filter:alpha(opacity=50);transition:opacity .3s ease}.yii-debug-toolbar__toggle:hover,.yii-debug-toolbar__toggle:focus,.yii-debug-toolbar__external:hover,.yii-debug-toolbar__external:focus{color:#ffffff;text-decoration:none;opacity:0.9;filter:alpha(opacity=90)}.yii-debug-toolbar__toggle-icon,.yii-debug-toolbar__external-icon{display:inline-block;background-position:50% 50%;background-repeat:no-repeat}.yii-debug-toolbar__toggle{right:10px;bottom:4px}.yii-debug-toolbar__toggle-icon{padding:7px 0;width:10px;height:16px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMTUuNTYzIDQwLjgzNmEuOTk3Ljk5NyAwIDAgMCAxLjQxNCAwbDE1LTE1YTEgMSAwIDAgMCAwLTEuNDE0bC0xNS0xNWExIDEgMCAwIDAtMS40MTQgMS40MTRMMjkuODU2IDI1LjEzIDE1LjU2MyAzOS40MmExIDEgMCAwIDAgMCAxLjQxNHoiLz48L3N2Zz4=");transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;-webkit-transform:rotate(180deg);transform:rotate(180deg)}.yii-debug-toolbar__external{display:none;right:50px;bottom:4px}.yii-debug-toolbar__external-icon{padding:8px 0;width:14px;height:14px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDUwIDUwIj48cGF0aCBmaWxsPSIjNDQ0IiBkPSJNMzkuNjQyIDkuNzIyYTEuMDEgMS4wMSAwIDAgMC0uMzgyLS4wNzdIMjguMTAzYTEgMSAwIDAgMCAwIDJoOC43NDNMMjEuNyAyNi43OWExIDEgMCAwIDAgMS40MTQgMS40MTVMMzguMjYgMTMuMDZ2OC43NDNhMSAxIDAgMCAwIDIgMFYxMC42NDZhMS4wMDUgMS4wMDUgMCAwIDAtLjYxOC0uOTI0eiIvPjxwYXRoIGQ9Ik0zOS4yNiAyNy45ODVhMSAxIDAgMCAwLTEgMXYxMC42NmgtMjh2LTI4aDEwLjY4M2ExIDEgMCAwIDAgMC0ySDkuMjZhMSAxIDAgMCAwLTEgMXYzMGExIDEgMCAwIDAgMSAxaDMwYTEgMSAwIDAgMCAxLTF2LTExLjY2YTEgMSAwIDAgMC0xLTF6Ii8+PC9zdmc+")}.yii-debug-toolbar__switch-icon{margin-left:10px;padding:5px 10px;width:18px;height:18px;background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDUwIDUwIiB2ZXJzaW9uPSIxLjEiPjxwYXRoIGQ9Im00MS4xIDIzYy0wLjYgMC0xIDAuNC0xIDF2MTAuN2wtMjUuNi0wLjFjMCAwIDAtMiAwLTIuOCAwLTAuOC0wLjctMS0xLTAuNmwtMy41IDMuNWMtMC42IDAuNi0wLjYgMS4zIDAgMmwzLjQgMy40YzAuNCAwLjQgMS4xIDAuMiAxLTAuNmwwLTIuOWMwIDAgMjAuOCAwLjEgMjYuNiAwIDAuNiAwIDEtMC40IDEtMXYtMTEuN2MwLTAuNi0wLjQtMS0xLTF6TTkgMjYuOSA5IDI2LjkgOSAyNi45IDkgMjYuOSIvPjxwYXRoIGQ9Im05IDI2LjljMC42IDAgMS0wLjQgMS0xdi0xMC43bDI1LjYgMC4xYzAgMCAwIDIgMCAyLjggMCAwLjggMC43IDEgMSAwLjZsMy41LTMuNWMwLjYtMC42IDAuNi0xLjMgMC0ybC0zLjQtMy40Yy0wLjQtMC40LTEuMS0wLjItMSAwLjZsMCAyLjljMCAwLTIwLjgtMC4xLTI2LjYgMC0wLjYgMC0xIDAuNC0xIDF2MTEuN2MwIDAuNiAwLjQgMSAxIDF6Ii8+PC9zdmc+")}.yii-debug-toolbar__ajax{position:relative}.yii-debug-toolbar__ajax:hover .yii-debug-toolbar__ajax_info,.yii-debug-toolbar__ajax:focus .yii-debug-toolbar__ajax_info{visibility:visible}.yii-debug-toolbar__ajax a{color:#337ab7}.yii-debug-toolbar__ajax table{width:100%;table-layout:auto;border-spacing:0;border-collapse:collapse}.yii-debug-toolbar__ajax table td{padding:4px;font-size:12px;line-height:normal;vertical-align:top;border-top:1px solid #ddd}.yii-debug-toolbar__ajax table th{padding:4px;font-size:11px;line-height:normal;vertical-align:bottom;border-bottom:2px solid #ddd}.yii-debug-toolbar__ajax_info{visibility:hidden;transition:visibility .2s linear;background-color:white;box-shadow:inset 0 -10px 10px -10px #e1e1e1;position:absolute;bottom:40px;left:-1px;padding:10px;max-width:480px;max-height:480px;word-wrap:break-word;overflow:hidden;overflow-y:auto;box-sizing:border-box;border:1px solid rgba(0,0,0,0.11);z-index:1000001}.yii-debug-toolbar__ajax_request_status{color:white;padding:2px 5px}.yii-debug-toolbar__ajax_request_url{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+</style><script>(function () {
+    'use strict';
+
+    var findToolbar = function () {
+            return document.querySelector('#yii-debug-toolbar');
+        },
+        ajax = function (url, settings) {
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            settings = settings || {};
+            xhr.open(settings.method || 'GET', url, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Accept', 'text/html');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 && settings.success) {
+                        settings.success(xhr);
+                    } else if (xhr.status !== 200 && settings.error) {
+                        settings.error(xhr);
+                    }
+                }
+            };
+            xhr.send(settings.data || '');
+        },
+        url,
+        div,
+        toolbarEl = findToolbar(),
+        toolbarAnimatingClass = 'yii-debug-toolbar_animating',
+        barSelector = '.yii-debug-toolbar__bar',
+        viewSelector = '.yii-debug-toolbar__view',
+        blockSelector = '.yii-debug-toolbar__block',
+        toggleSelector = '.yii-debug-toolbar__toggle',
+        externalSelector = '.yii-debug-toolbar__external',
+
+        CACHE_KEY = 'yii-debug-toolbar',
+        ACTIVE_STATE = 'active',
+
+        animationTime = 300,
+
+        activeClass = 'yii-debug-toolbar_active',
+        iframeActiveClass = 'yii-debug-toolbar_iframe_active',
+        iframeAnimatingClass = 'yii-debug-toolbar_iframe_animating',
+        titleClass = 'yii-debug-toolbar__title',
+        blockClass = 'yii-debug-toolbar__block',
+        ignoreClickClass = 'yii-debug-toolbar__ignore_click',
+        blockActiveClass = 'yii-debug-toolbar__block_active',
+        requestStack = [];
+
+    if (toolbarEl) {
+        url = toolbarEl.getAttribute('data-url');
+
+        ajax(url, {
+            success: function (xhr) {
+                div = document.createElement('div');
+                div.innerHTML = xhr.responseText;
+
+                toolbarEl.parentNode && toolbarEl.parentNode.replaceChild(div, toolbarEl);
+
+                showToolbar(findToolbar());
+
+                var event;
+                if (typeof(Event) === 'function') {
+                    event = new Event('yii.debug.toolbar_attached', {'bubbles': true});
+                } else {
+                    event = document.createEvent('Event');
+                    event.initEvent('yii.debug.toolbar_attached', true, true);
+                }
+
+                div.dispatchEvent(event);
+            },
+            error: function (xhr) {
+                toolbarEl.innerText = xhr.responseText;
+            }
+        });
+    }
+
+    function showToolbar(toolbarEl) {
+        var barEl = toolbarEl.querySelector(barSelector),
+            viewEl = toolbarEl.querySelector(viewSelector),
+            toggleEl = toolbarEl.querySelector(toggleSelector),
+            externalEl = toolbarEl.querySelector(externalSelector),
+            blockEls = barEl.querySelectorAll(blockSelector),
+            blockLinksEls = document.querySelectorAll(blockSelector + ':not(.' + titleClass + ') a'),
+            iframeEl = viewEl.querySelector('iframe'),
+            iframeHeight = function () {
+                return (window.innerHeight * (toolbarEl.dataset.height / 100) - barEl.clientHeight) + 'px';
+            },
+            isIframeActive = function () {
+                return toolbarEl.classList.contains(iframeActiveClass);
+            },
+            resizeIframe = function(mouse) {
+                var availableHeight = window.innerHeight - barEl.clientHeight;
+                viewEl.style.height = Math.min(availableHeight, availableHeight - mouse.y) + "px";
+            },
+            showIframe = function (href) {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.add(iframeActiveClass);
+
+                iframeEl.src = externalEl.href = href;
+                iframeEl.removeAttribute('tabindex');
+
+                viewEl.style.height = iframeHeight();
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            hideIframe = function () {
+                toolbarEl.classList.add(iframeAnimatingClass);
+                toolbarEl.classList.remove(iframeActiveClass);
+                iframeEl.setAttribute("tabindex", "-1");
+                removeActiveBlocksCls();
+
+                externalEl.href = '#';
+                viewEl.style.height = '';
+                setTimeout(function () {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
+            },
+            removeActiveBlocksCls = function () {
+                [].forEach.call(blockEls, function (el) {
+                    el.classList.remove(blockActiveClass);
+                });
+            },
+            toggleToolbarClass = function (className) {
+                toolbarEl.classList.add(toolbarAnimatingClass);
+                if (toolbarEl.classList.contains(className)) {
+                    toolbarEl.classList.remove(className);
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.setAttribute('tabindex', "-1");
+                    });
+                } else {
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.removeAttribute('tabindex');
+                    });
+                    toolbarEl.classList.add(className);
+                }
+                setTimeout(function () {
+                    toolbarEl.classList.remove(toolbarAnimatingClass);
+                }, animationTime);
+            },
+            toggleStorageState = function (key, value) {
+                if (window.localStorage) {
+                    var item = localStorage.getItem(key);
+
+                    if (item) {
+                        localStorage.removeItem(key);
+                    } else {
+                        localStorage.setItem(key, value);
+                    }
+                }
+            },
+            restoreStorageState = function (key) {
+                if (window.localStorage) {
+                    return localStorage.getItem(key);
+                }
+            },
+            togglePosition = function () {
+                if (isIframeActive()) {
+                    hideIframe();
+                } else {
+                    toggleToolbarClass(activeClass);
+                    toggleStorageState(CACHE_KEY, ACTIVE_STATE);
+                }
+            };
+
+        if (restoreStorageState(CACHE_KEY) === ACTIVE_STATE) {
+            var transition = toolbarEl.style.transition;
+            toolbarEl.style.transition = 'none';
+            toolbarEl.classList.add(activeClass);
+            setTimeout(function () {
+                toolbarEl.style.transition = transition;
+            }, animationTime);
+        } else {
+            [].forEach.call(blockLinksEls, function (el) {
+                el.setAttribute('tabindex', "-1");
+            });
+        }
+
+        toolbarEl.style.display = 'block';
+
+        window.onresize = function () {
+            if (toolbarEl.classList.contains(iframeActiveClass)) {
+                viewEl.style.height = iframeHeight();
+            }
+        };
+
+        toolbarEl.addEventListener("mousedown", function(e) {
+            if (isIframeActive() && (e.y - toolbarEl.offsetTop < 4 /* 4px click zone */)) {
+                document.addEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        document.addEventListener("mouseup", function(){
+            if (isIframeActive()) {
+                document.removeEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        barEl.onclick = function (e) {
+            var target = e.target,
+                block = findAncestor(target, blockClass);
+
+            if (block
+                && !block.classList.contains(titleClass)
+                && !block.classList.contains(ignoreClickClass)
+                && e.which !== 2 && !e.ctrlKey // not mouse wheel and not ctrl+click
+            ) {
+                while (target !== this) {
+                    if (target.href) {
+                        removeActiveBlocksCls();
+                        block.classList.add(blockActiveClass);
+                        showIframe(target.href);
+                    }
+                    target = target.parentNode;
+                }
+
+                e.preventDefault();
+            }
+        };
+
+        toggleEl.onclick = togglePosition;
+    }
+
+    function findAncestor(el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls)) ;
+        return el;
+    }
+
+    function renderAjaxRequests() {
+        var requestCounter = document.getElementsByClassName('yii-debug-toolbar__ajax_counter');
+        if (!requestCounter.length) {
+            return;
+        }
+        var ajaxToolbarPanel = document.querySelector('.yii-debug-toolbar__ajax');
+        var tbodies = document.getElementsByClassName('yii-debug-toolbar__ajax_requests');
+        var state = 'ok';
+        if (tbodies.length) {
+            var tbody = tbodies[0];
+            var rows = document.createDocumentFragment();
+            if (requestStack.length) {
+                var firstItem = requestStack.length > 20 ? requestStack.length - 20 : 0;
+                for (var i = firstItem; i < requestStack.length; i++) {
+                    var request = requestStack[i];
+                    var row = document.createElement('tr');
+                    rows.appendChild(row);
+
+                    var methodCell = document.createElement('td');
+                    methodCell.innerHTML = request.method;
+                    row.appendChild(methodCell);
+
+                    var statusCodeCell = document.createElement('td');
+                    var statusCode = document.createElement('span');
+                    if (request.statusCode < 300) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success');
+                    } else if (request.statusCode < 400) {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_warning');
+                    } else {
+                        statusCode.setAttribute('class', 'yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_error');
+                    }
+                    statusCode.textContent = request.statusCode || '-';
+                    statusCodeCell.appendChild(statusCode);
+                    row.appendChild(statusCodeCell);
+
+                    var pathCell = document.createElement('td');
+                    pathCell.className = 'yii-debug-toolbar__ajax_request_url';
+                    pathCell.innerHTML = request.url;
+                    pathCell.setAttribute('title', request.url);
+                    row.appendChild(pathCell);
+
+                    var durationCell = document.createElement('td');
+                    durationCell.className = 'yii-debug-toolbar__ajax_request_duration';
+                    if (request.duration) {
+                        durationCell.innerText = request.duration + " ms";
+                    } else {
+                        durationCell.innerText = '-';
+                    }
+                    row.appendChild(durationCell);
+                    row.appendChild(document.createTextNode(' '));
+
+                    var profilerCell = document.createElement('td');
+                    if (request.profilerUrl) {
+                        var profilerLink = document.createElement('a');
+                        profilerLink.setAttribute('href', request.profilerUrl);
+                        profilerLink.innerText = request.profile;
+                        profilerCell.appendChild(profilerLink);
+                    } else {
+                        profilerCell.innerText = 'n/a';
+                    }
+                    row.appendChild(profilerCell);
+
+                    if (request.error) {
+                        if (state !== "loading" && i > requestStack.length - 4) {
+                            state = 'error';
+                        }
+                    } else if (request.loading) {
+                        state = 'loading'
+                    }
+                    row.className = 'yii-debug-toolbar__ajax_request';
+                }
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+                tbody.appendChild(rows);
+            }
+            ajaxToolbarPanel.style.display = 'block';
+        }
+        requestCounter[0].innerText = requestStack.length;
+        var className = 'yii-debug-toolbar__label yii-debug-toolbar__ajax_counter';
+        if (state === 'ok') {
+            className += ' yii-debug-toolbar__label_success';
+        } else if (state === 'error') {
+            className += ' yii-debug-toolbar__label_error';
+        }
+        requestCounter[0].className = className;
+    }
+
+    /**
+     * Should AJAX request to be logged in debug panel
+     *
+     * @param requestUrl
+     * @returns {boolean}
+     */
+    function shouldTrackRequest(requestUrl) {
+        if (!toolbarEl) {
+            return false;
+        }
+        var a = document.createElement('a');
+        a.href = requestUrl;
+        var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'));
+        if (Array.isArray(skipAjaxRequestUrls) && skipAjaxRequestUrls.length && skipAjaxRequestUrls.includes(requestUrl)) {
+            return false;
+        }
+        return a.host === location.host;
+    }
+
+    var proxied = XMLHttpRequest.prototype.open;
+
+    XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
+        var self = this;
+
+        if (shouldTrackRequest(url)) {
+            var stackElement = {
+                loading: true,
+                error: false,
+                url: url,
+                method: method,
+                start: new Date()
+            };
+            requestStack.push(stackElement);
+            this.addEventListener('readystatechange', function () {
+                if (self.readyState === 4) {
+                    stackElement.duration = self.getResponseHeader('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = self.status;
+                    stackElement.error = self.status < 200 || self.status >= 400;
+                    stackElement.profile = self.getResponseHeader('X-Debug-Tag');
+                    stackElement.profilerUrl = self.getResponseHeader('X-Debug-Link');
+                    renderAjaxRequests();
+                }
+            }, false);
+            renderAjaxRequests();
+        }
+        proxied.apply(this, Array.prototype.slice.call(arguments));
+    };
+
+    // catch fetch AJAX requests
+    if (window.fetch) {
+        var originalFetch = window.fetch;
+
+        window.fetch = function (input, init) {
+            var method;
+            var url;
+            if (typeof input === 'string') {
+                method = (init && init.method) || 'GET';
+                url = input;
+            } else if (window.URL && input instanceof URL) { // fix https://github.com/yiisoft/yii2-debug/issues/296
+                method = (init && init.method) || 'GET';
+                url = input.href;
+            } else if (window.Request && input instanceof Request) {
+                method = input.method;
+                url = input.url;
+            }
+            var promise = originalFetch(input, init);
+
+            if (shouldTrackRequest(url)) {
+                var stackElement = {
+                    loading: true,
+                    error: false,
+                    url: url,
+                    method: method,
+                    start: new Date()
+                };
+                requestStack.push(stackElement);
+                promise.then(function (response) {
+                    stackElement.duration = response.headers.get('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = response.status;
+                    stackElement.error = response.status < 200 || response.status >= 400;
+                    stackElement.profile = response.headers.get('X-Debug-Tag');
+                    stackElement.profilerUrl = response.headers.get('X-Debug-Link');
+                    renderAjaxRequests();
+
+                    return response;
+                }).catch(function (error) {
+                    stackElement.loading = false;
+                    stackElement.error = true;
+                    renderAjaxRequests();
+
+                    throw error;
+                });
+                renderAjaxRequests();
+            }
+
+            return promise;
+        };
+    }
+
+})();
+</script><script src="/web/assets/11166fe9/jquery.js"></script>
+<script src="/web/assets/547ad073/yii.js"></script>
+<script src="/web/js/script.js"></script>
+<script src="/web/assets/9912f47d/dist/js/bootstrap.bundle.js"></script></body>
+</html>
