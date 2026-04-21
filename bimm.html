@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaka oshirish chiqish testi - 100 ta savol</title>
+    <style>
+        * { user-select: none; -webkit-user-select: none; -moz-user-select: none; box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #1a1a2e;
+        }
+
+        /* Layout */
+        .quiz-layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .quiz-main {
+            flex: 1;
+            background: white;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+            padding: 14px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .q-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .q-nav-btn {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #d0d8e4;
+            border-radius: 5px;
+            background: #f8fafc;
+            font-size: 11px;
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.15s;
+        }
+
+        .q-nav-btn:hover { background: #e3edf7; border-color: #3a7bd5; }
+        .q-nav-btn.active { background: #3a7bd5 !important; color: white !important; border-color: #2c60a8 !important; }
+        .q-nav-btn.answered-correct { background: #d4edda; border-color: #28a745; color: #155724; }
+        .q-nav-btn.answered-wrong   { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+        .q-nav-btn.answered-unanswered { background: #fff3cd; border-color: #ffc107; }
+
+        /* Timer */
+        .timer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .timer {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a1a2e;
+            background: #eaf1fb;
+            padding: 5px 16px;
+            border-radius: 8px;
+            border: 2px solid #3a7bd5;
+        }
+
+        .timer.danger { color: #dc3545; border-color: #dc3545; background: #fff0f0; }
+
+        .finish-early-btn {
+            padding: 7px 16px;
+            font-size: 14px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .finish-early-btn:hover { background: #b02a37; }
+
+        /* Progress */
+        .progress-bar-wrapper {
+            background: #e0e0e0;
+            border-radius: 6px;
+            height: 8px;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            background: #3a7bd5;
+            height: 8px;
+            border-radius: 6px;
+            transition: width 0.3s;
+        }
+
+        .question-counter { text-align: right; font-size: 13px; color: #666; margin-bottom: 6px; }
+
+        .section-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 10px;
+            border-left: 3px solid #3a7bd5;
+            padding-left: 8px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #1a1a2e;
+            line-height: 1.5;
+        }
+
+        .answer-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 11px 15px;
+            margin: 7px 0;
+            border: 2px solid #d0d8e4;
+            border-radius: 6px;
+            background: #f8fafc;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .answer-option:hover:not(.locked) { background: #e3edf7; border-color: #3a7bd5; }
+        .answer-option.correct { background: #d4edda; border-color: #28a745; color: #155724; }
+        .answer-option.wrong   { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+        .answer-option.locked  { cursor: not-allowed; }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 22px;
+        }
+
+        .nav-btn {
+            padding: 9px 24px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #3a7bd5;
+            color: white;
+        }
+
+        .nav-btn:hover { background: #2c60a8; }
+        .nav-btn:disabled { background: #b0bec5; cursor: not-allowed; }
+
+        /* Result screen */
+        #result-screen { display: none; }
+
+        .result-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+
+        .result-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #3a7bd5;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            font-size: 34px;
+            font-weight: bold;
+        }
+
+        .result-circle span { font-size: 15px; font-weight: normal; }
+        .result-details { font-size: 19px; margin: 8px 0; color: #333; }
+
+        .review-btn {
+            margin-top: 20px;
+            padding: 10px 28px;
+            font-size: 15px;
+            background: #3a7bd5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .review-btn:hover { background: #2c60a8; }
+
+        /* Review screen */
+        #review-screen { display: none; margin-top: 20px; }
+
+        .review-item {
+            background: white;
+            border-radius: 8px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+            border-left: 5px solid #ccc;
+        }
+
+        .review-item.r-correct { border-left-color: #28a745; }
+        .review-item.r-wrong   { border-left-color: #dc3545; }
+        .review-item.r-skipped { border-left-color: #ffc107; }
+
+        .review-q { font-size: 15px; font-weight: bold; margin-bottom: 10px; color: #1a1a2e; }
+        .review-ans { font-size: 14px; padding: 6px 10px; border-radius: 5px; margin: 4px 0; }
+        .review-ans.correct { background: #d4edda; color: #155724; }
+        .review-ans.wrong   { background: #f8d7da; color: #721c24; }
+        .review-ans.skipped { color: #888; font-style: italic; }
+
+        .review-label {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .loading { text-align: center; font-size: 18px; color: #666; padding: 60px; }
+    </style>
+</head>
+<body oncopy="return false" oncut="return false" onselectstart="return false" oncontextmenu="return false">
+
+<h1>Malaka oshirish chiqish testi — 100 ta savol</h1>
+
+<!-- QUIZ -->
+<div id="quiz-screen">
+    <div class="loading" id="loading">Savollar yuklanmoqda...</div>
+
+    <div id="quiz-content" style="display:none">
+        <div class="quiz-layout">
+            <!-- Main area -->
+            <div class="quiz-main">
+                <div class="timer-row">
+                    <div class="timer" id="timer">80:00</div>
+                    <button class="finish-early-btn" onclick="confirmFinish()">&#10003; Testni yakunlash</button>
+                </div>
+
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+
+                <div class="question-counter" id="question-counter"></div>
+                <div class="section-label" id="section-label"></div>
+                <div class="question-text" id="question-text"></div>
+                <div id="answers-container"></div>
+
+                <div class="nav-buttons">
+                    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">&#8592; Oldingi</button>
+                    <button class="nav-btn" id="btn-next" onclick="navigate(1)">Keyingi &#8594;</button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-title">Savollar</div>
+                <div class="q-nav" id="q-nav"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RESULT -->
+<div id="result-screen">
+    <div class="result-box">
+        <h2 id="result-title">Imtihon yakunlandi</h2>
+        <div class="result-circle">
+            <div id="result-percent"></div>
+            <span>foiz</span>
+        </div>
+        <div class="result-details" id="result-score"></div>
+        <button class="review-btn" onclick="showReview()">&#128269; Javoblarni ko'rish</button>
+        <button class="review-btn" onclick="location.reload()" style="background:#6c757d;margin-left:10px">&#8635; Yangidan boshlash</button>
+    </div>
+
+    <!-- Review -->
+    <div id="review-screen"></div>
+</div>
+
+<script>
+    const SECTIONS = [
+        { file: 'quizes/31.json', count: 10, label: '31-modul (1-10 savol)' },
+        { file: 'quizes/41.json', count: 10, label: '41-modul (11-20 savol)' },
+        { file: 'quizes/51.json', count: 10, label: '51-modul (21-30 savol)' },
+        { file: 'quizes/61.json', count: 10, label: '61-modul (31-40 savol)' },
+        { file: 'quizes/71.json', count: 10, label: '71-modul (41-50 savol)' },
+        { file: 'quizes/81.json', count: 10, label: '81-modul (51-60 savol)' },
+        { file: 'quizes/11.json', count: 20, label: '11-modul (61-80 savol)' },
+        { file: 'quizes/21.json', count: 20, label: '21-modul (81-100 savol)' },
+    ];
+
+    let questions = [];
+    let userAnswers = [];
+    let current = 0;
+    let timerInterval = null;
+    let secondsLeft = 80 * 60;
+    let finished = false;
+
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function pickRandom(arr, n) {
+        return shuffle([...arr]).slice(0, n);
+    }
+
+    async function loadQuestions() {
+        for (const section of SECTIONS) {
+            const res = await fetch(section.file);
+            const data = await res.json();
+            const picked = pickRandom(data, section.count);
+            for (const q of shuffle(picked)) {
+                const answersArr = Object.entries(q.answers).map(([key, val]) => ({ key, val }));
+                questions.push({
+                    question: q.question,
+                    answers: shuffle(answersArr),
+                    correct: q.correct,
+                    label: section.label
+                });
+            }
+        }
+        userAnswers = new Array(questions.length).fill(null);
+        buildNavGrid();
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('quiz-content').style.display = 'block';
+        renderQuestion(0);
+        startTimer();
+    }
+
+    function buildNavGrid() {
+        const nav = document.getElementById('q-nav');
+        nav.innerHTML = '';
+        questions.forEach((_, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'q-nav-btn';
+            btn.textContent = i + 1;
+            btn.id = 'qn-' + i;
+            btn.onclick = () => renderQuestion(i);
+            nav.appendChild(btn);
+        });
+    }
+
+    function updateNavGrid() {
+        questions.forEach((q, i) => {
+            const btn = document.getElementById('qn-' + i);
+            btn.className = 'q-nav-btn';
+            if (i === current) {
+                btn.classList.add('active');
+            } else if (userAnswers[i] !== null) {
+                if (userAnswers[i] === q.correct) btn.classList.add('answered-correct');
+                else btn.classList.add('answered-wrong');
+            }
+        });
+    }
+
+    function renderQuestion(index) {
+        current = index;
+        const q = questions[index];
+        const total = questions.length;
+
+        document.getElementById('progress-bar').style.width = ((index + 1) / total * 100) + '%';
+        document.getElementById('question-counter').textContent = (index + 1) + ' / ' + total;
+        document.getElementById('section-label').textContent = q.label;
+        document.getElementById('question-text').innerHTML = (index + 1) + '. ' + q.question;
+
+        const container = document.getElementById('answers-container');
+        container.innerHTML = '';
+
+        const answered = userAnswers[index] !== null;
+
+        q.answers.forEach(ans => {
+            const btn = document.createElement('button');
+            btn.className = 'answer-option';
+            btn.innerHTML = ans.val;
+            if (answered) {
+                btn.classList.add('locked');
+                if (ans.key === q.correct) btn.classList.add('correct');
+                else if (ans.key === userAnswers[index]) btn.classList.add('wrong');
+            } else {
+                btn.onclick = () => selectAnswer(ans.key);
+            }
+            container.appendChild(btn);
+        });
+
+        document.getElementById('btn-prev').disabled = index === 0;
+        document.getElementById('btn-next').disabled = index === total - 1;
+
+        updateNavGrid();
+        document.getElementById('qn-' + index).scrollIntoView({ block: 'nearest' });
+    }
+
+    function selectAnswer(key) {
+        if (userAnswers[current] !== null || finished) return;
+        userAnswers[current] = key;
+        renderQuestion(current);
+    }
+
+    function navigate(dir) {
+        const next = current + dir;
+        if (next >= 0 && next < questions.length) renderQuestion(next);
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            secondsLeft--;
+            const m = Math.floor(secondsLeft / 60);
+            const s = secondsLeft % 60;
+            const el = document.getElementById('timer');
+            el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            if (secondsLeft <= 300) el.classList.add('danger');
+            if (secondsLeft <= 0) {
+                clearInterval(timerInterval);
+                showResult(true);
+            }
+        }, 1000);
+    }
+
+    function confirmFinish() {
+        if (finished) return;
+        if (confirm('Testni yakunlashni xohlaysizmi?')) {
+            clearInterval(timerInterval);
+            showResult(false);
+        }
+    }
+
+    function showResult(timeUp) {
+        finished = true;
+        const correct = userAnswers.filter((ans, i) => ans === questions[i].correct).length;
+        const total = questions.length;
+        const percent = Math.round(correct / total * 100);
+
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+        document.getElementById('result-title').textContent = timeUp ? 'Vaqt tugadi!' : 'Imtihon yakunlandi';
+        document.getElementById('result-percent').textContent = percent + '%';
+        document.getElementById('result-score').textContent = correct + " ta to'g'ri / " + total + " ta savoldan";
+    }
+
+    function showReview() {
+        const container = document.getElementById('review-screen');
+        container.innerHTML = '<h3 style="margin-bottom:16px">Savollar tahlili</h3>';
+        container.style.display = 'block';
+
+        questions.forEach((q, i) => {
+            const selected = userAnswers[i];
+            const isCorrect = selected === q.correct;
+            const isSkipped = selected === null;
+
+            const item = document.createElement('div');
+            item.className = 'review-item ' + (isSkipped ? 'r-skipped' : isCorrect ? 'r-correct' : 'r-wrong');
+
+            const qText = document.createElement('div');
+            qText.className = 'review-q';
+            qText.innerHTML = (i + 1) + '. ' + q.question;
+            item.appendChild(qText);
+
+            if (isSkipped) {
+                const skip = document.createElement('div');
+                skip.className = 'review-ans skipped';
+                skip.textContent = 'Javob berilmagan';
+                item.appendChild(skip);
+
+                const correctAns = q.answers.find(a => a.key === q.correct);
+                if (correctAns) {
+                    const label = document.createElement('div');
+                    label.className = 'review-label';
+                    label.style.color = '#28a745';
+                    label.textContent = "To'g'ri javob:";
+                    item.appendChild(label);
+                    const ca = document.createElement('div');
+                    ca.className = 'review-ans correct';
+                    ca.innerHTML = correctAns.val;
+                    item.appendChild(ca);
+                }
+            } else if (!isCorrect) {
+                const selectedAns = q.answers.find(a => a.key === selected);
+                const correctAns = q.answers.find(a => a.key === q.correct);
+
+                const l1 = document.createElement('div');
+                l1.className = 'review-label';
+                l1.style.color = '#dc3545';
+                l1.textContent = 'Sizning javobingiz:';
+                item.appendChild(l1);
+
+                const wa = document.createElement('div');
+                wa.className = 'review-ans wrong';
+                wa.innerHTML = selectedAns ? selectedAns.val : '—';
+                item.appendChild(wa);
+
+                const l2 = document.createElement('div');
+                l2.className = 'review-label';
+                l2.style.color = '#28a745';
+                l2.textContent = "To'g'ri javob:";
+                item.appendChild(l2);
+
+                const ca = document.createElement('div');
+                ca.className = 'review-ans correct';
+                ca.innerHTML = correctAns ? correctAns.val : '—';
+                item.appendChild(ca);
+            } else {
+                const correctAns = q.answers.find(a => a.key === q.correct);
+                const l1 = document.createElement('div');
+                l1.className = 'review-label';
+                l1.style.color = '#28a745';
+                l1.textContent = "To'g'ri javob:";
+                item.appendChild(l1);
+                const ca = document.createElement('div');
+                ca.className = 'review-ans correct';
+                ca.innerHTML = correctAns ? correctAns.val : '—';
+                item.appendChild(ca);
+            }
+
+            container.appendChild(item);
+        });
+
+        container.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    loadQuestions();
+</script>
+</body>
+</html>
