@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python)",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import os; os.chdir\\(r'c:\\\\Users\\\\Abdulla\\\\Nextcloud\\\\Python\\\\MO_APREL'\\); c=open\\('12.html','rb'\\).read\\(\\); print\\('setMode' in str\\(c\\)\\)\")",
+      "Bash(python -c \"print\\('test'\\)\")",
+      "Bash(python -c \"import os; os.chdir\\(r'c:\\\\Users\\\\Abdulla\\\\Nextcloud\\\\Python\\\\MO_APREL'\\); c=open\\('22.html','rb'\\).read\\(\\); print\\(b'function setMode' in c\\)\")",
+      "Bash(python -c 'import os; os.chdir\\(r'\\\\''c:\\\\Users\\\\Abdulla\\\\Nextcloud\\\\Python\\\\MO_APREL'\\\\''\\); a=b'\\\\''    <div id=\"quiz\"></div>'\\\\''; b=b'\\\\''    <div style=\"margin-bottom:14px;display:flex;gap:8px\">\\\\r\\\\n        <button id=\"btn-ordered\" onclick=\"setMode\\(\\\\'\\\\''ordered\\\\'\\\\''\\)\" style=\"padding:7px 16px;border:none;border-radius:6px;cursor:pointer;background:#3a7bd5;color:white;font-size:14px\">&#128203; Ketma-ket</button>\\\\r\\\\n        <button id=\"btn-random\"  onclick=\"setMode\\(\\\\'\\\\''random\\\\'\\\\''\\)\"  style=\"padding:7px 16px;border:none;border-radius:6px;cursor:pointer;background:#e0e0e0;color:#333;font-size:14px\">&#128256; Tasodifiy</button>\\\\r\\\\n    </div>\\\\r\\\\n    <div id=\"quiz\"></div>'\\\\''; jo=b'\\\\''    // Savollarni aralashtiramiz\\\\r\\\\n    // shuffle\\(quizData\\);\\\\r\\\\n\\\\r\\\\n    shuffleAnswers\\(quizData\\);'\\\\''; jn=b'\\\\''    const _orig=JSON.parse\\(JSON.stringify\\(quizData\\)\\);\\\\r\\\\n    function setMode\\(mode\\){\\\\r\\\\n        var r=mode===\"random\"; var on=\"padding:7px 16px;border:none;border-radius:6px;cursor:pointer;background:#3a7bd5;color:white;font-size:14px\"; var off=\"padding:7px 16px;border:none;border-radius:6px;cursor:pointer;background:#e0e0e0;color:#333;font-size:14px\";\\\\r\\\\n        document.getElementById\\(\"btn-random\"\\).style.cssText=r?on:off;\\\\r\\\\n        document.getElementById\\(\"btn-ordered\"\\).style.cssText=r?off:on;\\\\r\\\\n        for\\(var i=0;i<quizData.length;i++\\)quizData[i]=JSON.parse\\(JSON.stringify\\(_orig[i]\\)\\);\\\\r\\\\n        if\\(r\\)shuffle\\(quizData\\); shuffleAnswers\\(quizData\\); loadQuestion\\(\\);\\\\r\\\\n    }'\\\\''; lo=b'\\\\''    loadQuestion\\(\\);\\\\r\\\\n    startTimer\\(\\);'\\\\''; ln=b'\\\\''    setMode\\(\"ordered\"\\);\\\\r\\\\n    startTimer\\(\\);\\\\r\\\\n'\\\\'' *)",
+      "Bash(python -c \"import os; os.chdir\\(r'c:\\\\Users\\\\Abdulla\\\\Nextcloud\\\\Python\\\\MO_APREL'\\); c=open\\('13.html','rb'\\).read\\(\\); print\\('OK' if b'function setMode' in c else 'XATO'\\)\")",
+      "Bash(python \"c:\\\\Users\\\\Abdulla\\\\Nextcloud\\\\Python\\\\MO_APREL\\\\fix13.py\")",
+      "Bash(del \"c:\\\\Users\\\\Abdulla\\\\Nextcloud\\\\Python\\\\MO_APREL\\\\fix13.py\")",
+      "Bash(python \"c:\\\\Users\\\\Abdulla\\\\Nextcloud\\\\Python\\\\MO_APREL\\\\fix.py\")",
+      "Bash(python -c \"import os; os.chdir\\(r'c:\\\\Users\\\\Abdulla\\\\Nextcloud\\\\Python\\\\MO_APREL'\\); print\\([f+':'+\\('OK' if b'function setMode' in open\\(f+'.html','rb'\\).read\\(\\) else 'XATO'\\) for f in ['23','33','43','53','63','73','83']]\\)\")",
+      "Bash(python -c \"print\\('done'\\)\")",
+      "Bash(python \"c:\\\\Users\\\\Abdulla\\\\Nextcloud\\\\Python\\\\MO_APREL\\\\add_menu.py\")"
+    ]
+  }
+}

@@ -114,9 +114,40 @@
     </style>
 </head>
 <body>
+<nav style="background:#1a1a2e;padding:8px 16px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:16px">
+  <a href="index.html" style="color:white;text-decoration:none;padding:5px 10px;border-radius:4px;background:#555;font-size:13px">Imtihon</a>
+  <a href="11.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">11</a>
+  <a href="12.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">12</a>
+  <a href="13.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">13</a>
+  <a href="21.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">21</a>
+  <a href="22.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">22</a>
+  <a href="23.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">23</a>
+  <a href="31.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">31</a>
+  <a href="32.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">32</a>
+  <a href="33.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">33</a>
+  <a href="41.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">41</a>
+  <a href="42.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">42</a>
+  <a href="43.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">43</a>
+  <a href="51.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">51</a>
+  <a href="52.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">52</a>
+  <a href="53.html" style="color:white;text-decoration:none;padding:5px 10px;border-radius:4px;background:#e67e22;font-size:13px;font-weight:bold">53</a>
+  <a href="61.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">61</a>
+  <a href="62.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">62</a>
+  <a href="63.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">63</a>
+  <a href="71.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">71</a>
+  <a href="72.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">72</a>
+  <a href="73.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">73</a>
+  <a href="81.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">81</a>
+  <a href="82.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">82</a>
+  <a href="83.html" style="color:#ccc;text-decoration:none;padding:5px 10px;border-radius:4px;font-size:13px">83</a>
+</nav>
 <div class="container">
     <h3 style="text-align: center">Pedagogning kasbiy kompetensiyalarini rivojlantirish fanidan test savollari</h3>
     <div class="timer" id="timer">88.8:48</div>
+    <div style="margin-bottom:14px;display:flex;gap:8px">
+        <button id="btn-ordered" onclick="setMode('ordered')" style="padding:7px 16px;border:none;border-radius:6px;cursor:pointer;background:#3a7bd5;color:white;font-size:14px">&#128203; Ketma-ket</button>
+        <button id="btn-random"  onclick="setMode('random')"  style="padding:7px 16px;border:none;border-radius:6px;cursor:pointer;background:#e0e0e0;color:#333;font-size:14px">&#128256; Tasodifiy</button>
+    </div>
     <div id="quiz"></div>
     <div id="navigationButtons">
         <button id="prevButton" style="display: none;">Oldingi</button>
@@ -151,10 +182,16 @@
             item.correct = answersArray.find(([key, value]) => value === item.answers[item.correct])[0]; // To'g'ri javobni yangilash
         });
     }
-    // Savollarni aralashtiramiz
-    // shuffle(quizData);
-
-    shuffleAnswers(quizData);
+    const _orig=JSON.parse(JSON.stringify(quizData));
+    function setMode(mode){
+        var r=mode==="random";
+        var on="padding:7px 16px;border:none;border-radius:6px;cursor:pointer;background:#3a7bd5;color:white;font-size:14px";
+        var off="padding:7px 16px;border:none;border-radius:6px;cursor:pointer;background:#e0e0e0;color:#333;font-size:14px";
+        document.getElementById("btn-random").style.cssText=r?on:off;
+        document.getElementById("btn-ordered").style.cssText=r?off:on;
+        for(var i=0;i<quizData.length;i++)quizData[i]=JSON.parse(JSON.stringify(_orig[i]));
+        if(r)shuffle(quizData); shuffleAnswers(quizData); loadQuestion();
+    }
 
     const quizContainer = document.getElementById('quiz');
     const submitButton = document.getElementById('submit');
@@ -276,7 +313,7 @@
         }
     });
 
-    loadQuestion();
+    setMode("ordered");
     startTimer();
 </script>
 </body>
